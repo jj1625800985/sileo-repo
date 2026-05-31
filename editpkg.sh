@@ -98,34 +98,107 @@ echo "  图标: $(test -f "$ICON_DIR/$PKG_ID.png" && echo '有' || echo '无')"
 echo "  截图: $(ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg 2>/dev/null | wc -l) 张"
 echo ""
 
-echo "==== 填写插件信息 ===="
+# 初始化变量
+NAME="${CURRENT_NAME:-}"
+DESC="${CURRENT_DESC:-}"
+TEXT="${CURRENT_TEXT:-}"
 
-echo "▌ 第1步：插件名称（显示在 Sileo 列表里的名字）"
-read -p "  名称 [$CURRENT_NAME]: " NAME
-NAME="${NAME:-$CURRENT_NAME}"
-[ -z "$NAME" ] && echo "插件名不能为空" && exit 1
-
-echo "▌ 第2步：插件简介（一行概括，显示在名称下方）"
-read -p "  简介 [$CURRENT_DESC]: " DESC
-DESC="${DESC:-$CURRENT_DESC}"
-
-echo "▌ 第3步：详细说明（点进去看到的描述，多行，输 . 结束）"
-if [ -n "$CURRENT_TEXT" ]; then
-    echo "  当前内容:"
-    echo "  $CURRENT_TEXT" | sed 's/^/    /'
-fi
-echo "  (输入内容，回车换行，单独输 . 结束)"
-TEXT=""
-while IFS= read -r line; do
-    [ "$line" = "." ] && break
-    [ -z "$TEXT" ] && TEXT="$line" || TEXT="$TEXT
+# 如果是新插件，先填基础信息
+if [ -z "$NAME" ]; then
+    echo "==== 新建插件 ===="
+    read -p "插件名称: " NAME
+    [ -z "$NAME" ] && echo "插件名不能为空" && exit 1
+    read -p "插件简介: " DESC
+    echo "详细说明（多行，输 . 结束）:"
+    TEXT=""
+    while IFS= read -r line; do
+        [ "$line" = "." ] && break
+        [ -z "$TEXT" ] && TEXT="$line" || TEXT="$TEXT
 $line"
+    done
+fi
+
+# 菜单循环
+while true; do
+    echo ""
+    echo "==== 编辑菜单 ===="
+    echo "  [1] 插件名称  → $NAME"
+    echo "  [2] 插件简介  → ${DESC:-无}"
+    echo "  [3] 详细说明"
+    echo "  [4] 图标      → $(test -f "$ICON_DIR/$PKG_ID.png" && echo '已有' || echo '无')"
+    echo "  [5] 添加截图  → $(ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg 2>/dev/null | wc -l | tr -d ' ') 张"
+    echo "  [6] 全部重新填"
+    echo "  [0] ✓ 完成保存"
+    echo ""
+    read -p "选择 (0-6): " choice
+
+    case "$choice" in
+        1)
+            read -p "新名称 [$NAME]: " newval
+            NAME="${newval:-$NAME}"
+            [ -z "$NAME" ] && echo "名称不能为空"
+            ;;
+        2)
+            read -p "新简介 [$DESC]: " newval
+            DESC="${newval:-$DESC}"
+            ;;
+        3)
+            echo "详细说明（多行，输 . 结束）:"
+            if [ -n "$TEXT" ]; then
+                echo "当前:"
+                echo "  $TEXT" | sed 's/^/  /'
+            fi
+            TEXT=""
+            while IFS= read -r line; do
+                [ "$line" = "." ] && break
+                [ -z "$TEXT" ] && TEXT="$line" || TEXT="$TEXT
+$line"
+            done
+            [ -z "$TEXT" ] && TEXT="${CURRENT_TEXT:-}"
+            ;;
+        4)
+            if [ -f "$ICON_DIR/$PKG_ID.png" ]; then
+                read -p "替换图标? (y/N): " yn
+                if [ "$yn" = "y" ] || [ "$yn" = "Y" ]; then
+                    read -p "图片路径: " ICON_PATH
+                    [ -f "$ICON_PATH" ] && cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png" && echo "图标已替换"
+                fi
+            else
+                read -p "图标路径: " ICON_PATH
+                [ -f "$ICON_PATH" ] && cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png" && echo "图标已添加"
+            fi
+            ;;
+        5)
+            echo "截图放到: depictions/$PKG_ID/screenshots/"
+            echo "放好后重新选本选项，自动识别"
+            ;;
+        6)
+            read -p "插件名称: " NAME
+            [ -z "$NAME" ] && NAME="${CURRENT_NAME:-}" && echo "保留原名"
+            read -p "插件简介: " DESC
+            [ -z "$DESC" ] && DESC="${CURRENT_DESC:-}"
+            echo "详细说明（多行，输 . 结束）:"
+            TEXT=""
+            while IFS= read -r line; do
+                [ "$line" = "." ] && break
+                [ -z "$TEXT" ] && TEXT="$line" || TEXT="$TEXT
+$line"
+            done
+            [ -z "$TEXT" ] && TEXT="${CURRENT_TEXT:-}"
+            ;;
+        0)
+            break
+            ;;
+        *)
+            echo "无效选择"
+            ;;
+    esac
 done
-TEXT="${TEXT:-$CURRENT_TEXT}"
 
 # 转义换行和引号，保证 JSON 格式正确
+[ -z "$TEXT" ] && TEXT=""
 TEXT_JSON=$(echo "$TEXT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/' | tr -d '\n')
-TEXT_JSON="${TEXT_JSON%\\n}"  # 去掉末尾多余的 \n
+TEXT_JSON="${TEXT_JSON%\\n}"
 
 # 生成 info.json
 {
@@ -166,35 +239,6 @@ echo '}'
 } > "$DEP_DIR/info.json"
 
 echo ""
-echo "信息已保存: $DEP_DIR/info.json"
-
+echo "✅ 信息已保存: $DEP_DIR/info.json"
 echo ""
-echo "==== 图标 ===="
-if [ -f "$ICON_DIR/$PKG_ID.png" ]; then
-    echo "已有图标，当前路径: icon/$PKG_ID.png"
-    read -p "是否替换? (y/N): " REPLACE_ICON
-    if [ "$REPLACE_ICON" = "y" ] || [ "$REPLACE_ICON" = "Y" ]; then
-        read -p "新图标路径（拖拽图片到终端）: " ICON_PATH
-        if [ -f "$ICON_PATH" ]; then
-            cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png"
-            echo "图标已更新"
-        fi
-    fi
-else
-    echo "还没有图标（在 Sileo 列表里显示的小图）"
-    read -p "图标路径（拖拽图片到终端，回车跳过）: " ICON_PATH
-    if [ -n "$ICON_PATH" ] && [ -f "$ICON_PATH" ]; then
-        cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png"
-        echo "图标已添加"
-    fi
-fi
-
-echo ""
-echo "==== 截图 ===="
-echo "截图文件放到下面目录就行（支持 png/jpg）:"
-echo "  depictions/$PKG_ID/screenshots/"
-echo "放好后重新运行本脚本，自动识别截图"
-
-echo ""
-echo "==== 部署 ===="
-echo "现在运行 ./deploy.sh 推送到 GitHub 就生效了"
+echo "运行 ./deploy.sh 推送到 GitHub 即生效"
