@@ -89,14 +89,14 @@ SHA512SUM=$(sha512sum Packages 2>/dev/null | cut -d' ' -f1)
 # 4. 生成 Release 文件
 echo "[4/4] Writing Release file..."
 cat > Release <<EOF
-Origin: sxllm
-Label: sxllm Repo
+Origin: jj1625800985
+Label: jj1625800985 Repo
 Suite: stable
 Version: 1.0
 Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
-Description: sxllm's Sileo package repository
+Description: jj1625800985's Sileo package repository
 Date: $(date -R)
 EOF
 
@@ -172,5 +172,5 @@ echo "   2. Run ./update.sh"
 echo "   3. Commit & push to GitHub"
 echo "   4. Enable GitHub Pages (main branch, /root)"
 echo "   5. Add source in Sileo:"
-echo "      https://sxllm.github.io/sileo-repo/"
+echo "      https://jj1625800985.github.io/sileo-repo/"
 echo ""
