@@ -260,10 +260,12 @@ function generate() {
     system("mkdir -p " pDir)
     jFile = pDir "/info.json"
 
-    # 检测截图：screenshot-1.png ~ screenshot-10.png
+    # 检测截图：depictions/<pkg>/screenshots/ 目录下的 png
+    ss_dir = pDir "/screenshots"
+    system("mkdir -p " ss_dir)
     ss_count = 0
     for (i = 1; i <= 10; i++) {
-        if (system("test -f \"" pDir "/screenshot-" i ".png\"") == 0) ss_count++
+        if (system("test -f \"" ss_dir "/" i ".png\"") == 0) ss_count++
     }
 
     printf "       [生成] depictions/%s/info.json", pkg
@@ -307,7 +309,7 @@ function generate() {
         print "          \"screenshots\": [" > jFile
         for (i = 1; i <= ss_count; i++) {
             comma = (i < ss_count ? "," : "")
-            printf "            {\"url\": \"%s/depictions/%s/screenshot-%d.png\", \"accessibilityText\": \"截图 %d\"}%s\n", url, pkg, i, i, comma > jFile
+            printf "            {\"url\": \"%s/depictions/%s/screenshots/%d.png\", \"accessibilityText\": \"截图 %d\"}%s\n", url, pkg, i, i, comma > jFile
         }
         print "          ]" > jFile
         print "        }," > jFile
