@@ -281,6 +281,23 @@ echo "[2/5] Generating depictions & icons..."
 mkdir -p icon depictions
 DEFAULT_ICON="icon/myicon.png"
 
+# 清除过期的 depiction（deb 比 info.json 新 → 删除）
+STALE_COUNT=0
+for deb in "$DEBS_DIR"/*.deb; do
+    [ -f "$deb" ] || continue
+    deb_name=$(basename "$deb")
+    pkg_id="${deb_name%_*}"
+    pkg_id="${pkg_id%_*}"
+    dep_file="depictions/$pkg_id/info.json"
+    if [ -f "$dep_file" ] && [ "$deb" -nt "$dep_file" ]; then
+        rm -f "$dep_file"
+        STALE_COUNT=$((STALE_COUNT + 1))
+    fi
+done
+if [ "$STALE_COUNT" -gt 0 ]; then
+    echo "       过期 $STALE_COUNT 个"
+fi
+
 # 解析 Packages，为每个包生成 depiction JSON + 处理图标
 awk -v url="$REPO_URL" -v defaultIcon="$DEFAULT_ICON" '
 function val(line) {
@@ -343,6 +360,17 @@ function generate() {
     pDir = "depictions/" pkg
     system("mkdir -p " pDir)
     jFile = pDir "/info.json"
+
+    # 缓存命中：info.json 已存在且未过期
+    if (system("test -f \"" jFile "\"") == 0) {
+        # 仍需要处理图标
+        iFile = "icon/" pkg ".png"
+        if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
+            system("cp \"" defaultIcon "\" \"" iFile "\"")
+        }
+        pkg = ""
+        return
+    }
 
     # 检测截图：depictions/<pkg>/screenshots/ 目录下的 png
     ss_dir = pDir "/screenshots"
