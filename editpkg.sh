@@ -83,9 +83,9 @@ fi
 echo ""
 echo "==== 当前插件信息 ===="
 if [ -f "$DEP_DIR/info.json" ]; then
-    CURRENT_NAME=$(grep '"title"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\(.*\)",/\1/')
-    CURRENT_DESC=$(grep '"subheader"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\(.*\)"/\1/')
-    CURRENT_TEXT=$(grep -A5 '"DepictionTextView"' "$DEP_DIR/info.json" | grep '"text"' | head -1 | sed 's/.*"text": "\(.*\)"/\1/' | sed 's/\\n/\
+    CURRENT_NAME=$(grep '"title"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\([^"]*\)".*/\1/')
+    CURRENT_DESC=$(grep 'DepictionSubheaderView' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\([^"]*\)".*/\1/')
+    CURRENT_TEXT=$(grep '"text"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"text": "\([^"]*\)".*/\1/' | sed 's/\\n/\
 /g')
     echo "  名称: $CURRENT_NAME"
     echo "  简介: $CURRENT_DESC"
