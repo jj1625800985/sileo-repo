@@ -1,19 +1,36 @@
-Package: com.Axs.stheno
-Name: Stheno
-Description: Medusa,Jump Whenever。
-Maintainer: Crassna
-Author: Crassna
-Section: 分屏插件
-Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
+Package: ai-config-gui
+Version: 3.1.0-7+debug
 Architecture: iphoneos-arm64e
-Version: 77.1.4.8
-Installed-Size: 2788
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
+Maintainer: DaFei
+Installed-Size: 636
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
-Size: 7133224
-MD5sum: fe9916c5b407860eca12cff4d874c556
-SHA1: 9564ea7a8c027ff80b81aff86b3cb06f8870c13c
-SHA256: cc5d5b2993391eebdd7ba5554018a8e1eddc7f2ddef7fb3cad8c0ae57ff328dd
+Depends: firmware (>= 14.0), libvterm0
+Filename: debs/ai-config-gui_3.1.0-7+debug_iphoneos-arm64e.deb
+Size: 176004
+MD5sum: 59c56879654bf724789a211b415dca72
+SHA1: 628374ca79ee3f191ffa9218f15252cd071ed935
+SHA256: e28529fc9dff936c45ccf5851b11a6ae70a7633fe7bceace7452dfdc2d8f4adc
+Section: Utilities
+Description: Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP/权限/指令/历史)，支持 Anthropic/OpenAI/DeepSeek/阿里云/智谱/MiniMax/小米等多厂商
+Author: DaFei
+Name: AI-Config-GUI
+
+Package: com.Axs.stheno
+Version: 77.1.4.8
+Architecture: iphoneos-arm64e
+Maintainer: Crassna
+Installed-Size: 2788
+Pre-Depends: rootless-compat(>= 0.9)
+Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
+Filename: debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
+Size: 1470186
+MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
+SHA1: d591168b0604ffd8152c154377e18f08c633d55a
+SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
+Section: 分屏插件
+Description: Medusa,Jump Whenever。
+Author: Crassna
+Icon: https://axs66.github.io/pro/icon/stheno.png
+Name: Stheno
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 
