@@ -6,12 +6,12 @@ Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
 Description: 无
-Date: Mon, 01 Jun 2026 07:41:06 +0800
+Date: Mon, 01 Jun 2026 07:42:50 +0800
 
 MD5Sum:
  f958aaeb0a604f195eff8bafd2b48489 16894 Packages
  4816cff1a8b6b9a0a4dac5c3086b503f 6406 Packages.bz2
- 60bbb22d5126de27f8ce8658d043c81b 6702 Packages.gz
+ 17c070625ee733bb60f01e6b5f39a7ce 6702 Packages.gz
  bbd0fd37a1174055497c499c103c5272 6116 Packages.xz
  c23421c8f62ae5585f1ba9c692363c19 6071 Packages.lzma
  c935089f7820728f04572828b7d71be3 7034 Packages.zst
@@ -19,7 +19,7 @@ MD5Sum:
 SHA1:
  e4d14f3dba62c11c2805eb156709b142c1ec43df 16894 Packages
  a3c5868a1d7f472b83b45354fa96ce2b0b8357bb 6406 Packages.bz2
- 0df71a578498914ac2104b0d1db9a81f45291dc4 6702 Packages.gz
+ d9bfd38a9cb0f13af072326bcb34980ee9f6fb2d 6702 Packages.gz
  3f8aec8f93e29e8c70afe2e61a64a6272c625caf 6116 Packages.xz
  8e84774346f57ba3aeb79c58a12a96d94e5cb4ca 6071 Packages.lzma
  1111b2c0a8e8ec261225fc97efd0819dcd94a91f 7034 Packages.zst
@@ -27,7 +27,7 @@ SHA1:
 SHA256:
  a75242e3b6a4ac9a3d92b355d03f10939a03a27ee74df983e816523d71012701 16894 Packages
  171a51f0367b9af0a12ed5e98872c5a243accee94a2d5e7cbd00c5a4612e609f 6406 Packages.bz2
- 8ae5edb2cc848b4eb43cf30aada48194a4da3203e940f0fc5219f279ecd634bc 6702 Packages.gz
+ a8c13a506af6017ae406804e65574d316e54b3f6ecac909a622c9cac0d5c0611 6702 Packages.gz
  3f75d43d91e2d56b1b0a319ccfcba75f88ac766bb56129d5a4e79147099afa38 6116 Packages.xz
  2c342d8fd9f7a637b872e16f52b7c8960767e1446822391d637bf7811c7e1c34 6071 Packages.lzma
  9ba3bf6a1d4fa9c52d0346f224dd487da85603576f9befb34fbc2ea62dea67e6 7034 Packages.zst
