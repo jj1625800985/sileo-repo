@@ -29,8 +29,16 @@ echo -e "${BLUE}========================================${NC}"
 
 # 列出 debs/ 目录下的所有 deb，带编号
 list_debs() {
-    local debs=("$DEBS_DIR"/*.deb 2>/dev/null)
-    if [ ! -d "$DEBS_DIR" ] || [ ${#debs[@]} -eq 0 ] || [ ! -f "${debs[0]}" ]; then
+    if [ ! -d "$DEBS_DIR" ]; then
+        echo ""
+        return 1
+    fi
+    # 检查是否有 .deb 文件
+    local has_deb=0
+    for f in "$DEBS_DIR"/*.deb; do
+        [ -f "$f" ] && has_deb=1 && break
+    done
+    if [ "$has_deb" -eq 0 ]; then
         echo ""
         return 1
     fi
@@ -39,7 +47,6 @@ list_debs() {
     for f in "$DEBS_DIR"/*.deb; do
         [ -f "$f" ] || continue
         local name=$(basename "$f")
-        local pkg=$(tar -xf "$(ar t "$f" 2>/dev/null | grep control)" -O 2>/dev/null | grep "^Package:" | head -1 | sed 's/Package: //' 2>/dev/null || echo "?")
         printf "  %2d) %s\n" "$i" "$name"
         i=$((i+1))
     done
@@ -132,10 +139,19 @@ do_extract() {
         return 1
     fi
 
-    # 如果工作目录存在，询问是否覆盖
+    # 如果工作目录存在，先处理权限再删除
     if [ -d "$WORKDIR" ]; then
         read -p "工作目录已存在，覆盖？(y/n): " yn
         [[ "$yn" != "y" ]] && echo "已取消" && return 0
+        chmod -R 777 "$WORKDIR" 2>/dev/null || true
+        rm -rf "$WORKDIR" 2>/dev/null || {
+            echo -e "${YELLOW}[!] 权限不足，尝试 sudo 删除...${NC}"
+            sudo rm -rf "$WORKDIR" 2>/dev/null || {
+                echo -e "${YELLOW}[!] 删除失败，换个工作目录...${NC}"
+                WORKDIR="/tmp/deb_work_$$"
+                echo "  新目录: $WORKDIR"
+            }
+        }
     fi
 
     rm -rf "$WORKDIR"
@@ -144,19 +160,41 @@ do_extract() {
     local deb_name=$(basename "$deb_file")
     cp "$deb_file" "$WORKDIR/"
 
+    # 解压 tar 文件（支持多种压缩格式）
+    extract_tar() {
+        local src="$1" dest="$2"
+        mkdir -p "$dest"
+        if tar xf "$src" -C "$dest" 2>/dev/null; then return 0; fi
+        if xz -dc "$src" 2>/dev/null | tar xf - -C "$dest" 2>/dev/null; then return 0; fi
+        if zstd -dc "$src" 2>/dev/null | tar xf - -C "$dest" 2>/dev/null; then return 0; fi
+        if gzip -dc "$src" 2>/dev/null | tar xf - -C "$dest" 2>/dev/null; then return 0; fi
+        if bzip2 -dc "$src" 2>/dev/null | tar xf - -C "$dest" 2>/dev/null; then return 0; fi
+        if lzma -dc "$src" 2>/dev/null | tar xf - -C "$dest" 2>/dev/null; then return 0; fi
+        return 1
+    }
+
     cd "$WORKDIR"
     ar x "$deb_name"
 
     # 解压 control
-    cd control
-    tar xf ../control.tar.xz 2>/dev/null || tar xf ../control.tar.gz 2>/dev/null || tar xf ../control.tar.zst 2>/dev/null || true
+    extract_tar "control.tar.xz" "control" || \
+    extract_tar "control.tar.gz" "control" || \
+    extract_tar "control.tar.zst" "control" || \
+    { for f in control.tar.*; do [ -f "$f" ] && extract_tar "$f" "control" && break; done; }
 
     echo ""
     show_control
+    if [ ! -f "$WORKDIR/control/control" ]; then
+        echo -e "${YELLOW}[!] 警告: control 文件未解压成功${NC}"
+        echo "工作目录: $WORKDIR"
+        ls -la "$WORKDIR/control/"
+    fi
 
     # 解压 data
-    cd "$WORKDIR/data"
-    tar xf ../data.tar.xz 2>/dev/null || tar xf ../data.tar.gz 2>/dev/null || tar xf ../data.tar.zst 2>/dev/null || true
+    extract_tar "data.tar.xz" "data" || \
+    extract_tar "data.tar.gz" "data" || \
+    extract_tar "data.tar.zst" "data" || \
+    { for f in data.tar.*; do [ -f "$f" ] && extract_tar "$f" "data" && break; done; }
 
     echo ""
     show_data_tree
@@ -164,18 +202,17 @@ do_extract() {
     DEB_NAME="$deb_name"
     echo ""
     echo -e "${GREEN}========================================${NC}"
-    echo -e "${GREEN} 解包完成！${NC}"
+    echo -e "${GREEN} 解包完成！（已进入工作目录）${NC}"
     echo -e "${GREEN}========================================${NC}"
     echo ""
-    echo "  control 文件: $WORKDIR/control/"
-    echo "  插件文件目录: $WORKDIR/data/"
+    echo -e "  ${YELLOW}快捷操作:${NC}"
+    echo "    vi control/control         改包名/版本/描述"
+    echo "    vi data/...                改插件文件"
+    echo "    find data -type f          查看所有文件"
+    echo "    sed -i 's/旧/新/g' data/..  批量替换"
     echo ""
-    echo -e "  ${YELLOW}常用操作:${NC}"
-    echo "    vi $WORKDIR/control/control        ← 改包名/版本/描述"
-    echo "    vi $WORKDIR/data/...               ← 改插件文件"
-    echo "    sed -i 's/旧/com.sxllm.新/g' ...  ← 批量替换字符串"
-    echo "    find $WORKDIR/data -type f         ← 查看所有文件"
-    echo ""
+
+    cd "$WORKDIR"
 
     # 交互菜单
     while true; do
@@ -184,21 +221,63 @@ do_extract() {
         echo "  3) 显示 control 内容"
         echo "  4) 重打包"
         echo "  5) 重打包并部署 (deploy)"
+        echo "  6) 进入工作目录操作（用完输 exit 返回）"
         echo "  0) 退出"
         read -p "  选择 [0-5]: " action
 
         case "$action" in
             1)
-                if command -v vi &>/dev/null; then
-                    vi "$WORKDIR/control/control"
+                local ctrl="$WORKDIR/control/control"
+                while true; do
+                    clear 2>/dev/null || true
                     echo ""
-                    show_control
-                elif command -v vim &>/dev/null; then
-                    vim "$WORKDIR/control/control"
-                else
-                    echo -e "${YELLOW}没有找到 vi，请手动编辑:${NC}"
-                    echo "  $WORKDIR/control/control"
-                fi
+                    echo -e "${YELLOW}=== 修改 control 字段（选编号改值）===${NC}"
+                    echo ""
+
+                    # 读取所有字段到数组
+                    local f_keys=() f_vals=()
+                    while IFS=': ' read -r key val; do
+                        [ -z "$key" ] && continue
+                        f_keys+=("$key")
+                        f_vals+=("$val")
+                    done < "$ctrl"
+
+                    local i=1
+                    for idx in "${!f_keys[@]}"; do
+                        printf "  %2d) %s = ${GREEN}%s${NC}\n" "$i" "${f_keys[$idx]}" "${f_vals[$idx]}"
+                        i=$((i+1))
+                    done
+                    echo ""
+                    echo "  s) 显示原始文件内容"
+                    echo "  q) 返回菜单"
+                    echo ""
+                    read -p "  选择: " sel
+
+                    case "$sel" in
+                        q) break ;;
+                        s)
+                            cat "$ctrl"
+                            echo ""
+                            read -p "  按 Enter 继续" _
+                            ;;
+                        *)
+                            if [[ "$sel" =~ ^[0-9]+$ ]] && [ "$sel" -ge 1 ] && [ "$sel" -le "${#f_keys[@]}" ]; then
+                                local idx=$((sel-1))
+                                echo ""
+                                echo "  字段: ${f_keys[$idx]}"
+                                echo "  当前值: ${f_vals[$idx]}"
+                                read -p "  新值（直接回车=不变）: " new_val
+                                if [ -n "$new_val" ]; then
+                                    sed -i "s|^${f_keys[$idx]}: .*|${f_keys[$idx]}: $new_val|" "$ctrl"
+                                    echo -e "${GREEN}  已更新！${NC}"
+                                else
+                                    echo "  未修改"
+                                fi
+                                read -p "  按 Enter 继续" _
+                            fi
+                            ;;
+                    esac
+                done
                 ;;
             2)
                 show_data_tree
@@ -227,8 +306,22 @@ do_extract() {
                 fi
                 break
                 ;;
+            6)
+                echo ""
+                echo -e "${GREEN}已进入工作目录，操作完输 exit 返回菜单${NC}"
+                echo -e "${YELLOW}  vi control/control         改包名${NC}"
+                echo -e "${YELLOW}  vi data/...                改文件${NC}"
+                echo -e "${YELLOW}  find data -type f          看文件列表${NC}"
+                echo ""
+                # 启动子 shell
+                bash || true
+                echo ""
+                echo -e "${GREEN}返回菜单${NC}"
+                show_control
+                echo ""
+                ;;
             0)
-                echo "退出，工作目录保留在: $WORKDIR"
+                echo "退出后可用: cd /tmp/deb_work 进入工作目录"
                 break
                 ;;
         esac
@@ -255,14 +348,34 @@ do_pack() {
         [ -f "$f" ] && data_ext="${f##*.}" && break
     done
 
-    # 重打包
-    cd control
-    tar caf "../control.tar.$ctrl_ext" *
-    cd "$WORKDIR"
+    # 重打包（先 tar 再压缩）
+    pack_tar() {
+        local dir="$1" out="$2"
+        local tmp_tar="${out%.*}.tar"  # control.tar / data.tar
+        # 先创建 tar
+        tar cf "$tmp_tar" -C "$dir" . 2>/dev/null || return 1
+        # 再压缩
+        case "${out##*.}" in
+            xz)   xz -f "$tmp_tar" 2>/dev/null || gzip -f "$tmp_tar" && mv "${tmp_tar}.gz" "$out" ;;
+            gz)   gzip -f "$tmp_tar" ;;
+            zst)  zstd -f "$tmp_tar" 2>/dev/null || gzip -f "$tmp_tar" && mv "${tmp_tar}.gz" "$out" ;;
+            *)    gzip -f "$tmp_tar" && mv "${tmp_tar}.gz" "$out" ;;
+        esac
+        # 确认输出存在
+        [ -f "$out" ] && return 0
+        # 最后手段：直接 gzip
+        gzip -f "$tmp_tar" 2>/dev/null
+        mv "${tmp_tar}.gz" "$out" 2>/dev/null && return 0
+        return 1
+    }
 
-    cd data
-    tar caf "../data.tar.$data_ext" *
-    cd "$WORKDIR"
+    pack_tar "control" "control.tar.$ctrl_ext" || pack_tar "control" "control.tar.gz"
+    pack_tar "data" "data.tar.$data_ext" || pack_tar "data" "data.tar.gz"
+
+    # 更新扩展名变量
+    ctrl_ext="gz"; data_ext="gz"
+    for f in control.tar.*; do [ -f "$f" ] && ctrl_ext="${f##*.}" && break; done
+    for f in data.tar.*; do [ -f "$f" ] && data_ext="${f##*.}" && break; done
 
     local new_deb="$(basename "$deb_file")"
     ar rcs "$new_deb" debian-binary "control.tar.$ctrl_ext" "data.tar.$data_ext"
@@ -279,7 +392,8 @@ do_pack() {
     echo "  大小: $size"
     echo ""
 
-    rm -rf "$WORKDIR"
+    chmod -R 777 "$WORKDIR" 2>/dev/null || true
+    rm -rf "$WORKDIR" 2>/dev/null || echo -e "${YELLOW}  清理失败，可手动删: sudo rm -rf $WORKDIR${NC}"
 }
 
 # 交互菜单
@@ -342,12 +456,12 @@ interactive_menu() {
             ;;
         3)
             if [ "$has_workdir" -eq 1 ]; then
+                cd "$WORKDIR"
                 show_control
                 echo ""
                 show_data_tree
                 echo ""
-                echo "工作目录: $WORKDIR"
-                echo "输入 vi $WORKDIR/control/control 编辑"
+                echo "操作: vi control/control | find data -type f"
             else
                 echo -e "${YELLOW}没有找到解包的工作目录${NC}"
             fi

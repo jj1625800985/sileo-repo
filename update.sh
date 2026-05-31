@@ -25,6 +25,10 @@ echo ""
 # 1. 扫描 debs 生成 Packages
 echo "[1/4] Generating Packages..."
 cd "$ROOT_DIR"
+
+# 清理可能存在的 root 权限旧文件
+rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst Release 2>/dev/null || true
+
 dpkg-scanpackages --arch all debs/ > Packages 2>/dev/null || {
     dpkg-scanpackages debs/ > Packages 2>/dev/null || {
         echo "[ERROR] dpkg-scanpackages failed. Check debs/ directory."
