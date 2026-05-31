@@ -308,12 +308,22 @@ function jsonEscape(s) {
     gsub(/\\/, "\\\\", s)
     gsub(/"/, "\\\"", s)
     gsub(/\t/, " ", s)
-    gsub(/ +/, " ", s)
+    gsub(/\r/, "", s)
+    gsub(/\n/, "\\n", s)
     return s
 }
 function trim(s) {
     gsub(/^[ \t]+|[ \t]+$/, "", s)
     return s
+}
+function readFile(path) {
+    result = ""
+    while ((getline line < path) > 0) {
+        if (result != "") result = result "\\n"
+        result = result jsonEscape(line)
+    }
+    close(path)
+    return result
 }
 function hashColor(str) {
     if (str == "") return "#4A90D9"
@@ -432,6 +442,25 @@ function generate() {
     if (eAuthor != "") {
         printf "        {\"title\": \"作者\", \"text\": \"%s\", \"class\": \"DepictionTableTextView\"},\n", eAuthor > jFile
     }
+    print "        {\"spacing\": 20, \"class\": \"DepictionSpacerView\"}" > jFile
+    print "      ]" > jFile
+    print "    }," > jFile
+
+    # 更新日志 tab
+    changelog_file = pDir "/changelog.md"
+    changelog = ""
+    if (system("test -f \"" changelog_file "\"") == 0) {
+        changelog = readFile(changelog_file)
+    }
+    if (changelog == "") changelog = "暂无更新日志"
+
+    print "    {" > jFile
+    print "      \"tabname\": \"更新日志\"," > jFile
+    print "      \"class\": \"DepictionStackView\"," > jFile
+    print "      \"views\": [" > jFile
+    print "        {\"title\": \"更新日志\", \"class\": \"DepictionHeaderView\"}," > jFile
+    printf "        {\"class\": \"DepictionMarkdownView\", \"markdown\": \"%s\"},\n", changelog > jFile
+    print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
     print "        {\"spacing\": 20, \"class\": \"DepictionSpacerView\"}" > jFile
     print "      ]" > jFile
     print "    }" > jFile

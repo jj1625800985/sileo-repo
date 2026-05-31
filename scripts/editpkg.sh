@@ -97,15 +97,23 @@ echo "==== 当前插件信息 ===="
 if [ -f "$DEP_DIR/info.json" ]; then
     CURRENT_NAME=$(grep '"title"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\([^"]*\)".*/\1/')
     CURRENT_DESC=$(grep 'DepictionSubheaderView' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\([^"]*\)".*/\1/')
-    CURRENT_TEXT=$(grep '"text"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"text": "\([^"]*\)".*/\1/' | sed 's/\\n/\
+    CURRENT_TEXT=$(grep '"markdown":' "$DEP_DIR/info.json" | head -1 | sed 's/.*"markdown": "\([^"]*\)".*/\1/' | sed 's/\\n/\
 /g')
+    # 读取更新日志
+    if [ -f "$DEP_DIR/changelog.md" ]; then
+        CURRENT_CHANGELOG=$(cat "$DEP_DIR/changelog.md")
+    else
+        CURRENT_CHANGELOG=""
+    fi
     echo "  名称: $CURRENT_NAME"
     echo "  简介: $CURRENT_DESC"
     echo "  说明: $CURRENT_TEXT"
+    echo "  更新日志: $(test -f "$DEP_DIR/changelog.md" && echo '有' || echo '无')"
 else
     CURRENT_NAME=""
     CURRENT_DESC=""
     CURRENT_TEXT=""
+    CURRENT_CHANGELOG=""
     echo "  (暂无信息，请填写)"
 fi
 echo "  图标: $(test -f "$ICON_DIR/$PKG_ID.png" && echo '有' || echo '无')"
@@ -116,6 +124,7 @@ echo ""
 NAME="${CURRENT_NAME:-}"
 DESC="${CURRENT_DESC:-}"
 TEXT="${CURRENT_TEXT:-}"
+CHANGELOG="${CURRENT_CHANGELOG:-}"
 
 # 如果是新插件，先填基础信息
 if [ -z "$NAME" ]; then
@@ -141,10 +150,11 @@ while true; do
     echo "  [3] 详细说明"
     echo "  [4] 图标      → $(test -f "$ICON_DIR/$PKG_ID.png" && echo '已有' || echo '无')"
     echo "  [5] 添加截图  → $(ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg 2>/dev/null | wc -l | tr -d ' ') 张"
-    echo "  [6] 全部重新填"
+    echo "  [6] 更新日志"
+    echo "  [7] 全部重新填"
     echo "  [0] ✓ 完成保存"
     echo ""
-    read -p "选择 (0-6): " choice
+    read -p "选择 (0-7): " choice
 
     case "$choice" in
         1)
@@ -187,6 +197,20 @@ $line"
             echo "放好后重新选本选项，自动识别"
             ;;
         6)
+            echo "更新日志（多行 markdown，输 . 结束）:"
+            if [ -n "$CHANGELOG" ]; then
+                echo "当前:"
+                echo "$CHANGELOG" | sed 's/^/  /'
+            fi
+            CHANGELOG=""
+            while IFS= read -r line; do
+                [ "$line" = "." ] && break
+                [ -z "$CHANGELOG" ] && CHANGELOG="$line" || CHANGELOG="$CHANGELOG
+$line"
+            done
+            [ -z "$CHANGELOG" ] && CHANGELOG="${CURRENT_CHANGELOG:-}"
+            ;;
+        7)
             read -p "插件名称: " NAME
             [ -z "$NAME" ] && NAME="${CURRENT_NAME:-}" && echo "保留原名"
             read -p "插件简介: " DESC
@@ -199,6 +223,14 @@ $line"
 $line"
             done
             [ -z "$TEXT" ] && TEXT="${CURRENT_TEXT:-}"
+            echo "更新日志（多行 markdown，输 . 结束）:"
+            CHANGELOG=""
+            while IFS= read -r line; do
+                [ "$line" = "." ] && break
+                [ -z "$CHANGELOG" ] && CHANGELOG="$line" || CHANGELOG="$CHANGELOG
+$line"
+            done
+            [ -z "$CHANGELOG" ] && CHANGELOG="${CURRENT_CHANGELOG:-}"
             ;;
         0)
             break
@@ -213,6 +245,15 @@ done
 [ -z "$TEXT" ] && TEXT=""
 TEXT_JSON=$(echo "$TEXT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/' | tr -d '\n')
 TEXT_JSON="${TEXT_JSON%\\n}"
+
+# 转义更新日志
+CHANGELOG_JSON="暂无更新日志"
+if [ -n "$CHANGELOG" ]; then
+    # 保存 changelog.md
+    echo "$CHANGELOG" > "$DEP_DIR/changelog.md"
+    CHANGELOG_JSON=$(echo "$CHANGELOG" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/' | tr -d '\n')
+    CHANGELOG_JSON="${CHANGELOG_JSON%\\n}"
+fi
 
 # 生成 info.json（参照 skypain 源格式）
 {
@@ -253,6 +294,16 @@ echo '        {"title": "名称", "text": "'$NAME'", "class": "DepictionTableTex
 echo '        {"title": "版本", "text": "'$VERSION'", "class": "DepictionTableTextView"},'
 echo '        {"title": "包名", "text": "'$PKG_ID'", "class": "DepictionTableTextView"},'
 if [ -n "$AUTHOR" ]; then echo '        {"title": "作者", "text": "'$AUTHOR'", "class": "DepictionTableTextView"},'; fi
+echo '        {"spacing": 20, "class": "DepictionSpacerView"}'
+echo '      ]'
+echo '    },'
+echo '    {'
+echo '      "tabname": "更新日志",'
+echo '      "class": "DepictionStackView",'
+echo '      "views": ['
+echo '        {"title": "更新日志", "class": "DepictionHeaderView"},'
+echo '        {"class": "DepictionMarkdownView", "markdown": "'$CHANGELOG_JSON'"},'
+echo '        {"class": "DepictionSeparatorView"},'
 echo '        {"spacing": 20, "class": "DepictionSpacerView"}'
 echo '      ]'
 echo '    }'
