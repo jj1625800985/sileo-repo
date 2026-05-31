@@ -1,12 +1,8 @@
 {
-  "class": "DepictionTabView",
+  "class": "DepictionStackView",
   "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/claude-code-roothide.png",
   "tintColor": "#4A90D9",
-  "tabs": [
-    {
-      "tabname": "详情",
-      "class": "DepictionStackView",
-      "views": [
+  "views": [
         {"class": "DepictionHeaderView", "title": "Claude Code Roothide", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Development"},
         {"class": "DepictionSpacerView", "spacing": 8},
@@ -20,6 +16,4 @@
         {"class": "DepictionTableTextView", "title": "作者", "text": "Anthropic (iOS package by Bryan) DaFei(修改优化)"},
         {"class": "DepictionTableTextView", "title": "包名", "text": "claude-code-roothide"}
       ]
-    }
-  ]
 }

@@ -1,12 +1,8 @@
 {
-  "class": "DepictionTabView",
+  "class": "DepictionStackView",
   "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png",
   "tintColor": "#4A90D9",
-  "tabs": [
-    {
-      "tabname": "详情",
-      "class": "DepictionStackView",
-      "views": [
+  "views": [
         {"class": "DepictionHeaderView", "title": "Stheno激活码生成器", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "System"},
         {"class": "DepictionSpacerView", "spacing": 8},
@@ -20,6 +16,4 @@
         {"class": "DepictionTableTextView", "title": "作者", "text": "Crassna"},
         {"class": "DepictionTableTextView", "title": "包名", "text": "com.nx.accode"}
       ]
-    }
-  ]
 }

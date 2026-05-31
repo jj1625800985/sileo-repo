@@ -1,12 +1,8 @@
 {
-  "class": "DepictionTabView",
+  "class": "DepictionStackView",
   "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png",
   "tintColor": "#4A90D9",
-  "tabs": [
-    {
-      "tabname": "详情",
-      "class": "DepictionStackView",
-      "views": [
+  "views": [
         {"class": "DepictionHeaderView", "title": "AI-Config-GUI", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Utilities"},
         {"class": "DepictionSpacerView", "spacing": 8},
@@ -20,6 +16,4 @@
         {"class": "DepictionTableTextView", "title": "作者", "text": "DaFei"},
         {"class": "DepictionTableTextView", "title": "包名", "text": "ai-config-gui"}
       ]
-    }
-  ]
 }

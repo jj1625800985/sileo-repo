@@ -1,12 +1,8 @@
 {
-  "class": "DepictionTabView",
+  "class": "DepictionStackView",
   "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.axs.switchicon.png",
   "tintColor": "#F5A623",
-  "tabs": [
-    {
-      "tabname": "详情",
-      "class": "DepictionStackView",
-      "views": [
+  "views": [
         {"class": "DepictionHeaderView", "title": "Switch Icon", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Tweaks"},
         {"class": "DepictionSpacerView", "spacing": 8},
@@ -20,6 +16,4 @@
         {"class": "DepictionTableTextView", "title": "作者", "text": "Axs"},
         {"class": "DepictionTableTextView", "title": "包名", "text": "com.axs.switchicon"}
       ]
-    }
-  ]
 }
