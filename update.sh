@@ -2,6 +2,7 @@
 #===============================================================
 # Sileo Repo Auto-Update Script
 # 扫描 debs/ 目录 → 生成 Packages / Release
+# 支持 zstd 压缩的 .deb（如 Theos 构建的包）
 #===============================================================
 
 set -e
@@ -9,37 +10,67 @@ set -e
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DEBS_DIR="$ROOT_DIR/debs"
 
-# 检查 dpkg-scanpackages 是否存在
-if ! command -v dpkg-scanpackages &>/dev/null; then
-    echo "[ERROR] dpkg-scanpackages not found. Install dpkg-dev first:"
-    echo "        apt install dpkg-dev"
-    exit 1
-fi
-
 echo "========================================"
 echo " Sileo Repo Update"
 echo "========================================"
 echo "Root: $ROOT_DIR"
 echo ""
 
-# 1. 扫描 debs 生成 Packages
-echo "[1/4] Generating Packages..."
-cd "$ROOT_DIR"
-
 # 清理可能存在的 root 权限旧文件
 rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst Release 2>/dev/null || true
 
-dpkg-scanpackages --arch all debs/ > Packages 2>/dev/null || {
-    dpkg-scanpackages debs/ > Packages 2>/dev/null || {
-        echo "[ERROR] dpkg-scanpackages failed. Check debs/ directory."
-        exit 1
-    }
-}
+# 1. 扫描 debs 生成 Packages
+echo "[1/4] Generating Packages..."
+
+# 先尝试 dpkg-scanpackages（标准 .deb）
+GENERATED=false
+if command -v dpkg-scanpackages &>/dev/null; then
+    if dpkg-scanpackages debs/ > Packages 2>/dev/null; then
+        GENERATED=true
+    fi
+fi
+
+# 如果 dpkg-scanpackages 失败，手动提取（支持 zstd 格式的 .deb）
+if [ "$GENERATED" = false ]; then
+    echo "       (dpkg-scanpackages 不兼容，手动提取控制信息...)"
+    > Packages
+    for deb in "$DEBS_DIR"/*.deb; do
+        [ -f "$deb" ] || continue
+        # 探测 control 压缩格式
+        set +e
+        for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
+            CTRL_DATA=""
+            case "$ctrl" in
+                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar --zstd -xO ./control 2>/dev/null) ;;
+                *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
+                *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
+                *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+            esac
+            if [ -n "$CTRL_DATA" ]; then
+                DEBFILE=$(basename "$deb")
+                SIZE=$(wc -c < "$deb")
+                MD5=$(md5sum "$deb" | cut -d' ' -f1)
+                SHA1=$(sha1sum "$deb" | cut -d' ' -f1)
+                SHA256=$(sha256sum "$deb" | cut -d' ' -f1)
+                echo "$CTRL_DATA"
+                echo "Filename: ./debs/$DEBFILE"
+                echo "Size: $SIZE"
+                echo "MD5sum: $MD5"
+                echo "SHA1: $SHA1"
+                echo "SHA256: $SHA256"
+                echo ""
+                break
+            fi
+        done
+        set -e
+    done >> Packages
+fi
+
 echo "       Packages generated."
 
-# 2. 多格式压缩
+# 2-4 不变
 echo "[2/4] Compressing Packages..."
-bzip2 -fzk Packages   # Packages.bz2
+bzip2 -fzk Packages
 gzip  -fk Packages    # Packages.gz
 xz    -fzk Packages   # Packages.xz  (Sileo 推荐)
 command -v lzma &>/dev/null && lzma -fzk Packages || echo "       (lzma not installed, skipped)"

@@ -62,7 +62,7 @@ if git push; then
     echo " ✅ 部署完成！"
     echo "========================================"
     echo ""
-    echo "   源地址: https://sxllm.github.io/sileo-repo/"
+    echo "   源地址: https://jj1625800985.github.io/sileo-repo/"
     echo "   等待 GitHub Pages 更新 (约1-2分钟)"
     echo ""
 else
