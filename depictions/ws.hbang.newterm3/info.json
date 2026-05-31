@@ -1,0 +1,26 @@
+{
+  "minVersion": "14.0",
+  "class": "DepictionTabView",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/ws.hbang.newterm3.png",
+  "tintColor": "#9013FE",
+  "tabs": [
+    {
+      "tabname": "详情",
+      "class": "DepictionStackView",
+      "views": [
+        {"class": "DepictionHeaderView", "title": "NewTerm 3 Beta", "useBoldText": true},
+        {"class": "DepictionSubheaderView", "title": "Terminal Support"},
+        {"class": "DepictionSpacerView", "spacing": 8},
+        {"class": "DepictionSeparatorView"},
+        {"class": "DepictionHeaderView", "title": "说明"},
+        {"class": "DepictionTextView", "text": "Powerful terminal app for iOS"},
+        {"class": "DepictionSpacerView", "spacing": 8},
+        {"class": "DepictionSeparatorView"},
+        {"class": "DepictionHeaderView", "title": "信息"},
+        {"class": "DepictionTableTextView", "title": "版本", "text": "3.0~beta1-670+debug"},
+        {"class": "DepictionTableTextView", "title": "作者", "text": "HASHBANG Productions <support@hbang.ws>"},
+        {"class": "DepictionTableTextView", "title": "包名", "text": "ws.hbang.newterm3"}
+      ]
+    }
+  ]
+}

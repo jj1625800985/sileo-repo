@@ -15,24 +15,72 @@ Description: Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP
 Author: DaFei
 Name: AI-Config-GUI
 
+Package: claude-code-roothide
+Version: 2.1.19-1
+Architecture: iphoneos-arm64e
+Maintainer: Bryan
+Installed-Size: 142528
+Depends: firmware (>= 14.0), zsh, ldid
+Conflicts: com.anthropic.claude-code-beta
+Provides: claude-code
+Filename: debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
+Size: 27881552
+MD5sum: 952f7a498a951d49b843f6b95bc3fed5
+SHA1: 7c72b4a210c9cf5d2540140ea117d94767255a09
+SHA256: adfffe9989bdda67476d66b5880d8b937564b0c174cbdeb2553272ec4fd660b1
+Section: Development
+Homepage: https://claude.ai
+Description: Claude Code CLI for iOS 人工智能 在越狱iPhone 上本 地运行Claude Code终端执行claude-auth以开始认证 配置 终端执行 claude以开始使用 可以配置 DeepSeek模型API和第三方模型API
+Tag: purpose::console, role::developer
+Author: Anthropic (iOS package by Bryan) DaFei(修改优化)
+Depiction: https://github.com/anthropics/claude-code
+Name: Claude Code Roothide
+Sileodepiction: https://github.com/anthropics/claude-code
+
+Package: codex-ios-roothide
+Version: 0.134.0-2
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
+Depends: firmware (>= 14.0), nodejs22-ios-roothide (>= 22.12.0), ldid
+Filename: debs/codex-ios-roothide_0.134.0-2_iphoneos-arm64e.deb
+Size: 22390000
+MD5sum: 9bf1d7c4101610d9379a3455adbe1d35
+SHA1: c81f64e2515a2de5908af71a7b962a77dd669d9e
+SHA256: d5040a8d916440a4c4a3cd56d678fa3ec3380370ddb5f9640793a42fde361ba1
+Section: Development
+Priority: optional
+Description: OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal
+ OpenAI Codex CLI ported to iOS arm64 (aarch64-apple-ios).
+ An AI-powered coding agent that runs directly in your terminal.
+ .
+ Usage / 使用方法:
+   1. Run 'codex' to enter interactive mode
+      运行 codex 进入交互模式
+   2. Or use 'codex exec "your prompt"' for non-interactive mode
+      或用 codex exec "提示词" 进行非交互式调用
+   3.运行"codex"后可在jb目录下的var/mobile/codex里面进行配置修改api接口
+ Features / 特性:
+   - Native arm64 binary, no emulation / 原生 arm64 二进制
+   - Works in NewTerm2/3 and SSH / 支持 NewTerm2/3 和 SSH 终端 只能接受responses端点的OpenAI 兼容的 API 密钥(二进制文件限制-不兼容的需要自己搭代理服务器翻译)。
+
 Package: com.Axs.stheno
-Version: 77.1.4.7
+Version: 77.1.4.8
 Architecture: iphoneos-arm64e
 Maintainer: Crassna
-Installed-Size: 1928
+Installed-Size: 2788
 Pre-Depends: rootless-compat(>= 0.9)
 Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
-Filename: debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
-Size: 522250
-MD5sum: da397e79152000d9ff5b377853119662
-SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
-SHA256: 8e5689997b0427e00a8c8c99963bd849cd6dafd09a8a52c2adccad9ee2d6682d
+Filename: debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
+Size: 1470186
+MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
+SHA1: d591168b0604ffd8152c154377e18f08c633d55a
+SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
 Section: 分屏插件
-Description: Medusa!
+Description: Medusa,Jump Whenever。
 Author: Crassna
-Icon: https://axs66.github.io/repo/icon/stheno.png
-Name: Stheno奥利奥分屏
-Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
+Icon: https://axs66.github.io/pro/icon/stheno.png
+Name: Stheno
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 
 Package: com.axs.ios16dao
 Version: 5.2.0-205
@@ -99,6 +147,44 @@ Icon: https://axs66.github.io/pro/icon/switchicon.png
 Name: Switch Icon
 Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
 
+Package: com.dafei.terminal
+Version: 1.0.0-27+debug
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
+Installed-Size: 732
+Pre-Depends: rootless-compat(>= 0.9)
+Depends: firmware (>= 14.0), libvterm-bin (>= 0.1)
+Filename: debs/com.dafei.terminal_1.0.0-27+debug_iphoneos-arm64e.deb
+Size: 212730
+MD5sum: a4aec55c980d1b3fa1ca638e4dac17ab
+SHA1: 03b3e0dbe39979fdc70fa660bcfc74fde15a6162
+SHA256: 4e8383d3e514aa4311b6a612f286f854953eb98f399a1375635908b7d84cda66
+Section: Terminal Support
+Description: iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。
+ A full-featured terminal emulator for iOS with multi-tab, CJK support,
+ hardware keyboard, pinch-to-zoom, and scrollback history.
+Author: DaFei
+Name: DFTerminal
+
+Package: com.lenglengyu.ghallownetwork
+Version: 0.0.1
+Architecture: iphoneos-arm64
+Maintainer: lenglengyu <lenglengyu@126.com>
+Installed-Size: 152
+Depends: mobilesubstrate
+Filename: debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64.deb
+Size: 8092
+MD5sum: 2eb3a3ca4cea59f40e493f0cf2373857
+SHA1: d7874bae32b2f21119d71e6887cb9be4b99cd066
+SHA256: 879741392cdff40f85ab9a3e7f824ee1d849f6ab703ebf3db602e2fe51d2f708
+Section: Tweaks
+Description: 国行手机自动允许使用网络。
+Author: lenglengyu
+Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
+Icon: https://huayuarc.github.io/icon/huayuarc.jpg
+Name: Allow Network-rootless
+Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
+
 Package: com.nx.accode
 Version: 1.0
 Architecture: iphoneos-arm64
@@ -115,4 +201,65 @@ Description: 使用方法：用终端输入stheno+空格+udid，获取激活码�
 Tag: role::hacker
 Author: Crassna
 Name: Stheno激活码生成器
+
+Package: com.wkk.dynamicnotland
+Version: 1.2.5
+Architecture: iphoneos-arm64
+Maintainer: Nathan
+Installed-Size: 348
+Depends: mobilesubstrate (>= 0.9.5000)
+Filename: debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64.deb
+Size: 12352
+MD5sum: c5a76ed03c5e5e0ae1181095b0bf2820
+SHA1: c5af6b6c833fc35e6445ba3421ce6713e31992a1
+SHA256: 09de4ca3987b328c53f199ee7c06e6b0ce9df0228d768a413ab0ca47474f6faf
+Section: Tweaks
+Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
+Author: Nathan
+Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
+Name: DynamicNotLand
+
+Package: nodejs22-ios-roothide
+Version: 22.12.0-27
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
+Depends: firmware (>= 14.0), ldid
+Filename: debs/nodejs22-ios-roothide_22.12.0-27_iphoneos-arm64e.deb
+Size: 23726452
+MD5sum: 3a5485257ab93617d3e7777a08448692
+SHA1: e1b2a8d5aa9430821183af0f1be889460ee4eccd
+SHA256: df7463ee7081a173225586c18db054fd3f243e04b08a937ca58054d23140947b
+Section: Development
+Priority: optional
+Description: Node.js 22.12.0 for iOS arm64 (side-by-side as node22)
+ Node.js v22.12.0 runtime compiled for iOS arm64.
+ Installs as node22/npm22/npx22 to avoid conflicts with other Node versions.
+ Includes bundled npm 10.9.0 and pre-signed with iOS entitlements.
+ .
+ Node.js 22.12.0 iOS arm64 运行时。
+ 以 node22/npm22/npx22 安装，不与其他 Node 版本冲突。
+ 内含 npm 10.9.0.
+
+Package: ws.hbang.newterm3
+Version: 3.0~beta1-670+debug
+Architecture: iphoneos-arm64e
+Maintainer: HASHBANG Productions <support@hbang.ws>
+Installed-Size: 24128
+Depends: firmware (>= 14.0), zsh | bash | fish, coreutils, ncurses, system-cmds
+Recommends: gettext-localizations, iterm2-shell-integration, zsh-autosuggestions, zsh-syntax-highlighting
+Conflicts: ws.hbang.newterm, ws.hbang.newterm2
+Replaces: ws.hbang.newterm, ws.hbang.newterm2
+Filename: debs/ws.hbang.newterm3_3.0~beta1-670+debug_iphoneos-arm64e.deb
+Size: 4738394
+MD5sum: fcdb774634eb41e936b949ab70bebe47
+SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec
+SHA256: a39c394d57b3ef1b7bfb575b5d990071e3c9de7a4c09bfd4fc0dda9993a04b1f
+Section: Terminal Support
+Description: Powerful terminal app for iOS
+Tag: compatible_min::ios14.0
+Author: HASHBANG Productions <support@hbang.ws>
+Depiction: https://chariz.com/get/newterm-beta
+Icon: https://img.chariz.cloud/icon/newterm-beta/icon@3x.png
+Name: NewTerm 3 Beta
+Support: https://hashbang.productions/support/
 
