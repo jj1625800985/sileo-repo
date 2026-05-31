@@ -30,12 +30,22 @@ echo "  步骤 2/3: 提交更改到 Git"
 echo "========================================="
 
 # 检查是否有变更
-if [ -z "$(git status --porcelain)" ]; then
+CHANGES="$(git status --porcelain 2>/dev/null)"
+if [ -z "$CHANGES" ]; then
     echo "[提示] 没有需要提交的更改"
 else
-    git add -A
-    git commit -m "repo: $(date '+%Y-%m-%d %H:%M') 更新"
-    echo "[完成] 已提交"
+    # 尝试 git add，如果权限不足则使用 sudo
+    if ! git add -A 2>/dev/null; then
+        echo "       (权限不足，使用 sudo)"
+        echo "q" | sudo -S git add -A
+    fi
+    if git commit -m "repo: $(date '+%Y-%m-%d %H:%M') 更新" 2>/dev/null; then
+        echo "[完成] 已提交"
+    else
+        echo "       (权限不足，使用 sudo)"
+        echo "q" | sudo -S git commit -m "repo: $(date '+%Y-%m-%d %H:%M') 更新"
+        echo "[完成] 已提交"
+    fi
 fi
 
 # 4. Git 推送
@@ -43,7 +53,12 @@ echo ""
 echo "========================================="
 echo "  步骤 3/3: 推送到 GitHub"
 echo "========================================="
-git push "$ORIGIN" main
+if git push "$ORIGIN" main 2>/dev/null; then
+    :
+else
+    echo "       (权限不足，使用 sudo)"
+    echo "q" | sudo -S git push "$ORIGIN" main
+fi
 echo "[完成] 已推送，GitHub Pages 稍后自动更新"
 
 echo ""
