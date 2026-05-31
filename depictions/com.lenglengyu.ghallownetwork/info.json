@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTableTextView", "title": "描述", "text": "国行手机自动允许使用网络。"},
+        {"class": "DepictionMarkdownView", "markdown": "国行手机自动允许使用网络。"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

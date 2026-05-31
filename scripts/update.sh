@@ -236,7 +236,7 @@ fi
 awk -v url="$REPO_URL" '
 /^Package: / {
     if (pkg != "") {
-        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
     }
     pkg = substr($0, index($0, ": ") + 2)
@@ -244,12 +244,12 @@ awk -v url="$REPO_URL" '
     print
     next
 }
-/^SileoDepiction: / { needs_dep = 0; print; next }
+/[Ss]ileo[dD]epiction: / { needs_dep = 0; print; next }
 /^Icon: / { needs_icon = 0; print; next }
 /^Depiction: / { print; next }  # 保留 Depiction 字段
 /^$/ {
     if (pkg != "") {
-        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
         pkg = ""; needs_dep = 0; needs_icon = 0
     }
@@ -258,7 +258,7 @@ awk -v url="$REPO_URL" '
 { print }
 END {
     if (pkg != "") {
-        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
     }
 }
@@ -405,7 +405,7 @@ function generate() {
     }
     if (eDesc != "") {
         print "        {\"class\": \"DepictionHeaderView\", \"title\": \"说明\"}," > jFile
-        printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"描述\", \"text\": \"%s\"},\n", eDesc > jFile
+        printf "        {\"class\": \"DepictionMarkdownView\", \"markdown\": \"%s\"},\n", eDesc > jFile
         print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
         print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
     }

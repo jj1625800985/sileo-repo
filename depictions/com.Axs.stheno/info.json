@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTableTextView", "title": "描述", "text": "Medusa!"},
+        {"class": "DepictionMarkdownView", "markdown": "Medusa!"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

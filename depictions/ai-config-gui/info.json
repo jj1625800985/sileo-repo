@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTableTextView", "title": "描述", "text": "Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP/权限/指令/历史)，支持 Anthropic/OpenAI/DeepSeek/阿里云/智谱/MiniMax/小米等多厂商"},
+        {"class": "DepictionMarkdownView", "markdown": "Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP/权限/指令/历史)，支持 Anthropic/OpenAI/DeepSeek/阿里云/智谱/MiniMax/小米等多厂商"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

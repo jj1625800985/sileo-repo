@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTableTextView", "title": "描述", "text": "全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。"},
+        {"class": "DepictionMarkdownView", "markdown": "全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

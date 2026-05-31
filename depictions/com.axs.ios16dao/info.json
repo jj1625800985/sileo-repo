@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTableTextView", "title": "描述", "text": "灵动岛媒体美化增强，支持 PNG/JPG/GIF/MP4,录屏隐藏原生岛与阴影兼容控制。集成授权校验联系:VCR66T"},
+        {"class": "DepictionMarkdownView", "markdown": "灵动岛媒体美化增强，支持 PNG/JPG/GIF/MP4,录屏隐藏原生岛与阴影兼容控制。集成授权校验联系:VCR66T"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},
