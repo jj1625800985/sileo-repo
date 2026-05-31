@@ -48,10 +48,16 @@ if [[ "$INPUT" == *.deb ]]; then
     PKG_ID=""
     for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
         if ar p "$INPUT" "$ctrl" >/tmp/pkgctl 2>/dev/null; then
-            EXTRACTED=$(tar --zstd -xO ./control </tmp/pkgctl 2>/dev/null || \
-                        tar xzO ./control </tmp/pkgctl 2>/dev/null || \
-                        tar xJO ./control </tmp/pkgctl 2>/dev/null || \
-                        tar xO ./control </tmp/pkgctl 2>/dev/null)
+            EXTRACTED=""
+            if tar --zstd -xO ./control </tmp/pkgctl >/dev/null 2>&1; then
+                EXTRACTED=$(tar --zstd -xO ./control </tmp/pkgctl 2>/dev/null)
+            elif tar xzO ./control </tmp/pkgctl >/dev/null 2>&1; then
+                EXTRACTED=$(tar xzO ./control </tmp/pkgctl 2>/dev/null)
+            elif tar xJO ./control </tmp/pkgctl >/dev/null 2>&1; then
+                EXTRACTED=$(tar xJO ./control </tmp/pkgctl 2>/dev/null)
+            elif tar xO ./control </tmp/pkgctl >/dev/null 2>&1; then
+                EXTRACTED=$(tar xO ./control </tmp/pkgctl 2>/dev/null)
+            fi
             if [ -n "$EXTRACTED" ]; then
                 PKG_ID=$(echo "$EXTRACTED" | grep "^Package:" | sed 's/Package: *//')
                 break
