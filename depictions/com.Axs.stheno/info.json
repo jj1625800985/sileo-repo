@@ -1,22 +1,22 @@
 {
   "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png",
+  "tintColor": "#4A90D9",
   "tabs": [
     {
-      "tabname": "详情",
+      "tabname": "插件信息",
       "class": "DepictionStackView",
       "views": [
-        {"class": "DepictionHeaderView", "title": "Stheno奥利奥分屏", "useBoldText": true},
-        {"class": "DepictionSubheaderView", "title": "分屏插件"},
-        {"class": "DepictionSpacerView", "spacing": 8},
-        {"class": "DepictionSeparatorView"},
-        {"class": "DepictionHeaderView", "title": "说明"},
+        {"title": "说明", "class": "DepictionHeaderView"},
         {"class": "DepictionMarkdownView", "markdown": "Medusa!"},
-        {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
-        {"class": "DepictionHeaderView", "title": "信息"},
-        {"class": "DepictionTableTextView", "title": "版本", "text": "77.1.4.7"},
-        {"class": "DepictionTableTextView", "title": "作者", "text": "Crassna"},
-        {"class": "DepictionTableTextView", "title": "包名", "text": "com.Axs.stheno"}
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "Stheno奥利奥分屏", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "77.1.4.7", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "com.Axs.stheno", "class": "DepictionTableTextView"},
+        {"title": "作者", "text": "Crassna", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
       ]
     }
   ]

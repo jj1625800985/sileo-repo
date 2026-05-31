@@ -1,22 +1,22 @@
 {
   "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png",
+  "tintColor": "#9013FE",
   "tabs": [
     {
-      "tabname": "详情",
+      "tabname": "插件信息",
       "class": "DepictionStackView",
       "views": [
-        {"class": "DepictionHeaderView", "title": "DFTerminal", "useBoldText": true},
-        {"class": "DepictionSubheaderView", "title": "Terminal Support"},
-        {"class": "DepictionSpacerView", "spacing": 8},
-        {"class": "DepictionSeparatorView"},
-        {"class": "DepictionHeaderView", "title": "说明"},
+        {"title": "说明", "class": "DepictionHeaderView"},
         {"class": "DepictionMarkdownView", "markdown": "iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。"},
-        {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
-        {"class": "DepictionHeaderView", "title": "信息"},
-        {"class": "DepictionTableTextView", "title": "版本", "text": "1.0.0-27+debug"},
-        {"class": "DepictionTableTextView", "title": "作者", "text": "DaFei"},
-        {"class": "DepictionTableTextView", "title": "包名", "text": "com.dafei.terminal"}
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "DFTerminal", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "1.0.0-27+debug", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "com.dafei.terminal", "class": "DepictionTableTextView"},
+        {"title": "作者", "text": "DaFei", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
       ]
     }
   ]

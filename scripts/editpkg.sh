@@ -214,41 +214,46 @@ done
 TEXT_JSON=$(echo "$TEXT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/' | tr -d '\n')
 TEXT_JSON="${TEXT_JSON%\\n}"
 
-# 生成 info.json
+# 生成 info.json（参照 skypain 源格式）
 {
 echo "{"
 echo '  "class": "DepictionTabView",'
+echo '  "minVersion": "0.1",'
+echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
+echo '  "tintColor": "#4A90D9",'
 echo '  "tabs": ['
 echo '    {'
-echo '      "tabname": "详情",'
+echo '      "tabname": "插件信息",'
 echo '      "class": "DepictionStackView",'
 echo '      "views": ['
-echo '        {"class": "DepictionHeaderView", "title": "'$NAME'", "useBoldText": true},'
-echo '        {"class": "DepictionSubheaderView", "title": "'$DESC'"},'
-echo '        {"class": "DepictionSpacerView", "spacing": 8},'
-echo '        {"class": "DepictionSeparatorView"},'
-echo '        {"class": "DepictionHeaderView", "title": "说明"},'
-echo '        {"class": "DepictionTextView", "text": "'$TEXT_JSON'"},'
-echo '        {"class": "DepictionSpacerView", "spacing": 8},'
-echo '        {"class": "DepictionSeparatorView"},'
 if ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg "$SCREENSHOT_DIR"/*.jpeg 2>/dev/null | head -1 >/dev/null; then
-echo '        {"class": "DepictionHeaderView", "title": "截图"},'
 echo '        {'
-echo '          "class": "DepictionScreenshotsView",'
+echo '          "itemCornerRadius": 6,'
+echo '          "itemSize": "{320, 275.41333333333336}",'
 echo '          "screenshots": ['
+FIRST=true
 for f in "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg "$SCREENSHOT_DIR"/*.jpeg; do
     if [ -f "$f" ]; then
         BASENAME=$(basename "$f")
-        echo '            {"url": "'$REPO_URL/depictions/$PKG_ID/screenshots/$BASENAME'", "accessibilityText": "截图"},'
+        COM=","
+        $FIRST && COM="" && FIRST=false
+        echo '            {"url": "'$REPO_URL/depictions/$PKG_ID/screenshots/$BASENAME'", "accessibilityText": "截图", "fullSizeURL": "'$REPO_URL/depictions/$PKG_ID/screenshots/$BASENAME'"}'
     fi
 done
-echo '          ]'
+echo '          ],'
+echo '          "class": "DepictionScreenshotsView"'
 echo '        },'
+echo '        {"class": "DepictionSeparatorView"},'
 fi
-echo '        {"class": "DepictionHeaderView", "title": "信息"},'
-echo '        {"class": "DepictionTableTextView", "title": "版本", "text": "'$VERSION'"},'
-if [ -n "$AUTHOR" ]; then echo '        {"class": "DepictionTableTextView", "title": "作者", "text": "'$AUTHOR'"},'; fi
-echo '        {"class": "DepictionTableTextView", "title": "包名", "text": "'$PKG_ID'"}'
+echo '        {"title": "说明", "class": "DepictionHeaderView"},'
+echo '        {"class": "DepictionMarkdownView", "markdown": "'$TEXT_JSON'"},'
+echo '        {"class": "DepictionSeparatorView"},'
+echo '        {"title": "信息", "class": "DepictionHeaderView"},'
+echo '        {"title": "名称", "text": "'$NAME'", "class": "DepictionTableTextView"},'
+echo '        {"title": "版本", "text": "'$VERSION'", "class": "DepictionTableTextView"},'
+echo '        {"title": "包名", "text": "'$PKG_ID'", "class": "DepictionTableTextView"},'
+if [ -n "$AUTHOR" ]; then echo '        {"title": "作者", "text": "'$AUTHOR'", "class": "DepictionTableTextView"},'; fi
+echo '        {"spacing": 20, "class": "DepictionSpacerView"}'
 echo '      ]'
 echo '    }'
 echo '  ]'

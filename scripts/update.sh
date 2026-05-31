@@ -392,42 +392,46 @@ function generate() {
 
     print "{" > jFile
     print "  \"class\": \"DepictionTabView\"," > jFile
+    print "  \"minVersion\": \"0.1\"," > jFile
+    printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
+    printf "  \"tintColor\": \"%s\",\n", tColor > jFile
     print "  \"tabs\": [" > jFile
     print "    {" > jFile
-    print "      \"tabname\": \"详情\"," > jFile
+    print "      \"tabname\": \"插件信息\"," > jFile
     print "      \"class\": \"DepictionStackView\"," > jFile
     print "      \"views\": [" > jFile
-    printf "        {\"class\": \"DepictionHeaderView\", \"title\": \"%s\", \"useBoldText\": true},\n", eName > jFile
-    if (eSection != "") {
-        printf "        {\"class\": \"DepictionSubheaderView\", \"title\": \"%s\"},\n", eSection > jFile
-        print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
-        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
-    }
-    if (eDesc != "") {
-        print "        {\"class\": \"DepictionHeaderView\", \"title\": \"说明\"}," > jFile
-        printf "        {\"class\": \"DepictionMarkdownView\", \"markdown\": \"%s\"},\n", eDesc > jFile
-        print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
-        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
-    }
-    # 截图区域
+    # 截图区域（有截图时才显示）
     if (ss_count > 0) {
-        print "        {\"class\": \"DepictionHeaderView\", \"title\": \"截图\"}," > jFile
-        print "        {\"class\": \"DepictionScreenshotsView\"," > jFile
+        print "        {" > jFile
+        print "          \"itemCornerRadius\": 6," > jFile
+        print "          \"itemSize\": \"{320, 275.41333333333336}\"," > jFile
         print "          \"screenshots\": [" > jFile
         for (i = 1; i <= ss_count; i++) {
             comma = (i < ss_count ? "," : "")
-            printf "            {\"url\": \"%s/depictions/%s/screenshots/%d.png\", \"accessibilityText\": \"截图 %d\"}%s\n", url, pkg, i, i, comma > jFile
+            printf "            {\"url\": \"%s/depictions/%s/screenshots/%d.png\", \"accessibilityText\": \"截图 %d\", \"fullSizeURL\": \"%s/depictions/%s/screenshots/%d.png\"}%s\n", url, pkg, i, i, url, pkg, i, comma > jFile
         }
-        print "          ]" > jFile
+        print "          ]," > jFile
+        print "          \"class\": \"DepictionScreenshotsView\"" > jFile
         print "        }," > jFile
+        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
     }
-    # 信息区域
-    print "        {\"class\": \"DepictionHeaderView\", \"title\": \"信息\"}," > jFile
-    printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"版本\", \"text\": \"%s\"},\n", eVers > jFile
+    # 说明
+    if (eDesc != "") {
+        print "        {\"title\": \"说明\", \"class\": \"DepictionHeaderView\"}," > jFile
+        printf "        {\"class\": \"DepictionMarkdownView\", \"markdown\": \"%s\"},\n", eDesc > jFile
+        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
+    }
+    # 信息
+    print "        {\"title\": \"信息\", \"class\": \"DepictionHeaderView\"}," > jFile
+    if (eName != "") {
+        printf "        {\"title\": \"名称\", \"text\": \"%s\", \"class\": \"DepictionTableTextView\"},\n", eName > jFile
+    }
+    printf "        {\"title\": \"版本\", \"text\": \"%s\", \"class\": \"DepictionTableTextView\"},\n", eVers > jFile
+    printf "        {\"title\": \"包名\", \"text\": \"%s\", \"class\": \"DepictionTableTextView\"},\n", pkg > jFile
     if (eAuthor != "") {
-        printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"作者\", \"text\": \"%s\"},\n", eAuthor > jFile
+        printf "        {\"title\": \"作者\", \"text\": \"%s\", \"class\": \"DepictionTableTextView\"},\n", eAuthor > jFile
     }
-    printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"包名\", \"text\": \"%s\"}\n", pkg > jFile
+    print "        {\"spacing\": 20, \"class\": \"DepictionSpacerView\"}" > jFile
     print "      ]" > jFile
     print "    }" > jFile
     print "  ]" > jFile
