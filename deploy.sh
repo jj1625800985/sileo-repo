@@ -27,8 +27,8 @@ echo ""
 
 # 2. 运行 update.sh
 echo "[2/5] 更新仓库索引..."
-if [ -f "$ROOT_DIR/update.sh" ]; then
-    bash "$ROOT_DIR/update.sh"
+if [ -f "$ROOT_DIR/scripts/update.sh" ]; then
+    bash "$ROOT_DIR/scripts/update.sh"
 else
     echo "[ERROR] update.sh 不存在"
     exit 1

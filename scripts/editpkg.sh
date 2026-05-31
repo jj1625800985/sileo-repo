@@ -7,7 +7,7 @@
 #===============================================================
 set -e
 
-ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 REPO_URL="https://jj1625800985.github.io/sileo-repo"
 
 if [ -z "$1" ]; then
@@ -244,3 +244,4 @@ echo ""
 echo "✅ 信息已保存: $DEP_DIR/info.json"
 echo ""
 echo "运行 ./deploy.sh 推送到 GitHub 即生效"
+echo "   (或: cd .. && bash deploy.sh)"

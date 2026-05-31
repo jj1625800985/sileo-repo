@@ -11,7 +11,7 @@
 set -e
 
 WORKDIR="/tmp/deb_work"
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DEBS_DIR="$SCRIPT_DIR/debs"
 
 GREEN='\033[0;32m'

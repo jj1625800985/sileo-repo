@@ -7,7 +7,7 @@
 
 set -e
 
-ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DEBS_DIR="$ROOT_DIR/debs"
 
 echo "========================================"
@@ -174,7 +174,7 @@ echo "========================================"
 echo ""
 echo "Next steps:"
 echo "   1. Add .deb files to debs/"
-echo "   2. Run ./update.sh"
+echo "   2. Run ./scripts/update.sh"
 echo "   3. Commit & push to GitHub"
 echo "   4. Enable GitHub Pages (main branch, /root)"
 echo "   5. Add source in Sileo:"
