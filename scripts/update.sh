@@ -281,7 +281,7 @@ echo "[2/5] Generating depictions & icons..."
 mkdir -p icon depictions
 DEFAULT_ICON="icon/myicon.png"
 
-# 清除过期的 depiction（deb 比 info.json 新 → 删除）
+# 清除过期的 depiction（deb 或 screenshots 比 info.json 新 → 删除）
 STALE_COUNT=0
 for deb in "$DEBS_DIR"/*.deb; do
     [ -f "$deb" ] || continue
@@ -289,9 +289,16 @@ for deb in "$DEBS_DIR"/*.deb; do
     pkg_id="${deb_name%_*}"
     pkg_id="${pkg_id%_*}"
     dep_file="depictions/$pkg_id/info.json"
-    if [ -f "$dep_file" ] && [ "$deb" -nt "$dep_file" ]; then
-        rm -f "$dep_file"
-        STALE_COUNT=$((STALE_COUNT + 1))
+    if [ -f "$dep_file" ]; then
+        NEED_REGEN=false
+        [ "$deb" -nt "$dep_file" ] && NEED_REGEN=true
+        # 截图目录变更也要重新生成
+        ss_dir="depictions/$pkg_id/screenshots"
+        [ -d "$ss_dir" ] && [ "$(find "$ss_dir" -type f -newer "$dep_file" 2>/dev/null | head -1)" != "" ] && NEED_REGEN=true
+        if [ "$NEED_REGEN" = true ]; then
+            rm -f "$dep_file"
+            STALE_COUNT=$((STALE_COUNT + 1))
+        fi
     fi
 done
 if [ "$STALE_COUNT" -gt 0 ]; then
