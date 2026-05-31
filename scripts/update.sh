@@ -31,10 +31,16 @@ for arg in "$@"; do
 done
 
 # ---- 默认配置 ----
-DEFAULT_ORIGIN="jj1625800985"
 DEFAULT_LABEL="jj1625800985 Repo"
 DEFAULT_DESCRIPTION="jj1625800985's Sileo package repository"
 DEFAULT_REPO_URL="https://jj1625800985.github.io/sileo-repo"
+
+# 自动检测 git 远程名
+detect_origin() {
+    local remote
+    remote="$(git remote 2>/dev/null | head -1)"
+    echo "${remote:-origin}"
+}
 
 # ---- 加载配置文件 ----
 load_config() {
@@ -42,12 +48,12 @@ load_config() {
         source "$REPO_CONFIG"
         echo "[✓] 已加载配置: $REPO_CONFIG"
     else
-        ORIGIN="$DEFAULT_ORIGIN"
         LABEL="$DEFAULT_LABEL"
         DESCRIPTION="$DEFAULT_DESCRIPTION"
         REPO_URL="$DEFAULT_REPO_URL"
         echo "[!] 未找到配置文件，使用默认值"
     fi
+    ORIGIN="$(detect_origin)"
 }
 
 # ---- 保存配置文件 ----
@@ -55,7 +61,6 @@ save_config() {
     cat > "$REPO_CONFIG" <<EOF
 # Sileo Repo 配置
 # 可通过 ./scripts/update.sh --config 交互式修改
-ORIGIN="$ORIGIN"
 LABEL="$LABEL"
 DESCRIPTION="$DESCRIPTION"
 REPO_URL="$REPO_URL"
@@ -72,9 +77,6 @@ interactive_config() {
     echo "========================================"
     echo ""
 
-    read -r -p "Origin  [$ORIGIN]: " input
-    ORIGIN="${input:-$ORIGIN}"
-
     read -r -p "Label   [$LABEL]: " input
     LABEL="${input:-$LABEL}"
 
@@ -89,7 +91,6 @@ interactive_config() {
     echo "========================================"
     echo "  配置预览"
     echo "========================================"
-    echo "  Origin:      $ORIGIN"
     echo "  Label:       $LABEL"
     echo "  Description: $DESCRIPTION"
     echo "  Repo URL:    $REPO_URL"

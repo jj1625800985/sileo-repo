@@ -7,14 +7,12 @@
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
-# 1. 检查 repo.conf
-if [ ! -f repo.conf ]; then
-    echo "[错误] repo.conf 不存在，请先运行: bash scripts/update.sh -i"
+# 自动检测 git 远程名
+ORIGIN="$(git remote 2>/dev/null | head -1)"
+if [ -z "$ORIGIN" ]; then
+    echo "[错误] 没有找到 git 远程仓库"
     exit 1
 fi
-source repo.conf
-
-ORIGIN="${ORIGIN:-origin}"
 
 # 2. 运行 update.sh
 echo "========================================="
