@@ -6,7 +6,7 @@
       "class": "DepictionStackView",
       "views": [
         {"title": "说明", "class": "DepictionHeaderView"},
-        {"class": "DepictionMarkdownView", "markdown": "iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。"},
+        {"class": "DepictionMarkdownView", "markdown": "iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。\nA full-featured terminal emulator for iOS with multi-tab, CJK support,\nhardware keyboard, pinch-to-zoom, and scrollback history."},
         {"class": "DepictionSeparatorView"},
         {"title": "信息", "class": "DepictionHeaderView"},
         {"title": "名称", "text": "DFTerminal", "class": "DepictionTableTextView"},

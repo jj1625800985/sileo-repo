@@ -6,7 +6,7 @@
       "class": "DepictionStackView",
       "views": [
         {"title": "说明", "class": "DepictionHeaderView"},
-        {"class": "DepictionMarkdownView", "markdown": "一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T"},
+        {"class": "DepictionMarkdownView", "markdown": "一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T\n* 一、纯代码开关组\n* 1. 动态组：昼夜开关、血瞳开关、液态开关，支持流畅的过渡动画与动态视觉效果；\n* 2. 静态组：日月开关、水滴开关、立体开关、温度开关、星月开关，覆盖多种精致静态样式；\n* 3. 液态开关：复刻 iOS 26 风格，并支持开启状态颜色自定义；\n* 4. 日月开关：支持太阳、云朵、月亮、星星颜色自定义，一个开关也能千变万化。\n* 二、素材开关组\n* 1. 素材开关：在指定路径放置 on.png/off.png 开关素材；\n* 2. 支持创建多套，在插件面板自由切换。\n* 三、温馨提示\n* 1. 早买早享受，后续免费更新；\n* 2. 后续增加新样式，新用户可能面临涨价。"},
         {"class": "DepictionSeparatorView"},
         {"title": "信息", "class": "DepictionHeaderView"},
         {"title": "名称", "text": "Switch Icon", "class": "DepictionTableTextView"},

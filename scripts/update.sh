@@ -355,6 +355,10 @@ function hashColor(str) {
         author = val($0)
     } else if ($0 ~ /^Description: /) {
         desc = val($0)
+    } else if ($0 ~ /^ / && desc != "") {
+        # 说明续行：去掉开头的空格，追加到 desc
+        line = substr($0, 2)
+        desc = desc "\n" line
     } else if ($0 ~ /^[^ ]/ && $0 !~ /^$/) {
         # 遇到新的顶层键值不匹配（如 MD5sum：），但 Package 已经收集了，可能是空行分隔未正确处理
         if (pkg != "" && $0 ~ /^[A-Za-z]+: / && $0 !~ /^ *(Package|Name|Version|Section|Author|Description|Filename|Size|MD5|SHA|Installed)/) {
