@@ -1,0 +1,7 @@
+{
+  "class": "DepictionStackView",
+  "views": [
+    {"class": "DepictionHeaderView", "title": "测试", "useBoldText": true},
+    {"class": "DepictionTextView", "text": "如果看到这段文字，说明 depiction 渲染正常。"}
+  ]
+}
