@@ -22,11 +22,11 @@ if [ "$DEB_COUNT" -eq 0 ]; then
     echo ""
     exit 1
 fi
-echo "[1/4] 检测到 $DEB_COUNT 个 .deb 包"
+echo "[1/5] 检测到 $DEB_COUNT 个 .deb 包"
 echo ""
 
 # 2. 运行 update.sh
-echo "[2/4] 更新仓库索引..."
+echo "[2/5] 更新仓库索引..."
 if [ -f "$ROOT_DIR/update.sh" ]; then
     bash "$ROOT_DIR/update.sh"
 else
@@ -35,8 +35,17 @@ else
 fi
 echo ""
 
-# 3. Git 提交
-echo "[3/4] Git 提交..."
+# 3. Git 安全目录豁免（防止 dubious ownership 报错）
+echo "[3/5] Git 安全目录配置..."
+if git config --global --add safe.directory "$ROOT_DIR" 2>/dev/null; then
+    echo "    [✓] Git 安全目录已配置"
+else
+    echo "    [!] Git 安全目录配置失败（可能已存在）"
+fi
+echo ""
+
+# 4. Git 提交
+echo "[4/5] Git 提交..."
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M")
 DEB_NAMES=$(ls debs/*.deb 2>/dev/null | xargs -n1 basename | tr '\n' ' ')
 git add -A
@@ -45,8 +54,8 @@ git commit -m "📦 update: $DEB_COUNT packages ($TIMESTAMP)
 $DEB_NAMES"
 echo ""
 
-# 4. Git 推送
-echo "[4/4] Git 推送到 GitHub..."
+# 5. Git 推送
+echo "[5/5] Git 推送到 GitHub..."
 if git push; then
     echo ""
     echo "========================================"
