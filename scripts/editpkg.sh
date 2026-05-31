@@ -255,13 +255,10 @@ if [ -n "$CHANGELOG" ]; then
     CHANGELOG_JSON="${CHANGELOG_JSON%\\n}"
 fi
 
-# 生成 info.json（参照 skypain 源格式）
+# 生成 info.json（参照 rootless.002599.xyz 源格式）
 {
 echo "{"
-echo '  "class": "DepictionTabView",'
 echo '  "minVersion": "0.1",'
-echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
-echo '  "tintColor": "#4A90D9",'
 echo '  "tabs": ['
 echo '    {'
 echo '      "tabname": "插件信息",'
@@ -301,13 +298,18 @@ echo '    {'
 echo '      "tabname": "更新日志",'
 echo '      "class": "DepictionStackView",'
 echo '      "views": ['
-echo '        {"title": "更新日志", "class": "DepictionHeaderView"},'
+echo '        {'
+echo '          "class": "DepictionLayerView",'
+echo '          "views": ['
+echo '            {"text": "更新日志", "class": "DepictionLabelView", "fontWeight": "bold", "fontSize": 16}'
+echo '          ]'
+echo '        },'
 echo '        {"class": "DepictionMarkdownView", "markdown": "'$CHANGELOG_JSON'"},'
-echo '        {"class": "DepictionSeparatorView"},'
-echo '        {"spacing": 20, "class": "DepictionSpacerView"}'
+echo '        {"class": "DepictionSeparatorView"}'
 echo '      ]'
 echo '    }'
-echo '  ]'
+echo '  ],'
+echo '  "class": "DepictionTabView"'
 echo '}'
 } > "$DEP_DIR/info.json"
 

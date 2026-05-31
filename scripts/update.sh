@@ -405,10 +405,7 @@ function generate() {
     eVers = jsonEscape(version)
 
     print "{" > jFile
-    print "  \"class\": \"DepictionTabView\"," > jFile
     print "  \"minVersion\": \"0.1\"," > jFile
-    printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
-    printf "  \"tintColor\": \"%s\",\n", tColor > jFile
     print "  \"tabs\": [" > jFile
     print "    {" > jFile
     print "      \"tabname\": \"插件信息\"," > jFile
@@ -461,13 +458,18 @@ function generate() {
     print "      \"tabname\": \"更新日志\"," > jFile
     print "      \"class\": \"DepictionStackView\"," > jFile
     print "      \"views\": [" > jFile
-    print "        {\"title\": \"更新日志\", \"class\": \"DepictionHeaderView\"}," > jFile
+    print "        {" > jFile
+    print "          \"class\": \"DepictionLayerView\"," > jFile
+    print "          \"views\": [" > jFile
+    print "            {\"text\": \"更新日志\", \"class\": \"DepictionLabelView\", \"fontWeight\": \"bold\", \"fontSize\": 16}" > jFile
+    print "          ]" > jFile
+    print "        }," > jFile
     printf "        {\"class\": \"DepictionMarkdownView\", \"markdown\": \"%s\"},\n", changelog > jFile
-    print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
-    print "        {\"spacing\": 20, \"class\": \"DepictionSpacerView\"}" > jFile
+    print "        {\"class\": \"DepictionSeparatorView\"}" > jFile
     print "      ]" > jFile
     print "    }" > jFile
-    print "  ]" > jFile
+    print "  ]," > jFile
+    print "  \"class\": \"DepictionTabView\"" > jFile
     print "}" > jFile
     close(jFile)
 
