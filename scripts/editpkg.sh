@@ -217,8 +217,12 @@ TEXT_JSON="${TEXT_JSON%\\n}"
 # 生成 info.json
 {
 echo "{"
-echo '  "class": "DepictionStackView",'
-echo '  "views": ['
+echo '  "class": "DepictionTabView",'
+echo '  "tabs": ['
+echo '    {'
+echo '      "tabname": "详情",'
+echo '      "class": "DepictionStackView",'
+echo '      "views": ['
 echo '        {"class": "DepictionHeaderView", "title": "'$NAME'", "useBoldText": true},'
 echo '        {"class": "DepictionSubheaderView", "title": "'$DESC'"},'
 echo '        {"class": "DepictionSpacerView", "spacing": 8},'
@@ -246,6 +250,8 @@ echo '        {"class": "DepictionTableTextView", "title": "版本", "text": "'$
 if [ -n "$AUTHOR" ]; then echo '        {"class": "DepictionTableTextView", "title": "作者", "text": "'$AUTHOR'"},'; fi
 echo '        {"class": "DepictionTableTextView", "title": "包名", "text": "'$PKG_ID'"}'
 echo '      ]'
+echo '    }'
+echo '  ]'
 echo '}'
 } > "$DEP_DIR/info.json"
 

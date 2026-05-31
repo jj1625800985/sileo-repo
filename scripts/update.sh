@@ -391,8 +391,12 @@ function generate() {
     eVers = jsonEscape(version)
 
     print "{" > jFile
-    print "  \"class\": \"DepictionStackView\"," > jFile
-    print "  \"views\": [" > jFile
+    print "  \"class\": \"DepictionTabView\"," > jFile
+    print "  \"tabs\": [" > jFile
+    print "    {" > jFile
+    print "      \"tabname\": \"详情\"," > jFile
+    print "      \"class\": \"DepictionStackView\"," > jFile
+    print "      \"views\": [" > jFile
     printf "        {\"class\": \"DepictionHeaderView\", \"title\": \"%s\", \"useBoldText\": true},\n", eName > jFile
     if (eSection != "") {
         printf "        {\"class\": \"DepictionSubheaderView\", \"title\": \"%s\"},\n", eSection > jFile
@@ -401,7 +405,7 @@ function generate() {
     }
     if (eDesc != "") {
         print "        {\"class\": \"DepictionHeaderView\", \"title\": \"说明\"}," > jFile
-        printf "        {\"class\": \"DepictionTextView\", \"text\": \"%s\"},\n", eDesc > jFile
+        printf "        {\"class\": \"DepictionMarkdownView\", \"text\": \"%s\"},\n", eDesc > jFile
         print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
         print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
     }
@@ -425,6 +429,8 @@ function generate() {
     }
     printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"包名\", \"text\": \"%s\"}\n", pkg > jFile
     print "      ]" > jFile
+    print "    }" > jFile
+    print "  ]" > jFile
     print "}" > jFile
     close(jFile)
 
