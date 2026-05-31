@@ -11,27 +11,29 @@ ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_URL="https://jj1625800985.github.io/sileo-repo"
 
 if [ -z "$1" ]; then
-    echo "用法: ./editpkg.sh <包ID 或 .deb文件>"
-    echo "  例: ./editpkg.sh com.Axs.stheno"
-    echo "  例: ./editpkg.sh debs/xxx.deb"
+    echo "可用插件:"
     echo ""
-    echo "已有包:"
-    if [ -d "$ROOT_DIR/depictions/" ]; then
-        ls "$ROOT_DIR/depictions/"
-    else
-        echo "  (无)"
-    fi
+    i=1
+    for f in "$ROOT_DIR/debs/"*.deb; do
+        if [ -f "$f" ]; then
+            name=$(basename "$f")
+            echo "  [$i] $name"
+            eval "FILE_$i=\$f"
+            i=$((i+1))
+        fi
+    done
     echo ""
-    echo "debs/ 目录:"
-    if ls "$ROOT_DIR/debs/"*.deb >/dev/null 2>&1; then
-        ls "$ROOT_DIR/debs/"*.deb 2>/dev/null
+    printf "选择编号 (1-%d): " $((i-1))
+    read sel
+    if [ "$sel" -ge 1 ] 2>/dev/null && [ "$sel" -le $((i-1)) ] 2>/dev/null; then
+        eval "INPUT=\"\$FILE_$sel\""
     else
-        echo "  (无)"
+        echo "无效选择"
+        exit 1
     fi
-    exit 1
+else
+    INPUT="$1"
 fi
-
-INPUT="$1"
 
 if [[ "$INPUT" == *.deb ]]; then
     if [ ! -f "$INPUT" ]; then
