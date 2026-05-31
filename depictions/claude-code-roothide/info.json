@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "Claude Code CLI for iOS 人工智能 在越狱iPhone 上本 地运行Claude Code终端执行claude-auth以开始认证 配置 终端执行 claude以开始使用 可以配置 DeepSeek模型API和第三方模型API"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "Claude Code CLI for iOS 人工智能 在越狱iPhone 上本 地运行Claude Code终端执行claude-auth以开始认证 配置 终端执行 claude以开始使用 可以配置 DeepSeek模型API和第三方模型API"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

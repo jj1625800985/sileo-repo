@@ -405,7 +405,7 @@ function generate() {
     }
     if (eDesc != "") {
         print "        {\"class\": \"DepictionHeaderView\", \"title\": \"说明\"}," > jFile
-        printf "        {\"class\": \"DepictionMarkdownView\", \"text\": \"%s\"},\n", eDesc > jFile
+        printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"描述\", \"text\": \"%s\"},\n", eDesc > jFile
         print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
         print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
     }

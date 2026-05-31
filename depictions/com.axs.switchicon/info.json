@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

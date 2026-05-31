@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

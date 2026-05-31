@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

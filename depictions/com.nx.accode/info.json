@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},

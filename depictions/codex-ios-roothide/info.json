@@ -10,7 +10,7 @@
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionMarkdownView", "text": "OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal"},
+        {"class": "DepictionTableTextView", "title": "描述", "text": "OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "信息"},
