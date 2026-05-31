@@ -1,8 +1,9 @@
 #!/bin/bash
 #===============================================================
 # 插件展示信息编辑工具
-# 用法: ./editpkg.sh <包ID>
+# 用法: ./editpkg.sh <包ID 或 .deb文件>
 # 示例: ./editpkg.sh com.Axs.stheno
+#       ./editpkg.sh debs/com.xxx.xxx.deb
 #===============================================================
 set -e
 
@@ -10,15 +11,57 @@ ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_URL="https://jj1625800985.github.io/sileo-repo"
 
 if [ -z "$1" ]; then
-    echo "❌ 用法: ./editpkg.sh <包ID>"
+    echo "❌ 用法: ./editpkg.sh <包ID 或 .deb文件>"
     echo "   示例: ./editpkg.sh com.Axs.stheno"
+    echo "       ./editpkg.sh debs/xxx.deb"
     echo ""
     echo "当前已有的包:"
     ls "$ROOT_DIR/depictions/" 2>/dev/null || echo "   (无)"
+    echo ""
+    echo "debs/ 目录下的包:"
+    for f in "$ROOT_DIR/debs/"*.deb 2>/dev/null; do
+        [ -f "$f" ] || continue
+        echo "   $(basename "$f")"
+    done 2>/dev/null || echo "   (无)"
     exit 1
 fi
 
-PKG_ID="$1"
+INPUT="$1"
+
+# 如果传的是 .deb 文件，自动提取包名并复制到 debs/
+if [[ "$INPUT" == *.deb ]]; then
+    if [ ! -f "$INPUT" ]; then
+        echo "❌ 文件不存在: $INPUT"
+        exit 1
+    fi
+    # 如果不在 debs/ 目录里，自动复制进去
+    if [[ "$INPUT" != "$DEBS_DIR/"* ]]; then
+        DEBS_DIR="$ROOT_DIR/debs"
+        cp "$INPUT" "$DEBS_DIR/"
+        echo "📋 已复制到 debs/"
+    fi
+    echo "📦 从 .deb 提取包名..."
+    PKG_ID=""
+    for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
+        EXTRACTED=$(ar p "$INPUT" "$ctrl" 2>/dev/null | tar --zstd -xO ./control 2>/dev/null || \
+                    ar p "$INPUT" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null || \
+                    ar p "$INPUT" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null || \
+                    ar p "$INPUT" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null)
+        if [ -n "$EXTRACTED" ]; then
+            PKG_ID=$(echo "$EXTRACTED" | grep -i "^Package:" | head -1 | sed 's/Package:\s*//I')
+            break
+        fi
+    done
+    if [ -z "$PKG_ID" ]; then
+        echo "❌ 无法解析 .deb 文件"
+        exit 1
+    fi
+    echo "   包名: $PKG_ID"
+    echo ""
+else
+    PKG_ID="$INPUT"
+fi
+
 DEP_DIR="$ROOT_DIR/depictions/$PKG_ID"
 SCREENSHOT_DIR="$DEP_DIR/screenshots"
 ICON_DIR="$ROOT_DIR/icon"
