@@ -1,7 +1,5 @@
 {
   "class": "DepictionStackView",
-  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png",
-  "tintColor": "#4A90D9",
   "views": [
         {"class": "DepictionHeaderView", "title": "Stheno激活码生成器", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "System"},

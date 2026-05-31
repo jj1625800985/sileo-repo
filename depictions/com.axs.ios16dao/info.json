@@ -1,7 +1,5 @@
 {
   "class": "DepictionStackView",
-  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.axs.ios16dao.png",
-  "tintColor": "#4A90D9",
   "views": [
         {"class": "DepictionHeaderView", "title": "ios16灵动岛", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "灵动岛"},

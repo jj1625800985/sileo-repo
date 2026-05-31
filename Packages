@@ -5,8 +5,8 @@ Maintainer: Axs
 Author: Axs
 Section: 灵动岛
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.altlist
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.ios16dao.png
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.ios16dao/info.json
+Icon: https://axs66.github.io/pro/icon/dynamicnotland.png
+SileoDepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-205
 Installed-Size: 664
@@ -34,7 +34,7 @@ Maintainer: Axs
 Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.switchicon.png
+Icon: https://axs66.github.io/pro/icon/switchicon.png
 Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-131
@@ -53,7 +53,7 @@ Maintainer: Axs
 Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.screenrecording.png
+Icon: https://axs66.github.io/pro/icon/screenrecording.png
 Sileodepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-35
@@ -97,7 +97,8 @@ Conflicts: com.anthropic.claude-code-beta
 Provides: claude-code
 Tag: purpose::console, role::developer
 Homepage: https://claude.ai
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/claude-code-roothide/info.json
+Depiction: https://github.com/anthropics/claude-code
+SileoDepiction: https://github.com/anthropics/claude-code
 Installed-Size: 142528
 Filename: ./debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
 Size: 27881552
@@ -144,7 +145,7 @@ Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
 Architecture: iphoneos-arm64e
 Version: 77.1.4.7
 Installed-Size: 1928
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
+Icon: https://axs66.github.io/repo/icon/stheno.png
 Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
@@ -164,7 +165,7 @@ Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
 Architecture: iphoneos-arm64e
 Version: 77.1.4.8
 Installed-Size: 2788
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
+Icon: https://axs66.github.io/pro/icon/stheno.png
 Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
@@ -203,6 +204,7 @@ Depends: mobilesubstrate
 Maintainer: lenglengyu <lenglengyu@126.com>
 Architecture: iphoneos-arm64
 Section: Tweaks
+Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
 Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
 Installed-Size: 152
@@ -223,6 +225,7 @@ Depends: mobilesubstrate
 Maintainer: lenglengyu <lenglengyu@126.com>
 Architecture: iphoneos-arm64e
 Section: Tweaks
+Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
 Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
 Installed-Size: 152
@@ -264,7 +267,7 @@ Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000)
 Architecture: iphoneos-arm64
 Version: 1.2.5
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.wkk.dynamicnotland.png
+Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
 Installed-Size: 348
 Filename: ./debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64.deb
 Size: 12352
@@ -282,7 +285,7 @@ Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000)
 Architecture: iphoneos-arm64e
 Version: 1.2.5
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.wkk.dynamicnotland.png
+Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
 Installed-Size: 348
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64e.deb
@@ -325,7 +328,8 @@ Description: Powerful terminal app for iOS
 Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Terminal Support
-Icon: https://jj1625800985.github.io/sileo-repo/icon/ws.hbang.newterm3.png
+Icon: https://img.chariz.cloud/icon/newterm-beta/icon@3x.png
+Depiction: https://chariz.com/get/newterm-beta
 Support: https://hashbang.productions/support/
 Tag: compatible_min::ios14.0
 Architecture: iphoneos-arm64e

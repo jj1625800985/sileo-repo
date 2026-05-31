@@ -1,7 +1,5 @@
 {
   "class": "DepictionStackView",
-  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png",
-  "tintColor": "#4A90D9",
   "views": [
         {"class": "DepictionHeaderView", "title": "AI-Config-GUI", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Utilities"},

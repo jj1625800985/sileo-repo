@@ -231,7 +231,8 @@ if [ "$GENERATED" = false ]; then
     echo "       提取 $EXTRACTED 个，缓存命中 $CACHED 个"
 fi
 
-# 后处理：确保每个包都有 SileoDepiction 和 Icon 字段
+# 后处理：只对缺失的包补充 SileoDepiction 和 Icon 字段
+# 已有的保留不动（如外部 depiction 链接），避免破坏原本正常的显示
 awk -v url="$REPO_URL" '
 /^Package: / {
     if (pkg != "") {
@@ -243,19 +244,9 @@ awk -v url="$REPO_URL" '
     print
     next
 }
-/^SileoDepiction: / {
-    # 无论原有值是什么，全部替换为我们的 depiction URL
-    needs_dep = 0
-    print "SileoDepiction: " url "/depictions/" pkg "/info.json"
-    next
-}
-/^Icon: / {
-    # 替换为我们的 icon URL
-    needs_icon = 0
-    print "Icon: " url "/icon/" pkg ".png"
-    next
-}
-/^Depiction: / { next }  # 移除旧 Depiction 字段，避免冲突
+/^SileoDepiction: / { needs_dep = 0; print; next }
+/^Icon: / { needs_icon = 0; print; next }
+/^Depiction: / { print; next }  # 保留 Depiction 字段
 /^$/ {
     if (pkg != "") {
         if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
@@ -401,8 +392,6 @@ function generate() {
 
     print "{" > jFile
     print "  \"class\": \"DepictionStackView\"," > jFile
-    printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
-    printf "  \"tintColor\": \"%s\",\n", tColor > jFile
     print "  \"views\": [" > jFile
     printf "        {\"class\": \"DepictionHeaderView\", \"title\": \"%s\", \"useBoldText\": true},\n", eName > jFile
     if (eSection != "") {

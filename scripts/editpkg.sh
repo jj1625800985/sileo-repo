@@ -218,8 +218,6 @@ TEXT_JSON="${TEXT_JSON%\\n}"
 {
 echo "{"
 echo '  "class": "DepictionStackView",'
-echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
-echo '  "tintColor": "#4A90D9",'
 echo '  "views": ['
 echo '        {"class": "DepictionHeaderView", "title": "'$NAME'", "useBoldText": true},'
 echo '        {"class": "DepictionSubheaderView", "title": "'$DESC'"},'

@@ -1,7 +1,5 @@
 {
   "class": "DepictionStackView",
-  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.wkk.dynamicnotland.png",
-  "tintColor": "#F5A623",
   "views": [
         {"class": "DepictionHeaderView", "title": "DynamicNotLand", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Tweaks"},

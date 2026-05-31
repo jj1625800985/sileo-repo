@@ -1,7 +1,5 @@
 {
   "class": "DepictionStackView",
-  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/codex-ios-roothide.png",
-  "tintColor": "#4A90D9",
   "views": [
         {"class": "DepictionHeaderView", "title": "codex-ios-roothide", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Development"},
