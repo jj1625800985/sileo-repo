@@ -24,7 +24,7 @@
       "class": "DepictionStackView",
       "views": [
         {"title": "更新日志", "class": "DepictionHeaderView"},
-        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionMarkdownView", "markdown": "## v3.1.0\n- 初始发布"},
         {"class": "DepictionSeparatorView"},
         {"spacing": 20, "class": "DepictionSpacerView"}
       ]

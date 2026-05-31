@@ -287,6 +287,9 @@ for deb in "$DEBS_DIR"/*.deb; do
         # 截图目录变更也要重新生成
         ss_dir="depictions/$pkg_id/screenshots"
         [ -d "$ss_dir" ] && [ "$(find "$ss_dir" -type f -newer "$dep_file" 2>/dev/null | head -1)" != "" ] && NEED_REGEN=true
+        # 更新日志变更也要重新生成
+        cl_file="depictions/$pkg_id/changelog.md"
+        [ -f "$cl_file" ] && [ "$cl_file" -nt "$dep_file" ] && NEED_REGEN=true
         if [ "$NEED_REGEN" = true ]; then
             rm -f "$dep_file"
             STALE_COUNT=$((STALE_COUNT + 1))
