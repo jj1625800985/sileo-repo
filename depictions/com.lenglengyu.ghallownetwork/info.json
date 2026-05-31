@@ -8,7 +8,7 @@
       "tabname": "详情",
       "class": "DepictionStackView",
       "views": [
-        {"class": "DepictionHeaderView", "title": "Allow Network-rootless", "useBoldText": true},
+        {"class": "DepictionHeaderView", "title": "Allow Network-roothide", "useBoldText": true},
         {"class": "DepictionSubheaderView", "title": "Tweaks"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},

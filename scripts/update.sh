@@ -140,9 +140,27 @@ rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst R
 # 1. 扫描 debs 生成 Packages
 echo "[1/5] Generating Packages..."
 
-# 先尝试 dpkg-scanpackages（标准 .deb）
+# 检测是否有同名多版本包
+MULTI_VERSION=false
+PKG_NAMES=""
+for deb in "$DEBS_DIR"/*.deb; do
+    [ -f "$deb" ] || continue
+    base=$(basename "$deb")
+    # 提取包名：去掉 _版本号_架构.deb 后缀
+    pkg_name="${base%_*}"
+    pkg_name="${pkg_name%_*}"
+    echo "$PKG_NAMES" | grep -q "$pkg_name" && MULTI_VERSION=true && break
+    PKG_NAMES="$PKG_NAMES $pkg_name"
+done
+
+if [ "$MULTI_VERSION" = true ]; then
+    echo "       (检测到多版本包，使用手动提取模式，确保所有版本保留)"
+fi
+
 GENERATED=false
-if command -v dpkg-scanpackages &>/dev/null; then
+
+# 先尝试 dpkg-scanpackages（标准 .deb，仅单版本时使用）
+if [ "$MULTI_VERSION" = false ] && command -v dpkg-scanpackages &>/dev/null; then
     if dpkg-scanpackages debs/ > Packages 2>/dev/null; then
         GENERATED=true
     fi
@@ -159,7 +177,7 @@ if [ "$GENERATED" = false ]; then
         for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
             CTRL_DATA=""
             case "$ctrl" in
-                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
                 *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
                 *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
                 *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
