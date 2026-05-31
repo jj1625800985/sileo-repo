@@ -1,5 +1,8 @@
 {
+  "class": "DepictionTabView",
   "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png",
+  "tintColor": "#4A90D9",
   "tabs": [
     {
       "tabname": "插件信息",
@@ -30,6 +33,5 @@
         {"class": "DepictionSeparatorView"}
       ]
     }
-  ],
-  "class": "DepictionTabView"
+  ]
 }

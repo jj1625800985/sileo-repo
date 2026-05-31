@@ -258,7 +258,10 @@ fi
 # 生成 info.json（参照 rootless.002599.xyz 源格式）
 {
 echo "{"
+echo '  "class": "DepictionTabView",'
 echo '  "minVersion": "0.1",'
+echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
+echo '  "tintColor": "#4A90D9",'
 echo '  "tabs": ['
 echo '    {'
 echo '      "tabname": "插件信息",'
@@ -308,8 +311,7 @@ echo '        {"class": "DepictionMarkdownView", "markdown": "'$CHANGELOG_JSON'"
 echo '        {"class": "DepictionSeparatorView"}'
 echo '      ]'
 echo '    }'
-echo '  ],'
-echo '  "class": "DepictionTabView"'
+echo '  ]'
 echo '}'
 } > "$DEP_DIR/info.json"
 

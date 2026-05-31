@@ -409,7 +409,10 @@ function generate() {
     eVers = jsonEscape(version)
 
     print "{" > jFile
+    print "  \"class\": \"DepictionTabView\"," > jFile
     print "  \"minVersion\": \"0.1\"," > jFile
+    printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
+    printf "  \"tintColor\": \"%s\",\n", tColor > jFile
     print "  \"tabs\": [" > jFile
     print "    {" > jFile
     print "      \"tabname\": \"插件信息\"," > jFile
@@ -472,8 +475,7 @@ function generate() {
     print "        {\"class\": \"DepictionSeparatorView\"}" > jFile
     print "      ]" > jFile
     print "    }" > jFile
-    print "  ]," > jFile
-    print "  \"class\": \"DepictionTabView\"" > jFile
+    print "  ]" > jFile
     print "}" > jFile
     close(jFile)
 
