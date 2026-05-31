@@ -123,6 +123,10 @@ $line"
 done
 TEXT="${TEXT:-$CURRENT_TEXT}"
 
+# 转义换行和引号，保证 JSON 格式正确
+TEXT_JSON=$(echo "$TEXT" | sed 's/\\/\\\\/g; s/"/\\"/g; s/$/\\n/' | tr -d '\n')
+TEXT_JSON="${TEXT_JSON%\\n}"  # 去掉末尾多余的 \n
+
 # 生成 info.json
 {
 echo "{"
@@ -140,7 +144,7 @@ echo '        {"class": "DepictionSubheaderView", "title": "'$DESC'"},'
 echo '        {"class": "DepictionSpacerView", "spacing": 8},'
 echo '        {"class": "DepictionSeparatorView"},'
 echo '        {"class": "DepictionHeaderView", "title": "说明"},'
-echo '        {"class": "DepictionTextView", "text": "'$TEXT'"},'
+echo '        {"class": "DepictionTextView", "text": "'$TEXT_JSON'"},'
 echo '        {"class": "DepictionSpacerView", "spacing": 8},'
 echo '        {"class": "DepictionSeparatorView"},'
 echo '        {"class": "DepictionHeaderView", "title": "截图"},'
