@@ -48,6 +48,7 @@ echo ""
 echo "[4/5] Git 提交..."
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M")
 DEB_NAMES=$(ls debs/*.deb 2>/dev/null | xargs -n1 basename | tr '\n' ' ')
+export TMPDIR=/var/tmp
 git add -A
 git commit -m "📦 update: $DEB_COUNT packages ($TIMESTAMP)
 
