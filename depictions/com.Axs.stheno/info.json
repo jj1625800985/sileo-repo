@@ -19,7 +19,8 @@
         {"class": "DepictionHeaderView", "title": "截图"},
         {
           "class": "DepictionScreenshotsView",
-          "screenshots": []
+          "screenshots": [
+          ]
         }
       ]
     }
