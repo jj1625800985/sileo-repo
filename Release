@@ -1,0 +1,33 @@
+Origin: jj1625800985
+Label: jj1625800985 Repo
+Suite: stable
+Version: 1.0
+Codename: ios
+Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
+Components: main
+Description: jj1625800985's Sileo package repository
+Date: Sun, 31 May 2026 20:23:24 +0800
+
+MD5Sum:
+ 77f0d7b2c3257f53b2564b1d91f83ae0 655 Packages
+ 7a71b803d253fea124eed9bf45d2473a 525 Packages.bz2
+ 02d1f114e5b502d634ff63fe7255edf3 476 Packages.gz
+ 055bc0bd6aec56747e6e08f3b92739e1 520 Packages.xz
+ 2f718b046ec429f84b11e28db252fc50 474 Packages.lzma
+ 5d4b3bac658461f0234e0286be5d89eb 473 Packages.zst
+
+SHA1:
+ 3a909f202f90e9ce22ba6dea401ef3eb46109a37 655 Packages
+ 97f560c1f7abaa89b27984c5981881c1cf766efe 525 Packages.bz2
+ 73a45e0203d536af04b2ce4c1f8d26d3d066bca5 476 Packages.gz
+ 29ec0434c2c6ea86b93548a1d0224375195cb3be 520 Packages.xz
+ e6084f1ff7c1ab74f45a86a1b2f73482faafe393 474 Packages.lzma
+ ff17a3631019a2374ad30f1be645388cc92b90ed 473 Packages.zst
+
+SHA256:
+ bb1c742c6f7356bdb2340d7b639c677569f13da8b919aa2418517de961826bff 655 Packages
+ 7635d339ab474770128efc00f486c25b466679dc80115afc38fa6410915c2a68 525 Packages.bz2
+ 3a6194e12bf5e144020825f5cee491408ce926579f8d1bf0e09128c3b3f5c064 476 Packages.gz
+ a7b3762c5db8ef89db0b4a8410356f6dca296ef56bbe7b90d473f84a6c231318 520 Packages.xz
+ e069d6076e53c64e5880adfc1dc37f1072c4bbb9b3d280e4482cc8cc22ef3d70 474 Packages.lzma
+ b6326854a6c71916c582d9572e274aaaa9c94d48a0f3cfcf82701de25f28309a 473 Packages.zst

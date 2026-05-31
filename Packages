@@ -1,0 +1,19 @@
+Package: com.Axs.stheno
+Name: Stheno
+Description: Medusa,Jump Whenever。
+Maintainer: Crassna
+Author: Crassna
+Section: 分屏插件
+Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
+Architecture: iphoneos-arm64e
+Version: 77.1.4.8
+Installed-Size: 2788
+Icon: https://axs66.github.io/pro/icon/stheno.png
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
+Pre-Depends: rootless-compat(>= 0.9)
+Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
+Size: 7133224
+MD5sum: fe9916c5b407860eca12cff4d874c556
+SHA1: 9564ea7a8c027ff80b81aff86b3cb06f8870c13c
+SHA256: cc5d5b2993391eebdd7ba5554018a8e1eddc7f2ddef7fb3cad8c0ae57ff328dd
+
