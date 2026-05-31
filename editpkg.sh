@@ -47,21 +47,17 @@ if [[ "$INPUT" == *.deb ]]; then
     echo "读取包名..."
     PKG_ID=""
     for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
-        if ar p "$INPUT" "$ctrl" >/tmp/pkgctl 2>/dev/null; then
-            EXTRACTED=""
-            if tar --zstd -xO ./control </tmp/pkgctl >/dev/null 2>&1; then
-                EXTRACTED=$(tar --zstd -xO ./control </tmp/pkgctl 2>/dev/null)
-            elif tar xzO ./control </tmp/pkgctl >/dev/null 2>&1; then
-                EXTRACTED=$(tar xzO ./control </tmp/pkgctl 2>/dev/null)
-            elif tar xJO ./control </tmp/pkgctl >/dev/null 2>&1; then
-                EXTRACTED=$(tar xJO ./control </tmp/pkgctl 2>/dev/null)
-            elif tar xO ./control </tmp/pkgctl >/dev/null 2>&1; then
-                EXTRACTED=$(tar xO ./control </tmp/pkgctl 2>/dev/null)
-            fi
-            if [ -n "$EXTRACTED" ]; then
-                PKG_ID=$(echo "$EXTRACTED" | grep "^Package:" | sed 's/Package: *//')
-                break
-            fi
+        ar p "$INPUT" "$ctrl" >/tmp/pkgctl 2>/dev/null || continue
+        EXTRACTED=""
+        case "$ctrl" in
+            *.zst) EXTRACTED=$(zstd -d < /tmp/pkgctl 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+            *.gz)  EXTRACTED=$(tar xzO ./control </tmp/pkgctl 2>/dev/null) ;;
+            *.xz)  EXTRACTED=$(tar xJO ./control </tmp/pkgctl 2>/dev/null) ;;
+            *)     EXTRACTED=$(tar xO ./control </tmp/pkgctl 2>/dev/null) ;;
+        esac
+        if [ -n "$EXTRACTED" ]; then
+            PKG_ID=$(echo "$EXTRACTED" | grep "^Package:" | sed 's/Package: *//')
+            break
         fi
     done
     rm -f /tmp/pkgctl

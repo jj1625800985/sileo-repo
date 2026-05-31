@@ -41,7 +41,7 @@ if [ "$GENERATED" = false ]; then
         for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
             CTRL_DATA=""
             case "$ctrl" in
-                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar --zstd -xO ./control 2>/dev/null) ;;
+                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
                 *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
                 *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
                 *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
