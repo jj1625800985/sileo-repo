@@ -1,0 +1,96 @@
+{
+  "minVersion": "16.0",
+  "class": "DepictionTabView",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/myicon.png",
+  "tintColor": "#4A90D9",
+  "tabs": [
+    {
+      "tabname": "详情",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionHeaderView",
+          "title": "Stheno",
+          "useBoldText": true
+        },
+        {
+          "class": "DepictionSubheaderView",
+          "title": "分屏插件 | Medusa, Jump Whenever"
+        },
+        {
+          "class": "DepictionSpacerView",
+          "spacing": 8
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "版本",
+          "text": "77.1.4.8"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "作者",
+          "text": "Crassna"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "架构",
+          "text": "iphoneos-arm64e"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "依赖",
+          "text": "Orion Runtime, iOS 16.1+"
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "说明"
+        },
+        {
+          "class": "DepictionTextView",
+          "text": "Medusa 分屏插件，支持 Jump Whenever 功能。\n\n基于 Rootless 环境，需要 ElleKit 或 Orion 运行时支持。"
+        },
+        {
+          "class": "DepictionSpacerView",
+          "spacing": 8
+        },
+        {
+          "class": "DepictionSeparatorView"
+        },
+        {
+          "class": "DepictionHeaderView",
+          "title": "截图"
+        },
+        {
+          "class": "DepictionScreenshotsView",
+          "screenshots": [
+            {
+              "url": "https://jj1625800985.github.io/sileo-repo/depictions/com.sxllm.stheno/screenshots/screenshot1.png",
+              "accessibilityText": "Stheno 截图"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionHeaderView",
+          "title": "更新日志"
+        },
+        {
+          "class": "DepictionTableTextView",
+          "title": "77.1.4.8",
+          "text": "最新版本"
+        }
+      ]
+    }
+  ]
+}

@@ -52,7 +52,13 @@ if [ "$GENERATED" = false ]; then
                 MD5=$(md5sum "$deb" | cut -d' ' -f1)
                 SHA1=$(sha1sum "$deb" | cut -d' ' -f1)
                 SHA256=$(sha256sum "$deb" | cut -d' ' -f1)
-                echo "$CTRL_DATA"
+                # 提取包ID用于生成本地 URLs
+                PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
+                REPO_URL="https://jj1625800985.github.io/sileo-repo"
+                # 重写 Sileodepiction 和 Icon 指向本地仓库
+                echo "$CTRL_DATA" | sed \
+                    -e "s|^Sileodepiction:.*|Sileodepiction: $REPO_URL/depictions/$PKG_ID/info.json|" \
+                    -e "s|^Icon:.*|Icon: $REPO_URL/icon/$PKG_ID.png|"
                 echo "Filename: ./debs/$DEBFILE"
                 echo "Size: $SIZE"
                 echo "MD5sum: $MD5"

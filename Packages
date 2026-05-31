@@ -8,8 +8,8 @@ Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
 Architecture: iphoneos-arm64e
 Version: 77.1.4.8
 Installed-Size: 2788
-Icon: https://axs66.github.io/pro/icon/stheno.png
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
+Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
 Size: 7133224
