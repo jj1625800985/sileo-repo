@@ -17,6 +17,16 @@
         {"title": "包名", "text": "codex-ios-roothide", "class": "DepictionTableTextView"},
         {"spacing": 20, "class": "DepictionSpacerView"}
       ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {"title": "更新日志", "class": "DepictionHeaderView"},
+        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionSeparatorView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
+      ]
     }
   ]
 }
