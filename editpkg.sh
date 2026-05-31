@@ -77,21 +77,28 @@ if [ ! -d "$DEP_DIR" ]; then
     mkdir -p "$SCREENSHOT_DIR"
 fi
 
+# 显示当前信息
 echo ""
-echo "==== 填写插件信息 ===="
-echo "直接回车 = 保持不变 | 输入 . 结束"
-echo ""
-
+echo "==== 当前插件信息 ===="
 if [ -f "$DEP_DIR/info.json" ]; then
     CURRENT_NAME=$(grep '"title"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\(.*\)",/\1/')
     CURRENT_DESC=$(grep '"subheader"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\(.*\)"/\1/')
     CURRENT_TEXT=$(grep -A5 '"DepictionTextView"' "$DEP_DIR/info.json" | grep '"text"' | head -1 | sed 's/.*"text": "\(.*\)"/\1/' | sed 's/\\n/\
 /g')
+    echo "  名称: $CURRENT_NAME"
+    echo "  简介: $CURRENT_DESC"
+    echo "  说明: $CURRENT_TEXT"
 else
     CURRENT_NAME=""
     CURRENT_DESC=""
     CURRENT_TEXT=""
+    echo "  (暂无信息，请填写)"
 fi
+echo "  图标: $(test -f "$ICON_DIR/$PKG_ID.png" && echo '有' || echo '无')"
+echo "  截图: $(ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg 2>/dev/null | wc -l) 张"
+echo ""
+
+echo "==== 填写插件信息 ===="
 
 echo "▌ 第1步：插件名称（显示在 Sileo 列表里的名字）"
 read -p "  名称 [$CURRENT_NAME]: " NAME
