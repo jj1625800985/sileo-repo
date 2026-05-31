@@ -8,6 +8,13 @@ set -e
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$ROOT_DIR"
 
+# 从 repo.conf 加载 REPO_URL
+REPO_CONFIG="$ROOT_DIR/repo.conf"
+REPO_URL="https://jj1625800985.github.io/sileo-repo"
+if [ -f "$REPO_CONFIG" ]; then
+    source "$REPO_CONFIG"
+fi
+
 echo ""
 echo "========================================"
 echo " 🚀 sxllm Repo - 一键部署"
@@ -63,7 +70,7 @@ if git push; then
     echo " ✅ 部署完成！"
     echo "========================================"
     echo ""
-    echo "   源地址: https://jj1625800985.github.io/sileo-repo/"
+    echo "   源地址: $REPO_URL/"
     echo "   等待 GitHub Pages 更新 (约1-2分钟)"
     echo ""
 else

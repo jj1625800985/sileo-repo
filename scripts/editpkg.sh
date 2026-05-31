@@ -8,7 +8,14 @@
 set -e
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR"
+
+# 从 repo.conf 加载 REPO_URL
+REPO_CONFIG="$ROOT_DIR/repo.conf"
 REPO_URL="https://jj1625800985.github.io/sileo-repo"
+if [ -f "$REPO_CONFIG" ]; then
+    source "$REPO_CONFIG"
+fi
 
 if [ -z "$1" ]; then
     echo "可用插件:"
@@ -205,7 +212,7 @@ TEXT_JSON="${TEXT_JSON%\\n}"
 # 生成 info.json
 {
 echo "{"
-echo '  "minVersion": "16.0",'
+echo '  "minVersion": "14.0",'
 echo '  "class": "DepictionTabView",'
 echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
 echo '  "tintColor": "#4A90D9",'
