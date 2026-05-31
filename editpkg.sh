@@ -78,7 +78,9 @@ if [ ! -d "$DEP_DIR" ]; then
 fi
 
 echo ""
-echo "==== 填写插件信息 (直接回车保持不变) ===="
+echo "==== 填写插件信息 ===="
+echo "直接回车 = 保持不变 | 输入 . 结束"
+echo ""
 
 if [ -f "$DEP_DIR/info.json" ]; then
     CURRENT_NAME=$(grep '"title"' "$DEP_DIR/info.json" | head -1 | sed 's/.*"title": "\(.*\)",/\1/')
@@ -91,18 +93,21 @@ else
     CURRENT_TEXT=""
 fi
 
-read -p "插件名称 [$CURRENT_NAME]: " NAME
+echo "▌ 第1步：插件名称（显示在 Sileo 列表里的名字）"
+read -p "  名称 [$CURRENT_NAME]: " NAME
 NAME="${NAME:-$CURRENT_NAME}"
 [ -z "$NAME" ] && echo "插件名不能为空" && exit 1
 
-read -p "插件简介 [$CURRENT_DESC]: " DESC
+echo "▌ 第2步：插件简介（一行概括，显示在名称下方）"
+read -p "  简介 [$CURRENT_DESC]: " DESC
 DESC="${DESC:-$CURRENT_DESC}"
 
-echo "详细说明 (输入 . 结束):"
+echo "▌ 第3步：详细说明（点进去看到的描述，多行，输 . 结束）"
 if [ -n "$CURRENT_TEXT" ]; then
-    echo "当前:"
-    echo "$CURRENT_TEXT"
+    echo "  当前内容:"
+    echo "  $CURRENT_TEXT" | sed 's/^/    /'
 fi
+echo "  (输入内容，回车换行，单独输 . 结束)"
 TEXT=""
 while IFS= read -r line; do
     [ "$line" = "." ] && break
@@ -155,18 +160,18 @@ echo "信息已保存: $DEP_DIR/info.json"
 echo ""
 echo "==== 图标 ===="
 if [ -f "$ICON_DIR/$PKG_ID.png" ]; then
-    echo "已有图标"
-    read -p "替换? (y/N): " REPLACE_ICON
+    echo "已有图标，当前路径: icon/$PKG_ID.png"
+    read -p "是否替换? (y/N): " REPLACE_ICON
     if [ "$REPLACE_ICON" = "y" ] || [ "$REPLACE_ICON" = "Y" ]; then
-        read -p "图标路径: " ICON_PATH
+        read -p "新图标路径（拖拽图片到终端）: " ICON_PATH
         if [ -f "$ICON_PATH" ]; then
             cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png"
             echo "图标已更新"
         fi
     fi
 else
-    echo "还没有图标"
-    read -p "图标路径 (回车跳过): " ICON_PATH
+    echo "还没有图标（在 Sileo 列表里显示的小图）"
+    read -p "图标路径（拖拽图片到终端，回车跳过）: " ICON_PATH
     if [ -n "$ICON_PATH" ] && [ -f "$ICON_PATH" ]; then
         cp "$ICON_PATH" "$ICON_DIR/$PKG_ID.png"
         echo "图标已添加"
@@ -174,5 +179,11 @@ else
 fi
 
 echo ""
-echo "截图放: depictions/$PKG_ID/screenshots/"
-echo "完事后运行: ./deploy.sh"
+echo "==== 截图 ===="
+echo "截图文件放到下面目录就行（支持 png/jpg）:"
+echo "  depictions/$PKG_ID/screenshots/"
+echo "放好后重新运行本脚本，自动识别截图"
+
+echo ""
+echo "==== 部署 ===="
+echo "现在运行 ./deploy.sh 推送到 GitHub 就生效了"
