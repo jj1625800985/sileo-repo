@@ -6,7 +6,7 @@ Author: Axs
 Section: 灵动岛
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.altlist
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.ios16dao.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.ios16dao/info.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-205
 Installed-Size: 664
@@ -35,7 +35,7 @@ Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.switchicon.png
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.switchicon/info.json
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-131
 Installed-Size: 836
@@ -44,6 +44,7 @@ Size: 122528
 MD5sum: ab68e821f2630db3ae297f49732e978a
 SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
 SHA256: 35de138df50dae2c4c160bfbd63bd0189d31d2cda2ca8f14836cca8962f53dc4
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.switchicon/info.json
 
 Package: com.axs.screenrecording
 Name: 全局水印&套壳『截屏.录屏』
@@ -53,7 +54,7 @@ Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.axs.screenrecording.png
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.screenrecording/info.json
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-35
 Installed-Size: 508
@@ -62,6 +63,7 @@ Size: 46396
 MD5sum: 8db00ea2cae55545d67cc9a45e255050
 SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
 SHA256: 0e648846b7e8f40413637027daa5d9f1f0e5e627cd3e7711d909c0ef9a33796b
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.axs.screenrecording/info.json
 
 Package: ai-config-gui
 Name: AI-Config-GUI
@@ -79,6 +81,8 @@ Size: 176004
 MD5sum: 59c56879654bf724789a211b415dca72
 SHA1: 628374ca79ee3f191ffa9218f15252cd071ed935
 SHA256: e28529fc9dff936c45ccf5851b11a6ae70a7633fe7bceace7452dfdc2d8f4adc
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
 
 Package: claude-code-roothide
 Name: Claude Code Roothide
@@ -93,14 +97,14 @@ Conflicts: com.anthropic.claude-code-beta
 Provides: claude-code
 Tag: purpose::console, role::developer
 Homepage: https://claude.ai
-Depiction: https://github.com/anthropics/claude-code
-SileoDepiction: https://github.com/anthropics/claude-code
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/claude-code-roothide/info.json
 Installed-Size: 142528
 Filename: ./debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
 Size: 27881552
 MD5sum: 952f7a498a951d49b843f6b95bc3fed5
 SHA1: 7c72b4a210c9cf5d2540140ea117d94767255a09
 SHA256: adfffe9989bdda67476d66b5880d8b937564b0c174cbdeb2553272ec4fd660b1
+Icon: https://jj1625800985.github.io/sileo-repo/icon/claude-code-roothide.png
 
 Package: codex-ios-roothide
 Version: 0.134.0-2
@@ -127,6 +131,8 @@ Size: 22390000
 MD5sum: 9bf1d7c4101610d9379a3455adbe1d35
 SHA1: c81f64e2515a2de5908af71a7b962a77dd669d9e
 SHA256: d5040a8d916440a4c4a3cd56d678fa3ec3380370ddb5f9640793a42fde361ba1
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/codex-ios-roothide/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/codex-ios-roothide.png
 
 Package: com.Axs.stheno
 Name: Stheno奥利奥分屏
@@ -139,13 +145,14 @@ Architecture: iphoneos-arm64e
 Version: 77.1.4.7
 Installed-Size: 1928
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
+Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
 Size: 522250
 MD5sum: da397e79152000d9ff5b377853119662
 SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
 SHA256: 8e5689997b0427e00a8c8c99963bd849cd6dafd09a8a52c2adccad9ee2d6682d
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
 
 Package: com.Axs.stheno
 Name: Stheno
@@ -158,13 +165,14 @@ Architecture: iphoneos-arm64e
 Version: 77.1.4.8
 Installed-Size: 2788
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
 Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
 Size: 1470186
 MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
 SHA1: d591168b0604ffd8152c154377e18f08c633d55a
 SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.Axs.stheno/info.json
 
 Package: com.dafei.terminal
 Name: DFTerminal
@@ -184,6 +192,8 @@ Size: 212730
 MD5sum: a4aec55c980d1b3fa1ca638e4dac17ab
 SHA1: 03b3e0dbe39979fdc70fa660bcfc74fde15a6162
 SHA256: 4e8383d3e514aa4311b6a612f286f854953eb98f399a1375635908b7d84cda66
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.dafei.terminal/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png
 
 Package: com.lenglengyu.ghallownetwork
 Name: Allow Network-rootless
@@ -193,8 +203,7 @@ Depends: mobilesubstrate
 Maintainer: lenglengyu <lenglengyu@126.com>
 Architecture: iphoneos-arm64
 Section: Tweaks
-Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.lenglengyu.ghallownetwork/info.json
+Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
 Installed-Size: 152
 icon: https://huayuarc.github.io/icon/huayuarc.jpg
@@ -203,6 +212,8 @@ Size: 8092
 MD5sum: 2eb3a3ca4cea59f40e493f0cf2373857
 SHA1: d7874bae32b2f21119d71e6887cb9be4b99cd066
 SHA256: 879741392cdff40f85ab9a3e7f824ee1d849f6ab703ebf3db602e2fe51d2f708
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.lenglengyu.ghallownetwork/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.lenglengyu.ghallownetwork.png
 
 Package: com.lenglengyu.ghallownetwork
 Name: Allow Network-roothide
@@ -212,8 +223,7 @@ Depends: mobilesubstrate
 Maintainer: lenglengyu <lenglengyu@126.com>
 Architecture: iphoneos-arm64e
 Section: Tweaks
-Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.lenglengyu.ghallownetwork/info.json
+Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
 Installed-Size: 152
 Pre-Depends: rootless-compat(>= 0.9)
@@ -223,6 +233,8 @@ Size: 7992
 MD5sum: 71e98cb5b37108c39726eae5a46da22f
 SHA1: 7bad07d0dc96b6a1d29faae791ac16d2291c0a55
 SHA256: 84c2a319c0c640ead0c85bfb35c954c33886e2e5dcf2f6906c8a3737b116b50d
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.lenglengyu.ghallownetwork/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.lenglengyu.ghallownetwork.png
 
 Package: com.nx.accode
 Name: Stheno激活码生成器
@@ -240,6 +252,8 @@ Size: 19444
 MD5sum: f52cafa3cd8779082a9c03ff08f59bf5
 SHA1: 2457c0ff1678660cea7e3f90ec167cc57480d074
 SHA256: 1176f4a975681615b08adb57084c30541e498754b856d78efb7a66e34ecdb575
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.nx.accode/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png
 
 Package: com.wkk.dynamicnotland
 Name: DynamicNotLand
@@ -257,6 +271,7 @@ Size: 12352
 MD5sum: c5a76ed03c5e5e0ae1181095b0bf2820
 SHA1: c5af6b6c833fc35e6445ba3421ce6713e31992a1
 SHA256: 09de4ca3987b328c53f199ee7c06e6b0ce9df0228d768a413ab0ca47474f6faf
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.dynamicnotland/info.json
 
 Package: com.wkk.dynamicnotland
 Name: DynamicNotLand
@@ -275,6 +290,7 @@ Size: 16646
 MD5sum: dbf3a5e99293a14d71dfdc8599436f8e
 SHA1: 6902dddfc9ffdfd7365965ab0d727a777e2e5871
 SHA256: 27fcca96dd0d6a1328832bfdb51df2459061cfdcf8b6a617ac42142e3aa75775
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.dynamicnotland/info.json
 
 Package: nodejs22-ios-roothide
 Version: 22.12.0-27
@@ -296,6 +312,8 @@ Size: 23726452
 MD5sum: 3a5485257ab93617d3e7777a08448692
 SHA1: e1b2a8d5aa9430821183af0f1be889460ee4eccd
 SHA256: df7463ee7081a173225586c18db054fd3f243e04b08a937ca58054d23140947b
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/nodejs22-ios-roothide/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/nodejs22-ios-roothide.png
 
 Package: ws.hbang.newterm3
 Name: NewTerm 3 Beta
@@ -308,7 +326,6 @@ Maintainer: HASHBANG Productions <support@hbang.ws>
 Author: HASHBANG Productions <support@hbang.ws>
 Section: Terminal Support
 Icon: https://jj1625800985.github.io/sileo-repo/icon/ws.hbang.newterm3.png
-Depiction: https://chariz.com/get/newterm-beta
 Support: https://hashbang.productions/support/
 Tag: compatible_min::ios14.0
 Architecture: iphoneos-arm64e
@@ -319,4 +336,5 @@ Size: 4738394
 MD5sum: fcdb774634eb41e936b949ab70bebe47
 SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec
 SHA256: a39c394d57b3ef1b7bfb575b5d990071e3c9de7a4c09bfd4fc0dda9993a04b1f
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ws.hbang.newterm3/info.json
 

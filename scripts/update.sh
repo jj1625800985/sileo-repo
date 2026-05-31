@@ -168,44 +168,110 @@ fi
 
 # 如果 dpkg-scanpackages 失败，手动提取（支持 zstd 格式的 .deb）
 if [ "$GENERATED" = false ]; then
-    echo "       (dpkg-scanpackages 不兼容，手动提取控制信息...)"
+    CACHE_DIR="$ROOT_DIR/.cache"
+    mkdir -p "$CACHE_DIR"
+    EXTRACTED=0
+    CACHED=0
+
+    echo "       (提取 deb 控制信息...)"
     > Packages
     for deb in "$DEBS_DIR"/*.deb; do
         [ -f "$deb" ] || continue
-        # 探测 control 压缩格式
-        set +e
-        for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
+        deb_name=$(basename "$deb")
+        cache_file="$CACHE_DIR/${deb_name}.ctrl"
+
+        # 判断是否需要重新提取
+        NEED_EXTRACT=false
+        if [ ! -f "$cache_file" ]; then
+            NEED_EXTRACT=true
+        else
+            # deb 比缓存新 → 需要重提
+            [ "$deb" -nt "$cache_file" ] && NEED_EXTRACT=true
+        fi
+
+        if [ "$NEED_EXTRACT" = true ]; then
+            # 从 deb 中提取 control
+            set +e
             CTRL_DATA=""
-            case "$ctrl" in
-                *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
-                *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
-                *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
-                *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
-            esac
-            if [ -n "$CTRL_DATA" ]; then
-                DEBFILE=$(basename "$deb")
-                SIZE=$(wc -c < "$deb")
-                MD5=$(md5sum "$deb" | cut -d' ' -f1)
-                SHA1=$(sha1sum "$deb" | cut -d' ' -f1)
-                SHA256=$(sha256sum "$deb" | cut -d' ' -f1)
-                # 提取包ID用于生成本地 URLs
-                PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
-                # 重写 Sileodepiction 和 Icon 指向本地仓库
-                echo "$CTRL_DATA" | sed \
-                    -e "s|^Sileodepiction:.*|Sileodepiction: $REPO_URL/depictions/$PKG_ID/info.json|" \
-                    -e "s|^Icon:.*|Icon: $REPO_URL/icon/$PKG_ID.png|"
-                echo "Filename: ./debs/$DEBFILE"
-                echo "Size: $SIZE"
-                echo "MD5sum: $MD5"
-                echo "SHA1: $SHA1"
-                echo "SHA256: $SHA256"
-                echo ""
-                break
-            fi
-        done
-        set -e
+            for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
+                case "$ctrl" in
+                    *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+                    *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
+                    *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
+                    *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+                esac
+                if [ -n "$CTRL_DATA" ]; then
+                    echo "$CTRL_DATA" > "$cache_file"
+                    break
+                fi
+            done
+            set -e
+            EXTRACTED=$((EXTRACTED + 1))
+        else
+            CTRL_DATA=$(cat "$cache_file")
+            CACHED=$((CACHED + 1))
+        fi
+
+        # 写入 Packages（无论从缓存还是新提取）
+        if [ -n "$CTRL_DATA" ]; then
+            SIZE=$(wc -c < "$deb")
+            MD5=$(md5sum "$deb" | cut -d' ' -f1)
+            SHA1=$(sha1sum "$deb" | cut -d' ' -f1)
+            SHA256=$(sha256sum "$deb" | cut -d' ' -f1)
+            PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
+            echo "$CTRL_DATA"
+            echo "Filename: ./debs/$deb_name"
+            echo "Size: $SIZE"
+            echo "MD5sum: $MD5"
+            echo "SHA1: $SHA1"
+            echo "SHA256: $SHA256"
+            echo ""
+        fi
     done >> Packages
+    echo "       提取 $EXTRACTED 个，缓存命中 $CACHED 个"
 fi
+
+# 后处理：确保每个包都有 SileoDepiction 和 Icon 字段
+awk -v url="$REPO_URL" '
+/^Package: / {
+    if (pkg != "") {
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
+    }
+    pkg = substr($0, index($0, ": ") + 2)
+    needs_dep = 1; needs_icon = 1
+    print
+    next
+}
+/^SileoDepiction: / {
+    # 无论原有值是什么，全部替换为我们的 depiction URL
+    needs_dep = 0
+    print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+    next
+}
+/^Icon: / {
+    # 替换为我们的 icon URL
+    needs_icon = 0
+    print "Icon: " url "/icon/" pkg ".png"
+    next
+}
+/^Depiction: / { next }  # 移除旧 Depiction 字段，避免冲突
+/^$/ {
+    if (pkg != "") {
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
+        pkg = ""; needs_dep = 0; needs_icon = 0
+    }
+    print; next
+}
+{ print }
+END {
+    if (pkg != "") {
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
+    }
+}
+' Packages > Packages.tmp && mv Packages.tmp Packages
 
 echo "       Packages generated."
 

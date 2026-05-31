@@ -63,6 +63,8 @@ if [[ "$INPUT" == *.deb ]]; then
             *)     EXTRACTED=$(tar xO ./control </tmp/pkgctl 2>/dev/null) ;;
         esac
         if [ -n "$EXTRACTED" ]; then
+            VERSION=$(echo "$EXTRACTED" | grep "^Version:" | sed 's/Version: *//')
+            AUTHOR=$(echo "$EXTRACTED" | grep "^Author:" | sed 's/Author: *//')
             PKG_ID=$(echo "$EXTRACTED" | grep "^Package:" | sed 's/Package: *//')
             break
         fi
@@ -75,6 +77,9 @@ if [[ "$INPUT" == *.deb ]]; then
     echo "包名: $PKG_ID"
 else
     PKG_ID="$INPUT"
+    # 尝试从 Packages 读取版本
+    VERSION=$(grep -A5 "^Package: $PKG_ID$" "$ROOT_DIR/Packages" 2>/dev/null | grep "^Version:" | head -1 | sed 's/Version: *//' || echo "")
+    AUTHOR=$(grep -A5 "^Package: $PKG_ID$" "$ROOT_DIR/Packages" 2>/dev/null | grep "^Author:" | head -1 | sed 's/Author: *//' || echo "")
 fi
 
 DEP_DIR="$ROOT_DIR/depictions/$PKG_ID"
@@ -228,6 +233,7 @@ echo '        {"class": "DepictionHeaderView", "title": "说明"},'
 echo '        {"class": "DepictionTextView", "text": "'$TEXT_JSON'"},'
 echo '        {"class": "DepictionSpacerView", "spacing": 8},'
 echo '        {"class": "DepictionSeparatorView"},'
+if ls "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg "$SCREENSHOT_DIR"/*.jpeg 2>/dev/null | head -1 >/dev/null; then
 echo '        {"class": "DepictionHeaderView", "title": "截图"},'
 echo '        {'
 echo '          "class": "DepictionScreenshotsView",'
@@ -239,8 +245,12 @@ for f in "$SCREENSHOT_DIR"/*.png "$SCREENSHOT_DIR"/*.jpg "$SCREENSHOT_DIR"/*.jpe
     fi
 done
 echo '          ]'
-echo '        }'
-echo '      ]'
+echo '        },'
+fi
+echo '        {"class": "DepictionHeaderView", "title": "信息"},'
+echo '        {"class": "DepictionTableTextView", "title": "版本", "text": "'$VERSION'"},'
+if [ -n "$AUTHOR" ]; then echo '        {"class": "DepictionTableTextView", "title": "作者", "text": "'$AUTHOR'"},'; fi
+echo '        {"class": "DepictionTableTextView", "title": "包名", "text": "'$PKG_ID'"}'
 echo '    }'
 echo '  ]'
 echo '}'
