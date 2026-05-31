@@ -299,7 +299,6 @@ function generate() {
     eVers = jsonEscape(version)
 
     print "{" > jFile
-    print "  \"minVersion\": \"14.0\"," > jFile
     print "  \"class\": \"DepictionTabView\"," > jFile
     printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
     printf "  \"tintColor\": \"%s\",\n", tColor > jFile

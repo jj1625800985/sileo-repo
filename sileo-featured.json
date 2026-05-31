@@ -3,124 +3,20 @@
   "tintColor": "#4A90D9",
   "features": [
     {
-      "class": "FeatureBanner",
-      "package": "ai-config-gui",
-      "itemCornerRadius": 12,
-      "title": "AI-Config-GUI",
-      "description": "Claude Code / Codex API 配置管理工具"
-    },
-    {
       "class": "FeatureSection",
-      "title": "AI 开发工具",
+      "title": "精选插件",
       "features": [
         {
           "class": "FeaturePackage",
-          "package": "ai-config-gui",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
+          "package": "ai-config-gui"
         },
         {
           "class": "FeaturePackage",
-          "package": "claude-code-roothide",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
+          "package": "claude-code-roothide"
         },
         {
           "class": "FeaturePackage",
-          "package": "codex-ios-roothide",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        }
-      ]
-    },
-    {
-      "class": "FeatureSection",
-      "title": "系统美化",
-      "features": [
-        {
-          "class": "FeaturePackage",
-          "package": "com.axs.ios16dao",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "com.axs.screenrecording",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "com.axs.switchicon",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "com.wkk.dynamicnotland",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        }
-      ]
-    },
-    {
-      "class": "FeatureSection",
-      "title": "分屏 & 工具",
-      "features": [
-        {
-          "class": "FeaturePackage",
-          "package": "com.Axs.stheno",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "com.dafei.terminal",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "nodejs22-ios-roothide",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "ws.hbang.newterm3",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        }
-      ]
-    },
-    {
-      "class": "FeatureSection",
-      "title": "实用插件",
-      "features": [
-        {
-          "class": "FeaturePackage",
-          "package": "com.lenglengyu.ghallownetwork",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
-        },
-        {
-          "class": "FeaturePackage",
-          "package": "com.nx.accode",
-          "hideDescription": false,
-          "hideShadow": false,
-          "itemCornerRadius": 10
+          "package": "com.Axs.stheno"
         }
       ]
     }

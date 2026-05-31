@@ -212,7 +212,6 @@ TEXT_JSON="${TEXT_JSON%\\n}"
 # 生成 info.json
 {
 echo "{"
-echo '  "minVersion": "14.0",'
 echo '  "class": "DepictionTabView",'
 echo '  "headerImage": "'$REPO_URL/icon/$PKG_ID.png'",'
 echo '  "tintColor": "#4A90D9",'
