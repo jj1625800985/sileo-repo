@@ -16,23 +16,23 @@ Author: DaFei
 Name: AI-Config-GUI
 
 Package: com.Axs.stheno
-Version: 77.1.4.8
+Version: 77.1.4.7
 Architecture: iphoneos-arm64e
 Maintainer: Crassna
-Installed-Size: 2788
+Installed-Size: 1928
 Pre-Depends: rootless-compat(>= 0.9)
 Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
-Filename: debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
-Size: 1470186
-MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
-SHA1: d591168b0604ffd8152c154377e18f08c633d55a
-SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
+Filename: debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
+Size: 522250
+MD5sum: da397e79152000d9ff5b377853119662
+SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
+SHA256: 8e5689997b0427e00a8c8c99963bd849cd6dafd09a8a52c2adccad9ee2d6682d
 Section: 分屏插件
-Description: Medusa,Jump Whenever。
+Description: Medusa!
 Author: Crassna
-Icon: https://axs66.github.io/pro/icon/stheno.png
-Name: Stheno
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
+Icon: https://axs66.github.io/repo/icon/stheno.png
+Name: Stheno奥利奥分屏
+Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
 
 Package: com.axs.ios16dao
 Version: 5.2.0-205
