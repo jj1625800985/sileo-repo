@@ -131,14 +131,14 @@ if [ "$DEB_COUNT" -eq 0 ]; then
     echo ""
     exit 1
 fi
-echo "[0/4] 检测到 $DEB_COUNT 个 .deb 包"
+echo "[0/5] 检测到 $DEB_COUNT 个 .deb 包"
 echo ""
 
 # 清理可能存在的 root 权限旧文件
 rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst Release 2>/dev/null || true
 
 # 1. 扫描 debs 生成 Packages
-echo "[1/4] Generating Packages..."
+echo "[1/5] Generating Packages..."
 
 # 先尝试 dpkg-scanpackages（标准 .deb）
 GENERATED=false
@@ -191,8 +191,154 @@ fi
 
 echo "       Packages generated."
 
-# 2. 压缩 Packages
-echo "[2/4] Compressing Packages..."
+# 2. 生成 depictions 详情页 + 复制图标
+echo "[2/5] Generating depictions & icons..."
+
+mkdir -p icon depictions
+DEFAULT_ICON="icon/myicon.png"
+
+# 解析 Packages，为每个包生成 depiction JSON + 处理图标
+awk -v url="$REPO_URL" -v defaultIcon="$DEFAULT_ICON" '
+function val(line) {
+    idx = index(line, ": ")
+    if (idx > 0) return substr(line, idx + 2)
+    return ""
+}
+function jsonEscape(s) {
+    gsub(/\\/, "\\\\", s)
+    gsub(/"/, "\\\"", s)
+    gsub(/\t/, " ", s)
+    gsub(/ +/, " ", s)
+    return s
+}
+function trim(s) {
+    gsub(/^[ \t]+|[ \t]+$/, "", s)
+    return s
+}
+function hashColor(str) {
+    if (str == "") return "#4A90D9"
+    h = 0
+    for (c = 1; c <= length(str); c++) {
+        ch = substr(str, c, 1)
+        h = (h * 31 + index("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", ch)) % 6
+    }
+    if (h < 1) h = 1
+    split("#4A90D9 #7ED321 #F5A623 #D0021B #9013FE #50E3C2", tc)
+    return tc[h]
+}
+{
+    # Packages 格式：每行 "Key: Value"，空行分割包记录
+    if ($0 ~ /^Package: /) {
+        if (pkg != "") generate()
+        pkg = val($0)
+        name = ""; desc = ""; section = ""; version = ""; author = ""
+    } else if ($0 ~ /^Name: /) {
+        name = val($0)
+    } else if ($0 ~ /^Version: /) {
+        version = val($0)
+    } else if ($0 ~ /^Section: /) {
+        section = val($0)
+    } else if ($0 ~ /^Author: /) {
+        author = val($0)
+    } else if ($0 ~ /^Description: /) {
+        desc = val($0)
+    } else if ($0 ~ /^[^ ]/ && $0 !~ /^$/) {
+        # 遇到新的顶层键值不匹配（如 MD5sum：），但 Package 已经收集了，可能是空行分隔未正确处理
+        if (pkg != "" && $0 ~ /^[A-Za-z]+: / && $0 !~ /^ *(Package|Name|Version|Section|Author|Description|Filename|Size|MD5|SHA|Installed)/) {
+            # 非标准字段，跳过
+        }
+    }
+}
+END {
+    if (pkg != "") generate()
+}
+function generate() {
+    if (pkg == "") return
+    if (name == "") name = pkg
+
+    pDir = "depictions/" pkg
+    system("mkdir -p " pDir)
+    jFile = pDir "/info.json"
+
+    # 检测截图：screenshot-1.png ~ screenshot-10.png
+    ss_count = 0
+    for (i = 1; i <= 10; i++) {
+        if (system("test -f \"" pDir "/screenshot-" i ".png\"") == 0) ss_count++
+    }
+
+    printf "       [生成] depictions/%s/info.json", pkg
+    if (ss_count > 0) printf " (%d 张截图)", ss_count
+    printf "\n"
+
+    iconUrl = url "/icon/" pkg ".png"
+    tColor = hashColor(section)
+    eName = jsonEscape(name)
+    eDesc = jsonEscape(desc)
+    eSection = jsonEscape(section)
+    eAuthor = jsonEscape(author)
+    eVers = jsonEscape(version)
+
+    print "{" > jFile
+    print "  \"minVersion\": \"14.0\"," > jFile
+    print "  \"class\": \"DepictionTabView\"," > jFile
+    printf "  \"headerImage\": \"%s\",\n", iconUrl > jFile
+    printf "  \"tintColor\": \"%s\",\n", tColor > jFile
+    print "  \"tabs\": [" > jFile
+    print "    {" > jFile
+    print "      \"tabname\": \"详情\"," > jFile
+    print "      \"class\": \"DepictionStackView\"," > jFile
+    print "      \"views\": [" > jFile
+    printf "        {\"class\": \"DepictionHeaderView\", \"title\": \"%s\", \"useBoldText\": true},\n", eName > jFile
+    if (eSection != "") {
+        printf "        {\"class\": \"DepictionSubheaderView\", \"title\": \"%s\"},\n", eSection > jFile
+        print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
+        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
+    }
+    if (eDesc != "") {
+        print "        {\"class\": \"DepictionHeaderView\", \"title\": \"说明\"}," > jFile
+        printf "        {\"class\": \"DepictionTextView\", \"text\": \"%s\"},\n", eDesc > jFile
+        print "        {\"class\": \"DepictionSpacerView\", \"spacing\": 8}," > jFile
+        print "        {\"class\": \"DepictionSeparatorView\"}," > jFile
+    }
+    # 截图区域
+    if (ss_count > 0) {
+        print "        {\"class\": \"DepictionHeaderView\", \"title\": \"截图\"}," > jFile
+        print "        {\"class\": \"DepictionScreenshotsView\"," > jFile
+        print "          \"screenshots\": [" > jFile
+        for (i = 1; i <= ss_count; i++) {
+            comma = (i < ss_count ? "," : "")
+            printf "            {\"url\": \"%s/depictions/%s/screenshot-%d.png\", \"accessibilityText\": \"截图 %d\"}%s\n", url, pkg, i, i, comma > jFile
+        }
+        print "          ]" > jFile
+        print "        }," > jFile
+    }
+    # 信息区域
+    print "        {\"class\": \"DepictionHeaderView\", \"title\": \"信息\"}," > jFile
+    printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"版本\", \"text\": \"%s\"},\n", eVers > jFile
+    if (eAuthor != "") {
+        printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"作者\", \"text\": \"%s\"},\n", eAuthor > jFile
+    }
+    printf "        {\"class\": \"DepictionTableTextView\", \"title\": \"包名\", \"text\": \"%s\"}\n", pkg > jFile
+    print "      ]" > jFile
+    print "    }" > jFile
+    print "  ]" > jFile
+    print "}" > jFile
+    close(jFile)
+
+    # 图标：没有专属图标就用默认
+    iFile = "icon/" pkg ".png"
+    if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
+        system("cp \"" defaultIcon "\" \"" iFile "\"")
+        printf "       [图标] icon/%s.png (使用默认图标)\n", pkg
+    }
+    pkg = ""
+}
+' Packages
+
+echo "       depictions & icons done."
+
+# 3. 压缩 Packages
+echo "[3/5] Compressing Packages..."
 bzip2 -fzk Packages
 gzip  -fk Packages    # Packages.gz
 xz    -fzk Packages   # Packages.xz  (Sileo 推荐)
@@ -200,16 +346,16 @@ command -v lzma &>/dev/null && lzma -fzk Packages || echo "       (lzma not inst
 command -v zstd &>/dev/null && zstd -fk Packages || echo "       (zstd not installed, skipped)"
 echo "       bz2 gz xz lzma zst done."
 
-# 3. 计算校验和
-echo "[3/4] Calculating checksums..."
+# 4. 计算校验和
+echo "[4/5] Calculating checksums..."
 PACKAGES_SIZE=$(wc -c < Packages 2>/dev/null || echo 0)
 
 MD5SUM=$(md5sum Packages 2>/dev/null | cut -d' ' -f1 || md5 Packages 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
 SHA1SUM=$(sha1sum Packages 2>/dev/null | cut -d' ' -f1)
 SHA256SUM=$(sha256sum Packages 2>/dev/null | cut -d' ' -f1)
 
-# 4. 生成 Release 文件（使用配置中的值）
-echo "[4/4] Writing Release file..."
+# 5. 生成 Release 文件（使用配置中的值）
+echo "[5/5] Writing Release file..."
 cat > Release <<EOF
 Origin: $ORIGIN
 Label: $LABEL

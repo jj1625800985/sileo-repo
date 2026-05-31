@@ -34,3 +34,85 @@ Icon: https://axs66.github.io/pro/icon/stheno.png
 Name: Stheno
 Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 
+Package: com.axs.ios16dao
+Version: 5.2.0-205
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 664
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.altlist
+Filename: debs/A狗动态岛破解版205.deb
+Size: 78328
+MD5sum: d6c8ab29cf4b566451c5deb4f1982523
+SHA1: 4671249bd0defcc1d7cd0d69233ab327c60adfa9
+SHA256: 6d560bb58d1657780214dea49cabdeeeb7a9016b404eaa2526a28205ce900b9b
+Section: 灵动岛
+Description: 灵动岛媒体美化增强，支持 PNG/JPG/GIF/MP4,录屏隐藏原生岛与阴影兼容控制。集成授权校验联系:VCR66T
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/dynamicnotland.png
+Name: ios16灵动岛
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
+
+Package: com.axs.screenrecording
+Version: 5.2.0-35
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 508
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
+Filename: debs/A狗视频套壳_破解版.deb
+Size: 46396
+MD5sum: 8db00ea2cae55545d67cc9a45e255050
+SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
+SHA256: 0e648846b7e8f40413637027daa5d9f1f0e5e627cd3e7711d909c0ef9a33796b
+Section: Tweaks
+Description: 全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/screenrecording.png
+Name: 全局水印&套壳『截屏.录屏』
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
+
+Package: com.axs.switchicon
+Version: 5.2.0-131
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 836
+Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
+Filename: debs/A狗液态开关破解版.deb
+Size: 122528
+MD5sum: ab68e821f2630db3ae297f49732e978a
+SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
+SHA256: 35de138df50dae2c4c160bfbd63bd0189d31d2cda2ca8f14836cca8962f53dc4
+Section: Tweaks
+Description: 一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T
+ * 一、纯代码开关组
+ * 1. 动态组：昼夜开关、血瞳开关、液态开关，支持流畅的过渡动画与动态视觉效果；
+ * 2. 静态组：日月开关、水滴开关、立体开关、温度开关、星月开关，覆盖多种精致静态样式；
+ * 3. 液态开关：复刻 iOS 26 风格，并支持开启状态颜色自定义；
+ * 4. 日月开关：支持太阳、云朵、月亮、星星颜色自定义，一个开关也能千变万化。
+ * 二、素材开关组
+ * 1. 素材开关：在指定路径放置 on.png/off.png 开关素材；
+ * 2. 支持创建多套，在插件面板自由切换。
+ * 三、温馨提示
+ * 1. 早买早享受，后续免费更新；
+ * 2. 后续增加新样式，新用户可能面临涨价。
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/switchicon.png
+Name: Switch Icon
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
+
+Package: com.nx.accode
+Version: 1.0
+Architecture: iphoneos-arm64
+Maintainer: Crassna
+Installed-Size: 204
+Depends: firmware (>= 16.1) | org.swift.libswift (>= 5.0)
+Filename: debs/com.nx.accode_1.0_iphoneos-arm64.deb
+Size: 19444
+MD5sum: f52cafa3cd8779082a9c03ff08f59bf5
+SHA1: 2457c0ff1678660cea7e3f90ec167cc57480d074
+SHA256: 1176f4a975681615b08adb57084c30541e498754b856d78efb7a66e34ecdb575
+Section: System
+Description: 使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。
+Tag: role::hacker
+Author: Crassna
+Name: Stheno激活码生成器
+

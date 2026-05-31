@@ -1,5 +1,5 @@
 {
-  "minVersion": "16.0",
+  "minVersion": "14.0",
   "class": "DepictionTabView",
   "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.Axs.stheno.png",
   "tintColor": "#4A90D9",
@@ -9,19 +9,17 @@
       "class": "DepictionStackView",
       "views": [
         {"class": "DepictionHeaderView", "title": "Stheno", "useBoldText": true},
-        {"class": "DepictionSubheaderView", "title": "Medusa 分屏插件"},
+        {"class": "DepictionSubheaderView", "title": "分屏插件"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
         {"class": "DepictionHeaderView", "title": "说明"},
-        {"class": "DepictionTextView", "text": "Jump Whenever 分屏插件\n\n基于 Rootless 环境，支持 iOS 16.1+"},
+        {"class": "DepictionTextView", "text": "Medusa,Jump Whenever。"},
         {"class": "DepictionSpacerView", "spacing": 8},
         {"class": "DepictionSeparatorView"},
-        {"class": "DepictionHeaderView", "title": "截图"},
-        {
-          "class": "DepictionScreenshotsView",
-          "screenshots": [
-          ]
-        }
+        {"class": "DepictionHeaderView", "title": "信息"},
+        {"class": "DepictionTableTextView", "title": "版本", "text": "77.1.4.8"},
+        {"class": "DepictionTableTextView", "title": "作者", "text": "Crassna"},
+        {"class": "DepictionTableTextView", "title": "包名", "text": "com.Axs.stheno"}
       ]
     }
   ]
