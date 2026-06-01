@@ -15,6 +15,7 @@
         {"class": "FeaturePackage", "package": "com.Axs.floating-view"},
         {"class": "FeaturePackage", "package": "com.Axs.stheno"},
         {"class": "FeaturePackage", "package": "com.dafei.terminal"},
+        {"class": "FeaturePackage", "package": "com.iosdump.zone"},
         {"class": "FeaturePackage", "package": "com.lenglengyu.ghallownetwork"},
         {"class": "FeaturePackage", "package": "com.nx.accode"},
         {"class": "FeaturePackage", "package": "com.wkk.dynamicnotland"},
