@@ -82,6 +82,25 @@ SHA256: e28529fc9dff936c45ccf5851b11a6ae70a7633fe7bceace7452dfdc2d8f4adc
 Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
 
+Package: ai-config-gui
+Name: AI-Config-GUI
+Description: Ai-ios-ccswich，ai配置app，要先安装大飞源里面的claude和codex，然后终端启动一次“claude”和“codex”指令，初始化文件
+Maintainer: DaFei
+Author: DaFei
+Section: Utilities
+Depends: firmware (>= 14.0), libvterm0,libvterm-bin
+Architecture: iphoneos-arm64e
+Version: 3.2.0
+Installed-Size: 376
+Pre-Depends: rootless-compat(>= 0.9)
+Filename: ./debs/ai-config-gui_3.2.0_iphoneos-arm64e.deb
+Size: 127616
+MD5sum: b1352bd27fdd67833bd1c1fcdab3119a
+SHA1: 06cd026a3b7da4d95269b992cfa5fc56caadd0be
+SHA256: ea9a2cddbf5446993cd6b48544b904220b02ee7945416c51a6a787335a084929
+Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
+
 Package: claude-code-roothide
 Name: Claude Code Roothide
 Version: 2.1.19-1
