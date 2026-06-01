@@ -235,26 +235,6 @@ Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.dafei.t
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png
 
 Package: com.lenglengyu.ghallownetwork
-Name: Allow Network-rootless
-Author: lenglengyu
-Description: 国行手机自动允许使用网络。
-Depends: mobilesubstrate
-Maintainer: lenglengyu <lenglengyu@126.com>
-Architecture: iphoneos-arm64
-Section: Tweaks
-Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
-Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
-Version: 0.0.1
-Installed-Size: 152
-icon: https://huayuarc.github.io/icon/huayuarc.jpg
-Filename: ./debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64.deb
-Size: 8092
-MD5sum: 2eb3a3ca4cea59f40e493f0cf2373857
-SHA1: d7874bae32b2f21119d71e6887cb9be4b99cd066
-SHA256: 879741392cdff40f85ab9a3e7f824ee1d849f6ab703ebf3db602e2fe51d2f708
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.lenglengyu.ghallownetwork.png
-
-Package: com.lenglengyu.ghallownetwork
 Name: Allow Network-roothide
 Author: lenglengyu
 Description: 国行手机自动允许使用网络。
@@ -293,24 +273,6 @@ SHA1: 2457c0ff1678660cea7e3f90ec167cc57480d074
 SHA256: 1176f4a975681615b08adb57084c30541e498754b856d78efb7a66e34ecdb575
 Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.nx.accode/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png
-
-Package: com.wkk.dynamicnotland
-Name: DynamicNotLand
-Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
-Maintainer: Nathan
-Author: Nathan
-Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000)
-Architecture: iphoneos-arm64
-Version: 1.2.5
-Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
-Installed-Size: 348
-Filename: ./debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64.deb
-Size: 12352
-MD5sum: c5a76ed03c5e5e0ae1181095b0bf2820
-SHA1: c5af6b6c833fc35e6445ba3421ce6713e31992a1
-SHA256: 09de4ca3987b328c53f199ee7c06e6b0ce9df0228d768a413ab0ca47474f6faf
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.dynamicnotland/info.json
 
 Package: com.wkk.dynamicnotland
 Name: DynamicNotLand
@@ -364,13 +326,13 @@ Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
 Architecture: iphoneos-arm64e
 Version: 5.6
 Installed-Size: 6016
-SileoDepiction: https://havoc.app/package/colorfulx/depiction.json
-Icon: https://apt.82flex.com/icons/66bce1b0debd6e7267e2beac.png
 Filename: ./debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
 Size: 1449396
 MD5sum: 9ea84fe740b3380ad188743bf38044c7
 SHA1: 6eaf0e835d6dbd979d2e51c43c835a3d3658dd38
 SHA256: 1b6ba09b706a2e80930982ebf9bcb1487bf9c47dcb0ab20615997fe704f4d761
+Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/wiki.qaq.colorfulwallpaperx/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
 
 Package: ws.hbang.newterm3
 Name: NewTerm 3 Beta
