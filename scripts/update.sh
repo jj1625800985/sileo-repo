@@ -224,6 +224,7 @@ if [ "$GENERATED" = false ]; then
             MD5=$(md5sum "$deb" | cut -d' ' -f1)
             SHA1=$(sha1sum "$deb" | cut -d' ' -f1)
             SHA256=$(sha256sum "$deb" | cut -d' ' -f1)
+            SHA512=$(sha512sum "$deb" | cut -d' ' -f1)
             PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
             echo "$CTRL_DATA"
             echo "Filename: ./debs/$deb_name"
@@ -231,6 +232,7 @@ if [ "$GENERATED" = false ]; then
             echo "MD5sum: $MD5"
             echo "SHA1: $SHA1"
             echo "SHA256: $SHA256"
+            echo "SHA512: $SHA512"
             echo ""
         fi
     done >> Packages
@@ -558,6 +560,7 @@ PACKAGES_SIZE=$(wc -c < Packages 2>/dev/null || echo 0)
 MD5SUM=$(md5sum Packages 2>/dev/null | cut -d' ' -f1 || md5 Packages 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
 SHA1SUM=$(sha1sum Packages 2>/dev/null | cut -d' ' -f1)
 SHA256SUM=$(sha256sum Packages 2>/dev/null | cut -d' ' -f1)
+SHA512SUM=$(sha512sum Packages 2>/dev/null | cut -d' ' -f1)
 
 # 5. 生成 Release 文件（使用配置中的值）
 echo "[5/5] Writing Release file..."
@@ -571,6 +574,7 @@ Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
 Description: $DESCRIPTION
 SileoFeatured: sileo-featured.json
+Icon: CydiaIcon.png
 Date: $(date -R)
 EOF
 
@@ -631,6 +635,25 @@ EOF
     fi
     if [ -f Packages.zst ]; then
         echo " $(sha256sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
+    fi
+
+    echo ""
+    echo "SHA512:"
+    echo " $SHA512SUM $PACKAGES_SIZE Packages"
+    if [ -f Packages.bz2 ]; then
+        echo " $(sha512sum Packages.bz2 | cut -d' ' -f1) $(wc -c < Packages.bz2) Packages.bz2"
+    fi
+    if [ -f Packages.gz ]; then
+        echo " $(sha512sum Packages.gz | cut -d' ' -f1) $(wc -c < Packages.gz) Packages.gz"
+    fi
+    if [ -f Packages.xz ]; then
+        echo " $(sha512sum Packages.xz | cut -d' ' -f1) $(wc -c < Packages.xz) Packages.xz"
+    fi
+    if [ -f Packages.lzma ]; then
+        echo " $(sha512sum Packages.lzma | cut -d' ' -f1) $(wc -c < Packages.lzma) Packages.lzma"
+    fi
+    if [ -f Packages.zst ]; then
+        echo " $(sha512sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
     fi
 } >> Release
 
