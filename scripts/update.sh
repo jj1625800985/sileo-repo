@@ -510,6 +510,38 @@ function generate() {
 
 echo "       depictions & icons done."
 
+# 自动生成 sileo-featured.json（从 Packages 读取所有包）
+echo "[2.5/5] Generating sileo-featured.json..."
+awk '
+BEGIN {
+    print "{"
+    print "  \"class\": \"FeatureView\","
+    print "  \"tintColor\": \"#4A90D9\","
+    print "  \"features\": ["
+    print "    {"
+    print "      \"class\": \"FeatureSection\","
+    print "      \"title\": \"精选插件\","
+    print "      \"features\": ["
+    first = 1
+}
+/^Package: / {
+    pkg = substr($0, index($0, ": ") + 2)
+    if (!seen[pkg]++) {
+        if (!first) print ","
+        printf "        {\"class\": \"FeaturePackage\", \"package\": \"%s\"}", pkg
+        first = 0
+    }
+}
+END {
+    print ""
+    print "      ]"
+    print "    }"
+    print "  ]"
+    print "}"
+}
+' Packages > sileo-featured.json
+echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) packages)."
+
 # 3. 压缩 Packages
 echo "[3/5] Compressing Packages..."
 bzip2 -fzk Packages
