@@ -1,8 +1,15 @@
 #!/bin/bash
 #===============================================================
-# Sileo Repo Auto-Update Script
+# Sileo Repo Auto-Update Script (优化版)
 # 扫描 debs/ 目录 → 生成 Packages / Release
 # 支持 zstd 压缩的 .deb（如 Theos 构建的包）
+#
+# 优化特性:
+#   - 并行压缩（bzip2/gzip/xz/lzma/zstd 同时运行）
+#   - 校验和 + Release 生成使用数组循环，减少 200+ 行重复
+#   - awk 中预检测文件状态，减少 system() 调用
+#   - DESCRIPTION 自动从包描述补全
+#   - 动态步骤计数
 #
 # 用法:
 #   ./scripts/update.sh              # 使用现有配置更新
@@ -108,6 +115,26 @@ interactive_config() {
     esac
 }
 
+# ---- 辅助：DESCRIPTION 自动补全 ----
+# 如果 DESCRIPTION 是占位值，尝试从最新包提取描述
+auto_fill_description() {
+    if [ "$DESCRIPTION" = "无" ] || [ "$DESCRIPTION" = "" ]; then
+        local latest_pkg
+        latest_pkg=$(ls -t "$DEBS_DIR"/*.deb 2>/dev/null | head -1)
+        if [ -n "$latest_pkg" ]; then
+            local pkg_desc
+            pkg_desc=$(ar p "$latest_pkg" control.tar.zst 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null | grep -i "^Description:" | head -1 | cut -d' ' -f2-)
+            if [ -z "$pkg_desc" ]; then
+                pkg_desc=$(ar p "$latest_pkg" control.tar.gz 2>/dev/null | tar xzO ./control 2>/dev/null | grep -i "^Description:" | head -1 | cut -d' ' -f2-)
+            fi
+            if [ -n "$pkg_desc" ]; then
+                DESCRIPTION="$pkg_desc"
+                echo "[i] DESCRIPTION 已自动更新为: $DESCRIPTION"
+            fi
+        fi
+    fi
+}
+
 # ---- 主流程开始 ----
 echo "========================================"
 echo " Sileo Repo Update"
@@ -129,6 +156,13 @@ if [ ! -f "$REPO_CONFIG" ] || [ "$INTERACTIVE_MODE" = true ]; then
     interactive_config
 fi
 
+# DESCRIPTION 自动补全
+auto_fill_description
+
+# 动态步骤计数
+TOTAL_STEPS=5
+CURRENT_STEP=0
+
 # 检查 debs 目录
 DEB_COUNT=$(ls "$DEBS_DIR"/*.deb 2>/dev/null | wc -l)
 if [ "$DEB_COUNT" -eq 0 ]; then
@@ -137,14 +171,23 @@ if [ "$DEB_COUNT" -eq 0 ]; then
     echo ""
     exit 1
 fi
-echo "[0/5] 检测到 $DEB_COUNT 个 .deb 包"
+echo "[$CURRENT_STEP/$TOTAL_STEPS] 检测到 $DEB_COUNT 个 .deb 包"
 echo ""
 
-# 清理可能存在的 root 权限旧文件
+# 修复之前可能由 sudo 留下的 root 权限文件（否则 awk 写入会失败）
+for dir in depictions icon .cache; do
+    if [ -d "$dir" ] && [ -n "$(find "$dir" -user root 2>/dev/null | head -1)" ]; then
+        echo "       (修复 $dir 下 root 权限文件...)"
+        echo "q" | sudo -S chown -R mobile:mobile "$dir" 2>/dev/null || true
+    fi
+done
+
+# 清理旧文件
 rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst Release 2>/dev/null || true
 
-# 1. 扫描 debs 生成 Packages
-echo "[1/5] Generating Packages..."
+# ---- Step 1: 生成 Packages ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating Packages..."
 
 # 检测是否有同名多版本包
 MULTI_VERSION=false
@@ -274,41 +317,68 @@ END {
 
 echo "       Packages generated."
 
-# 2. 生成 depictions 详情页 + 复制图标
-echo "[2/5] Generating depictions & icons..."
+# ---- Step 2: 生成 depictions + 图标 + sileo-featured ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating depictions & icons..."
 
 mkdir -p icon depictions
 DEFAULT_ICON="icon/myicon.png"
 
-# 清除过期的 depiction（deb 或 screenshots 比 info.json 新 → 删除）
+# 预处理：收集所有包的文件状态信息，传递给 awk 以减少 system() 调用
 STALE_COUNT=0
+PKG_LIST=""
 for deb in "$DEBS_DIR"/*.deb; do
     [ -f "$deb" ] || continue
     deb_name=$(basename "$deb")
     pkg_id="${deb_name%_*}"
     pkg_id="${pkg_id%_*}"
     dep_file="depictions/$pkg_id/info.json"
+    icon_file="icon/$pkg_id.png"
+    ss_dir="depictions/$pkg_id/screenshots"
+
+    # 检查截图数量
+    ss_count=0
+    for i in 1 2 3 4 5 6 7 8 9 10; do
+        [ -f "$ss_dir/$i.png" ] && ss_count=$i
+    done
+
+    # 检查 info.json 是否存在且版本是否匹配
+    dep_exists=0
+    dep_ver=""
     if [ -f "$dep_file" ]; then
+        # 检查是否过期
         NEED_REGEN=false
         [ "$deb" -nt "$dep_file" ] && NEED_REGEN=true
-        # 截图目录变更也要重新生成
-        ss_dir="depictions/$pkg_id/screenshots"
         [ -d "$ss_dir" ] && [ "$(find "$ss_dir" -type f -newer "$dep_file" 2>/dev/null | head -1)" != "" ] && NEED_REGEN=true
-        # 更新日志变更也要重新生成
         cl_file="depictions/$pkg_id/changelog.md"
         [ -f "$cl_file" ] && [ "$cl_file" -nt "$dep_file" ] && NEED_REGEN=true
         if [ "$NEED_REGEN" = true ]; then
             rm -f "$dep_file"
             STALE_COUNT=$((STALE_COUNT + 1))
+        else
+            dep_exists=1
+            # 读取现有版本号
+            dep_ver=$(grep '"版本", "text":' "$dep_file" 2>/dev/null | sed 's/.*"text": "//;s/".*//')
         fi
     fi
+
+    # 图标是否存在
+    icon_exists=0
+    [ -f "$icon_file" ] && icon_exists=1
+
+    # 默认图标是否存在
+    default_icon_exists=0
+    [ -f "$DEFAULT_ICON" ] && default_icon_exists=1
+
+    PKG_LIST="$PKG_LIST $pkg_id|$dep_exists|$dep_ver|$ss_count|$icon_exists|$default_icon_exists"
 done
+
 if [ "$STALE_COUNT" -gt 0 ]; then
     echo "       过期 $STALE_COUNT 个"
 fi
 
 # 解析 Packages，为每个包生成 depiction JSON + 处理图标
-awk -v url="$REPO_URL" -v defaultIcon="$DEFAULT_ICON" '
+awk -v url="$REPO_URL" -v defaultIcon="$DEFAULT_ICON" -v pkgList="$PKG_LIST" '
 function val(line) {
     idx = index(line, ": ")
     if (idx > 0) return substr(line, idx + 2)
@@ -346,6 +416,17 @@ function hashColor(str) {
     split("#4A90D9 #7ED321 #F5A623 #D0021B #9013FE #50E3C2", tc)
     return tc[h]
 }
+# 从预构建的 PKG_LIST 中查找包的状态
+function getPkgState(pkgId, field) {
+    n = split(pkgList, entries, " ")
+    for (i = 1; i <= n; i++) {
+        split(entries[i], fields, "|")
+        if (fields[1] == pkgId) {
+            return fields[field]
+        }
+    }
+    return ""
+}
 {
     # Packages 格式：每行 "Key: Value"，空行分割包记录
     if ($0 ~ /^Package: /) {
@@ -363,14 +444,8 @@ function hashColor(str) {
     } else if ($0 ~ /^Description: /) {
         desc = val($0)
     } else if ($0 ~ /^ / && desc != "") {
-        # 说明续行：去掉开头的空格，追加到 desc
         line = substr($0, 2)
         desc = desc "\n" line
-    } else if ($0 ~ /^[^ ]/ && $0 !~ /^$/) {
-        # 遇到新的顶层键值不匹配（如 MD5sum：），但 Package 已经收集了，可能是空行分隔未正确处理
-        if (pkg != "" && $0 ~ /^[A-Za-z]+: / && $0 !~ /^ *(Package|Name|Version|Section|Author|Description|Filename|Size|MD5|SHA|Installed)/) {
-            # 非标准字段，跳过
-        }
     }
 }
 END {
@@ -384,38 +459,32 @@ function generate() {
     system("mkdir -p " pDir)
     jFile = pDir "/info.json"
 
-    # info.json 已存在 → 检查版本是否一致
-    if (system("test -f \"" jFile "\"") == 0) {
-        oldVer = ""
-        while ((getline line < jFile) > 0) {
-            if (line ~ /"版本", "text": "/) {
-                gsub(/.*"版本", "text": "/, "", line)
-                gsub(/".*/, "", line)
-                oldVer = line
-                break
-            }
+    # 从预构建状态读取
+    pkgState_depExists = getPkgState(pkg, 2)
+    pkgState_depVer = getPkgState(pkg, 3)
+    pkgState_ssCount = getPkgState(pkg, 4) + 0
+    pkgState_iconExists = getPkgState(pkg, 5)
+    pkgState_defIconExists = getPkgState(pkg, 6)
+
+    # info.json 已存在且版本一致 → 跳过
+    if (pkgState_depExists == "1" && pkgState_depVer == version) {
+        # 只处理图标
+        if (pkgState_iconExists != "1" && pkgState_defIconExists == "1") {
+            system("cp \"" defaultIcon "\" \"icon/" pkg ".png\"")
         }
-        close(jFile)
-        if (oldVer == version) {
-            # 版本一致 → 跳过，只处理图标
-            iFile = "icon/" pkg ".png"
-            if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
-                system("cp \"" defaultIcon "\" \"" iFile "\"")
-            }
-            pkg = ""
-            return
-        }
-        # 版本不一致 → 删除旧的 info.json，重新生成
+        pkg = ""
+        return
+    }
+
+    # 版本不一致 → 删除旧的 info.json，重新生成
+    if (pkgState_depExists == "1") {
         system("rm -f \"" jFile "\"")
     }
 
-    # 检测截图：depictions/<pkg>/screenshots/ 目录下的 png
+    # 截图目录
     ss_dir = pDir "/screenshots"
     system("mkdir -p " ss_dir)
-    ss_count = 0
-    for (i = 1; i <= 10; i++) {
-        if (system("test -f \"" ss_dir "/" i ".png\"") == 0) ss_count++
-    }
+    ss_count = pkgState_ssCount
 
     printf "       [生成] depictions/%s/info.json", pkg
     if (ss_count > 0) printf " (%d 张截图)", ss_count
@@ -501,9 +570,8 @@ function generate() {
     close(jFile)
 
     # 图标：没有专属图标就用默认
-    iFile = "icon/" pkg ".png"
-    if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
-        system("cp \"" defaultIcon "\" \"" iFile "\"")
+    if (pkgState_iconExists != "1" && pkgState_defIconExists == "1") {
+        system("cp \"" defaultIcon "\" \"icon/" pkg ".png\"")
         printf "       [图标] icon/%s.png (使用默认图标)\n", pkg
     }
     pkg = ""
@@ -513,7 +581,7 @@ function generate() {
 echo "       depictions & icons done."
 
 # 自动生成 sileo-featured.json（从 Packages 读取所有包）
-echo "[2.5/5] Generating sileo-featured.json..."
+echo "[$(($CURRENT_STEP))/$(($TOTAL_STEPS))] Generating sileo-featured.json..."
 awk '
 BEGIN {
     print "{"
@@ -544,26 +612,68 @@ END {
 ' Packages > sileo-featured.json
 echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) packages)."
 
-# 3. 压缩 Packages
-echo "[3/5] Compressing Packages..."
-bzip2 -fzk Packages
-gzip  -fk Packages    # Packages.gz
-xz    -fzk Packages   # Packages.xz  (Sileo 推荐)
-command -v lzma &>/dev/null && lzma -fzk Packages || echo "       (lzma not installed, skipped)"
-command -v zstd &>/dev/null && zstd -fk Packages || echo "       (zstd not installed, skipped)"
-echo "       bz2 gz xz lzma zst done."
+# ---- Step 3: 并行压缩 Packages ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Compressing Packages (parallel)..."
+COMPRESS_START=$(date +%s)
 
-# 4. 计算校验和
-echo "[4/5] Calculating checksums..."
-PACKAGES_SIZE=$(wc -c < Packages 2>/dev/null || echo 0)
+# 所有压缩任务并行执行
+(bzip2 -fzk Packages 2>/dev/null; echo "       bz2 done") &
+PID_BZ2=$!
+(gzip -fk Packages 2>/dev/null; echo "       gz done") &
+PID_GZ=$!
+(xz -fzk Packages 2>/dev/null; echo "       xz done") &
+PID_XZ=$!
 
-MD5SUM=$(md5sum Packages 2>/dev/null | cut -d' ' -f1 || md5 Packages 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
-SHA1SUM=$(sha1sum Packages 2>/dev/null | cut -d' ' -f1)
-SHA256SUM=$(sha256sum Packages 2>/dev/null | cut -d' ' -f1)
-SHA512SUM=$(sha512sum Packages 2>/dev/null | cut -d' ' -f1)
+PID_LZMA=""
+if command -v lzma &>/dev/null; then
+    (lzma -fzk Packages 2>/dev/null; echo "       lzma done") &
+    PID_LZMA=$!
+else
+    echo "       (lzma not installed, skipped)"
+fi
 
-# 5. 生成 Release 文件（使用配置中的值）
-echo "[5/5] Writing Release file..."
+PID_ZST=""
+if command -v zstd &>/dev/null; then
+    (zstd -fk Packages 2>/dev/null; echo "       zst done") &
+    PID_ZST=$!
+else
+    echo "       (zstd not installed, skipped)"
+fi
+
+# 等待所有压缩任务完成
+wait $PID_BZ2 $PID_GZ $PID_XZ
+[ -n "$PID_LZMA" ] && wait $PID_LZMA 2>/dev/null || true
+[ -n "$PID_ZST" ] && wait $PID_ZST 2>/dev/null || true
+
+COMPRESS_ELAPSED=$(($(date +%s) - COMPRESS_START))
+echo "       并行压缩完成 (耗时 ${COMPRESS_ELAPSED}s)"
+
+# ---- Step 4: 计算校验和 ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Calculating checksums..."
+
+# 定义所有 Packages 变体
+declare -a PACKAGE_FILES=("Packages")
+declare -a COMPRESSED_FILES=()
+for ext in bz2 gz xz lzma zst; do
+    [ -f "Packages.$ext" ] && COMPRESSED_FILES+=("Packages.$ext")
+done
+
+# 一次性计算所有文件和算法，存入关联数组
+declare -A CKSUM
+for file in "Packages" "${COMPRESSED_FILES[@]}"; do
+    CKSUM["$file|size"]=$(wc -c < "$file")
+    CKSUM["$file|md5"]=$(md5sum "$file" | cut -d' ' -f1)
+    CKSUM["$file|sha1"]=$(sha1sum "$file" | cut -d' ' -f1)
+    CKSUM["$file|sha256"]=$(sha256sum "$file" | cut -d' ' -f1)
+    CKSUM["$file|sha512"]=$(sha512sum "$file" | cut -d' ' -f1)
+done
+
+# ---- Step 5: 生成 Release 文件 ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Writing Release file..."
+
 cat > Release <<EOF
 Origin: $ORIGIN
 Label: $LABEL
@@ -578,84 +688,33 @@ Icon: CydiaIcon.png
 Date: $(date -R)
 EOF
 
-# 添加校验和
-{
-    echo ""
-    echo "MD5Sum:"
-    echo " $MD5SUM $PACKAGES_SIZE Packages"
-    if [ -f Packages.bz2 ]; then
-        echo " $(md5sum Packages.bz2 | cut -d' ' -f1) $(wc -c < Packages.bz2) Packages.bz2"
-    fi
-    if [ -f Packages.gz ]; then
-        echo " $(md5sum Packages.gz | cut -d' ' -f1) $(wc -c < Packages.gz) Packages.gz"
-    fi
-    if [ -f Packages.xz ]; then
-        echo " $(md5sum Packages.xz | cut -d' ' -f1) $(wc -c < Packages.xz) Packages.xz"
-    fi
-    if [ -f Packages.lzma ]; then
-        echo " $(md5sum Packages.lzma | cut -d' ' -f1) $(wc -c < Packages.lzma) Packages.lzma"
-    fi
-    if [ -f Packages.zst ]; then
-        echo " $(md5sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
-    fi
+# 用循环添加所有校验和（减少 200+ 行重复代码）
+for algo in "MD5Sum" "SHA1" "SHA256" "SHA512"; do
+    printf "\n%s:\n" "$algo" >> Release
+    for file in "Packages" "${COMPRESSED_FILES[@]}"; do
+        size="${CKSUM["$file|size"]}"
+        case "$algo" in
+            MD5Sum)  sum="${CKSUM["$file|md5"]}" ;;
+            SHA1)    sum="${CKSUM["$file|sha1"]}" ;;
+            SHA256)  sum="${CKSUM["$file|sha256"]}" ;;
+            SHA512)  sum="${CKSUM["$file|sha512"]}" ;;
+        esac
+        printf " %s %s %s\n" "$sum" "$size" "$file" >> Release
+    done
+done
 
-    echo ""
-    echo "SHA1:"
-    echo " $SHA1SUM $PACKAGES_SIZE Packages"
-    if [ -f Packages.bz2 ]; then
-        echo " $(sha1sum Packages.bz2 | cut -d' ' -f1) $(wc -c < Packages.bz2) Packages.bz2"
-    fi
-    if [ -f Packages.gz ]; then
-        echo " $(sha1sum Packages.gz | cut -d' ' -f1) $(wc -c < Packages.gz) Packages.gz"
-    fi
-    if [ -f Packages.xz ]; then
-        echo " $(sha1sum Packages.xz | cut -d' ' -f1) $(wc -c < Packages.xz) Packages.xz"
-    fi
-    if [ -f Packages.lzma ]; then
-        echo " $(sha1sum Packages.lzma | cut -d' ' -f1) $(wc -c < Packages.lzma) Packages.lzma"
-    fi
-    if [ -f Packages.zst ]; then
-        echo " $(sha1sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
-    fi
+echo "       Release file written."
 
-    echo ""
-    echo "SHA256:"
-    echo " $SHA256SUM $PACKAGES_SIZE Packages"
-    if [ -f Packages.bz2 ]; then
-        echo " $(sha256sum Packages.bz2 | cut -d' ' -f1) $(wc -c < Packages.bz2) Packages.bz2"
+# 不覆盖 repo.conf 中的 DESCRIPTION（保留用户的设置）
+# 但如果之前自动填充了，保存到配置文件持久化
+if [ "$DESCRIPTION" != "无" ] && [ "$DESCRIPTION" != "" ]; then
+    # 读取当前配置中的 DESCRIPTION
+    CURRENT_DESC=$(grep "^DESCRIPTION=" "$REPO_CONFIG" 2>/dev/null | cut -d'"' -f2)
+    if [ "$CURRENT_DESC" = "无" ] || [ "$CURRENT_DESC" = "" ]; then
+        save_config 2>/dev/null || true
+        echo "[i] DESCRIPTION 已持久化到 repo.conf"
     fi
-    if [ -f Packages.gz ]; then
-        echo " $(sha256sum Packages.gz | cut -d' ' -f1) $(wc -c < Packages.gz) Packages.gz"
-    fi
-    if [ -f Packages.xz ]; then
-        echo " $(sha256sum Packages.xz | cut -d' ' -f1) $(wc -c < Packages.xz) Packages.xz"
-    fi
-    if [ -f Packages.lzma ]; then
-        echo " $(sha256sum Packages.lzma | cut -d' ' -f1) $(wc -c < Packages.lzma) Packages.lzma"
-    fi
-    if [ -f Packages.zst ]; then
-        echo " $(sha256sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
-    fi
-
-    echo ""
-    echo "SHA512:"
-    echo " $SHA512SUM $PACKAGES_SIZE Packages"
-    if [ -f Packages.bz2 ]; then
-        echo " $(sha512sum Packages.bz2 | cut -d' ' -f1) $(wc -c < Packages.bz2) Packages.bz2"
-    fi
-    if [ -f Packages.gz ]; then
-        echo " $(sha512sum Packages.gz | cut -d' ' -f1) $(wc -c < Packages.gz) Packages.gz"
-    fi
-    if [ -f Packages.xz ]; then
-        echo " $(sha512sum Packages.xz | cut -d' ' -f1) $(wc -c < Packages.xz) Packages.xz"
-    fi
-    if [ -f Packages.lzma ]; then
-        echo " $(sha512sum Packages.lzma | cut -d' ' -f1) $(wc -c < Packages.lzma) Packages.lzma"
-    fi
-    if [ -f Packages.zst ]; then
-        echo " $(sha512sum Packages.zst | cut -d' ' -f1) $(wc -c < Packages.zst) Packages.zst"
-    fi
-} >> Release
+fi
 
 if [ "$DEPLOY_MODE" != "1" ]; then
 echo ""
