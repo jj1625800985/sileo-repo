@@ -34,16 +34,19 @@ CHANGES="$(git status --porcelain 2>/dev/null)"
 if [ -z "$CHANGES" ]; then
     echo "[提示] 没有需要提交的更改"
 else
-    # 尝试 git add，如果权限不足则使用 sudo
+    # 统计包数量用于 commit 信息
+    PKG_COUNT=$(ls debs/*.deb 2>/dev/null | wc -l | tr -d ' ')
+    COMMIT_MSG="📦 update: $PKG_COUNT packages ($(date '+%Y-%m-%d %H:%M'))"
+
     if ! git add -A 2>/dev/null; then
         echo "       (权限不足，使用 sudo)"
         echo "q" | sudo -S git add -A
     fi
-    if git commit -m "repo: $(date '+%Y-%m-%d %H:%M') 更新" 2>/dev/null; then
+    if git commit -m "$COMMIT_MSG" 2>/dev/null; then
         echo "[完成] 已提交"
     else
         echo "       (权限不足，使用 sudo)"
-        echo "q" | sudo -S git commit -m "repo: $(date '+%Y-%m-%d %H:%M') 更新"
+        echo "q" | sudo -S git commit -m "$COMMIT_MSG"
         echo "[完成] 已提交"
     fi
 fi
