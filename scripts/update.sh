@@ -270,7 +270,7 @@ if [ "$GENERATED" = false ]; then
             SHA512=$(sha512sum "$deb" | cut -d' ' -f1)
             PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
             echo "$CTRL_DATA"
-            echo "Filename: ./debs/$deb_name"
+            echo "Filename: debs/$deb_name"
             echo "Size: $SIZE"
             echo "MD5sum: $MD5"
             echo "SHA1: $SHA1"
@@ -315,7 +315,68 @@ END {
 }
 ' Packages > Packages.tmp && mv Packages.tmp Packages
 
-echo "       Packages generated."
+# 去重：每个包只保留最新版本（匹配参考源格式）
+echo "       (Deduplicating: keeping only latest version per package...)"
+awk '
+BEGIN {
+    pkg_count = 0
+    sep = ""
+}
+/^Package: / {
+    # 遇到新包记录 → 保存上一条
+    if (rec != "") save_rec()
+    pkg = substr($0, index($0, ": ") + 2)
+    rec = $0 "\n"
+    next
+}
+/^$/ {
+    if (rec != "") rec = rec "\n"
+    next
+}
+{
+    if (rec != "") rec = rec $0 "\n"
+}
+END {
+    if (rec != "") save_rec()
+    # 输出所有保留的记录
+    for (i = 0; i < pkg_count; i++) {
+        printf "%s", records[i]
+        if (i < pkg_count - 1) printf "\n"
+    }
+}
+
+function save_rec() {
+    # 提取版本号
+    ver = ""
+    n = split(rec, lines, "\n")
+    for (i = 1; i <= n; i++) {
+        if (lines[i] ~ /^Version: /) {
+            ver = substr(lines[i], index(lines[i], ": ") + 2)
+            break
+        }
+    }
+    # 查找是否已有同名包
+    for (i = 0; i < pkg_count; i++) {
+        if (pkg_names[i] == pkg) {
+            cmd = "dpkg --compare-versions \"" ver "\" gt \"" pkg_vers[i] "\" 2>/dev/null"
+            if (system(cmd) == 0) {
+                # 新版本更大 → 替换
+                pkg_vers[i] = ver
+                records[i] = rec
+            }
+            rec = ""; pkg = ""
+            return
+        }
+    }
+    # 新包
+    pkg_names[pkg_count] = pkg
+    pkg_vers[pkg_count] = ver
+    records[pkg_count] = rec
+    pkg_count++
+    rec = ""; pkg = ""
+}
+' Packages > Packages.tmp && mv Packages.tmp Packages
+echo "       Packages generated (deduplicated)."
 
 # ---- Step 2: 生成 depictions + 图标 + sileo-featured ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
@@ -683,8 +744,6 @@ Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
 Description: $DESCRIPTION
-SileoFeatured: sileo-featured.json
-Icon: CydiaIcon.png
 Date: $(date -Ru)
 EOF
 
