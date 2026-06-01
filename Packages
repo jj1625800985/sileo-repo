@@ -345,13 +345,13 @@ Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
 Architecture: iphoneos-arm64e
 Version: 5.6
 Installed-Size: 6016
+SileoDepiction: https://havoc.app/package/colorfulx/depiction.json
+Icon: https://apt.82flex.com/icons/66bce1b0debd6e7267e2beac.png
 Filename: ./debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
 Size: 1449396
 MD5sum: 9ea84fe740b3380ad188743bf38044c7
 SHA1: 6eaf0e835d6dbd979d2e51c43c835a3d3658dd38
 SHA256: 1b6ba09b706a2e80930982ebf9bcb1487bf9c47dcb0ab20615997fe704f4d761
-Sileodepiction: https://jj1625800985.github.io/sileo-repo/depictions/wiki.qaq.colorfulwallpaperx/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
 
 Package: ws.hbang.newterm3
 Name: NewTerm 3 Beta
