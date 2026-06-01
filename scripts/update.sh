@@ -160,7 +160,7 @@ fi
 auto_fill_description
 
 # 动态步骤计数
-TOTAL_STEPS=5
+TOTAL_STEPS=6
 CURRENT_STEP=0
 
 # 检查 debs 目录
@@ -185,46 +185,30 @@ done
 # 清理旧文件
 rm -f Packages Packages.bz2 Packages.gz Packages.xz Packages.lzma Packages.zst Release 2>/dev/null || true
 
-# ---- Step 1: 生成 Packages ----
+# 清理 stale .cache（对应 .deb 已删除的缓存项）
+CACHE_DIR="$ROOT_DIR/.cache"
+if [ -d "$CACHE_DIR" ]; then
+    for cf in "$CACHE_DIR"/*.ctrl; do
+        [ -f "$cf" ] || continue
+        deb_name=$(basename "$cf" .ctrl)
+        if [ ! -f "$DEBS_DIR/$deb_name" ]; then
+            rm -f "$cf"
+            echo "       (清除过期缓存: $deb_name)"
+        fi
+    done
+fi
+
+# ---- Step 1: 生成 Packages（手动提取，支持所有压缩格式 + SHA512） ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating Packages..."
 
-# 检测是否有同名多版本包
-MULTI_VERSION=false
-PKG_NAMES=""
+mkdir -p "$CACHE_DIR"
+EXTRACTED=0
+CACHED=0
+
+echo "       (提取 deb 控制信息...)"
+> Packages
 for deb in "$DEBS_DIR"/*.deb; do
-    [ -f "$deb" ] || continue
-    base=$(basename "$deb")
-    # 提取包名：去掉 _版本号_架构.deb 后缀
-    pkg_name="${base%_*}"
-    pkg_name="${pkg_name%_*}"
-    echo "$PKG_NAMES" | grep -q "$pkg_name" && MULTI_VERSION=true && break
-    PKG_NAMES="$PKG_NAMES $pkg_name"
-done
-
-if [ "$MULTI_VERSION" = true ]; then
-    echo "       (检测到多版本包，使用手动提取模式，确保所有版本保留)"
-fi
-
-GENERATED=false
-
-# 先尝试 dpkg-scanpackages（标准 .deb，仅单版本时使用）
-if [ "$MULTI_VERSION" = false ] && command -v dpkg-scanpackages &>/dev/null; then
-    if dpkg-scanpackages debs/ > Packages 2>/dev/null; then
-        GENERATED=true
-    fi
-fi
-
-# 如果 dpkg-scanpackages 失败，手动提取（支持 zstd 格式的 .deb）
-if [ "$GENERATED" = false ]; then
-    CACHE_DIR="$ROOT_DIR/.cache"
-    mkdir -p "$CACHE_DIR"
-    EXTRACTED=0
-    CACHED=0
-
-    echo "       (提取 deb 控制信息...)"
-    > Packages
-    for deb in "$DEBS_DIR"/*.deb; do
         [ -f "$deb" ] || continue
         deb_name=$(basename "$deb")
         cache_file="$CACHE_DIR/${deb_name}.ctrl"
@@ -280,7 +264,6 @@ if [ "$GENERATED" = false ]; then
         fi
     done >> Packages
     echo "       提取 $EXTRACTED 个，缓存命中 $CACHED 个"
-fi
 
 # 后处理：只对缺失的包补充 SileoDepiction 和 Icon 字段
 # 已有的保留不动（如外部 depiction 链接），避免破坏原本正常的显示
@@ -641,8 +624,30 @@ function generate() {
 
 echo "       depictions & icons done."
 
-# 自动生成 sileo-featured.json（从 Packages 读取所有包）
-echo "[$(($CURRENT_STEP))/$(($TOTAL_STEPS))] Generating sileo-featured.json..."
+# 清理孤立 depictions/icons（对应 debs 中已不存在的包）
+echo "       (Checking for orphaned depictions/icons...)"
+for dep_dir in depictions/*/; do
+    [ -d "$dep_dir" ] || continue
+    pkg_id=$(basename "$dep_dir")
+    found=false
+    # 通过 .cache 中的 Package 字段精准匹配（兼容非标准 deb 文件名）
+    for cf in "$CACHE_DIR"/*.ctrl; do
+        [ -f "$cf" ] || continue
+        if grep -qi "^Package: $pkg_id$" "$cf" 2>/dev/null; then
+            found=true
+            break
+        fi
+    done
+    if [ "$found" = false ]; then
+        echo "       (清除孤立: depictions/$pkg_id)"
+        rm -rf "$dep_dir"
+        rm -f "icon/$pkg_id.png"
+    fi
+done
+
+# ---- Step 3: 生成 sileo-featured.json ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating sileo-featured.json..."
 awk '
 BEGIN {
     print "{"
@@ -673,7 +678,7 @@ END {
 ' Packages > sileo-featured.json
 echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) packages)."
 
-# ---- Step 3: 并行压缩 Packages ----
+# ---- Step 4: 并行压缩 Packages ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo "[$CURRENT_STEP/$TOTAL_STEPS] Compressing Packages (parallel)..."
 COMPRESS_START=$(date +%s)
@@ -710,7 +715,7 @@ wait $PID_BZ2 $PID_GZ $PID_XZ
 COMPRESS_ELAPSED=$(($(date +%s) - COMPRESS_START))
 echo "       并行压缩完成 (耗时 ${COMPRESS_ELAPSED}s)"
 
-# ---- Step 4: 计算校验和 ----
+# ---- Step 5: 计算校验和 ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo "[$CURRENT_STEP/$TOTAL_STEPS] Calculating checksums..."
 
@@ -731,7 +736,7 @@ for file in "Packages" "${COMPRESSED_FILES[@]}"; do
     CKSUM["$file|sha512"]=$(sha512sum "$file" | cut -d' ' -f1)
 done
 
-# ---- Step 5: 生成 Release 文件 ----
+# ---- Step 6: 生成 Release 文件 ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo "[$CURRENT_STEP/$TOTAL_STEPS] Writing Release file..."
 
