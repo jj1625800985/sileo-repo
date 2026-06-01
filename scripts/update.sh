@@ -313,7 +313,7 @@ BEGIN {
     next
 }
 /^$/ {
-    if (rec != "") rec = rec "\n"
+    # 跳过空行，Package: 处理时会自动保存上一条记录
     next
 }
 {

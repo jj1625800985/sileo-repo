@@ -17,7 +17,6 @@ SHA1: 4671249bd0defcc1d7cd0d69233ab327c60adfa9
 SHA256: 6d560bb58d1657780214dea49cabdeeeb7a9016b404eaa2526a28205ce900b9b
 SHA512: 60b91f148e5f39724769197a479b73b4077c314a6e3a5d84c8ebd07bc9c63730ec53dc879950a8e12ae315256c3fd2418783b3fd62e050d8a0a5d9710ef14101
 
-
 Package: com.axs.switchicon
 Name: Switch Icon
 Description: 一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T
@@ -48,7 +47,6 @@ SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
 SHA256: 35de138df50dae2c4c160bfbd63bd0189d31d2cda2ca8f14836cca8962f53dc4
 SHA512: cfb89d53c93963aa49f3355d1c351537b3cb5c257b08f2c2e63fb7f92235421a3c935ca662812eaf494a3aecef14c552dc3f473a7eb79944cf9186ec9a301c21
 
-
 Package: com.axs.screenrecording
 Name: 全局水印&套壳『截屏.录屏』
 Description: 全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。
@@ -67,7 +65,6 @@ MD5sum: 8db00ea2cae55545d67cc9a45e255050
 SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
 SHA256: 0e648846b7e8f40413637027daa5d9f1f0e5e627cd3e7711d909c0ef9a33796b
 SHA512: 27cba4e78515c285ecc2ca0532746721346261c8a6545cfc0f3dd7865368dd4bb0e06169a64136511ba18016c8795015eb286beec98e011ae830b9247879aea4
-
 
 Package: ai-config-gui
 Name: AI-Config-GUI
@@ -88,7 +85,6 @@ SHA256: ea9a2cddbf5446993cd6b48544b904220b02ee7945416c51a6a787335a084929
 SHA512: 4130026f6417d0ee8b0f025f12401252030faf7a3260b806f7dede2399d8179b43ec404f32755face8ab8afa5cc42697b2cd8e130f096ad52330d009b71517f3
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
-
 
 Package: claude-code-roothide
 Name: Claude Code Roothide
@@ -113,7 +109,6 @@ SHA1: 7c72b4a210c9cf5d2540140ea117d94767255a09
 SHA256: adfffe9989bdda67476d66b5880d8b937564b0c174cbdeb2553272ec4fd660b1
 SHA512: 10d888c0d65d5b391529a0a20b96488b7cb452e4c798e8ab5c86c78f4dab64b5250a31ba3fbb3a9441c2e0ca9ac4154df77f8a2069f56fda96b2d12e1a207d60
 Icon: https://jj1625800985.github.io/sileo-repo/icon/claude-code-roothide.png
-
 
 Package: codex-ios-roothide
 Version: 0.134.0-2
@@ -144,7 +139,6 @@ SHA512: c9f4a25afab59bda04fd12bddd671784cf6bce984d816805a414c0c72f7eac5e10b7f9da
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/codex-ios-roothide/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/codex-ios-roothide.png
 
-
 Package: com.Axs.floating-view
 Name: Fv分屏破解版
 Description: 温馨提示:
@@ -169,7 +163,6 @@ SHA1: 3f6981bfb23facfabba513b1d913dfb85a2a825c
 SHA256: f5b61f406f02a3769a8d25ce500ebccc9408a7730979047b17c6a711b2ceed4c
 SHA512: a8cc45cd3d463116e9836ee42bbd1473362d5d306ea8ef93945f8fa2c02a3b612c584315f02a1595ce2f6924d74caaaff0353fca910727a7bdd712a07880ecda
 
-
 Package: com.Axs.stheno
 Name: Stheno
 Description: Medusa,Jump Whenever。
@@ -189,7 +182,6 @@ MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
 SHA1: d591168b0604ffd8152c154377e18f08c633d55a
 SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
 SHA512: cd8bb68d085397b74d35056e6b29b42d27d18e163f6be1d66641db897b6f317c2c387311acc3410a26984cfd0e3b774879b6113728da1e67b7842f268dcaa2e6
-
 
 Package: com.dafei.terminal
 Name: DFTerminal
@@ -213,7 +205,6 @@ SHA512: a8bfae7964fde561b54163add42631c17703ff559d9ebaf14fca885160c52aa0481c424c
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.dafei.terminal/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png
 
-
 Package: com.iosdump.zone
 Name: Zone
 Depends: mobilesubstrate, preferenceloader
@@ -232,7 +223,6 @@ SHA256: b79a8fca79d3a51516dc6fa35d011a863c0a711edd79b4eb3ee6e73d17974b8b
 SHA512: e256cb036880aaadcda5ff3b8ae19e7ef25f3d4ec6980e7dc54e0993495cdeb2c71c214ed635d75ccff5744e05e464f38437f6ec3e10cc522e05e9cd263f9009
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.iosdump.zone/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.iosdump.zone.png
-
 
 Package: com.lenglengyu.ghallownetwork
 Name: Allow Network-roothide
@@ -256,7 +246,6 @@ SHA256: 84c2a319c0c640ead0c85bfb35c954c33886e2e5dcf2f6906c8a3737b116b50d
 SHA512: 915c7578d18164e64e1b81f55d170363b926e99676549a9156d24d9c8d3b4a51021bdcbc5e888dfa69316e2245cb4174c3169f21317c6d1115f321442f3b68fc
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.lenglengyu.ghallownetwork.png
 
-
 Package: com.nx.accode
 Name: Stheno激活码生成器
 Description: 使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。
@@ -277,7 +266,6 @@ SHA512: 2bfd5beac90be4c7f0542c0f8d26f2418019448b9bb0646758bcafa58cb1740f96b87be2
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.nx.accode/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png
 
-
 Package: com.wkk.dynamicnotland
 Name: DynamicNotLand
 Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
@@ -297,7 +285,6 @@ SHA1: 6902dddfc9ffdfd7365965ab0d727a777e2e5871
 SHA256: 27fcca96dd0d6a1328832bfdb51df2459061cfdcf8b6a617ac42142e3aa75775
 SHA512: bfec3e88f886f3c2057132b817e4571949e6d962a624bb5cb41cc2c5f4c314d03f665365447571ccc1befcbc116df7a49f6c5ef06e8dba4901672374f4df1355
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.dynamicnotland/info.json
-
 
 Package: nodejs22-ios-roothide
 Version: 22.12.0-27
@@ -323,7 +310,6 @@ SHA512: 3dcdd1478f6dcd99583b60d992b36c152e62b5cc68bd8075617b3ca7776d6da7d6603064
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/nodejs22-ios-roothide/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/nodejs22-ios-roothide.png
 
-
 Package: wiki.qaq.colorfulwallpaperx
 Name: Colorful Wallpaper X
 Description: Dynamic wallpaper with colorful effects.
@@ -342,7 +328,6 @@ SHA256: 1b6ba09b706a2e80930982ebf9bcb1487bf9c47dcb0ab20615997fe704f4d761
 SHA512: f4a3e69830566d0a715940eb07e0ebc25fd25d4446d8c4f924d7ff9dd7920aa258357355e4eb008630b513e9f55d20884a3ad4cbaef1a3cc1c0c8e5214117bfc
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/wiki.qaq.colorfulwallpaperx/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
-
 
 Package: ws.hbang.newterm3
 Name: NewTerm 3 Beta
@@ -368,4 +353,3 @@ SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec
 SHA256: a39c394d57b3ef1b7bfb575b5d990071e3c9de7a4c09bfd4fc0dda9993a04b1f
 SHA512: ba0ddb1535ed92b0e284b2176327213f3e325805337a37e427dcfe3878e33740faa4d6cf63de671402ea2de5311fc327bf28b5088a36b3606f87226d5fe3360a
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ws.hbang.newterm3/info.json
-
