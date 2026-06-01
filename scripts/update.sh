@@ -538,6 +538,7 @@ Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
 Description: $DESCRIPTION
+SileoFeatured: sileo-featured.json
 Date: $(date -R)
 EOF
 
