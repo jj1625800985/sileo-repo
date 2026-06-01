@@ -287,7 +287,7 @@ fi
 awk -v url="$REPO_URL" '
 /^Package: / {
     if (pkg != "") {
-        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
     }
     pkg = substr($0, index($0, ": ") + 2)
@@ -295,12 +295,12 @@ awk -v url="$REPO_URL" '
     print
     next
 }
-/[Ss]ileo[dD]epiction: / { needs_dep = 0; print; next }
+/^[Ss]ileo[dD]epiction: / { needs_dep = 0; print; next }
 /^Icon: / { needs_icon = 0; print; next }
 /^Depiction: / { print; next }  # 保留 Depiction 字段
 /^$/ {
     if (pkg != "") {
-        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
         pkg = ""; needs_dep = 0; needs_icon = 0
     }
@@ -309,7 +309,7 @@ awk -v url="$REPO_URL" '
 { print }
 END {
     if (pkg != "") {
-        if (needs_dep) print "Sileodepiction: " url "/depictions/" pkg "/info.json"
+        if (needs_dep) print "SileoDepiction: " url "/depictions/" pkg "/info.json"
         if (needs_icon) print "Icon: " url "/icon/" pkg ".png"
     }
 }
@@ -685,7 +685,7 @@ Components: main
 Description: $DESCRIPTION
 SileoFeatured: sileo-featured.json
 Icon: CydiaIcon.png
-Date: $(date -R)
+Date: $(date -Ru)
 EOF
 
 # 用循环添加所有校验和（减少 200+ 行重复代码）
