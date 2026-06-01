@@ -53,7 +53,7 @@ load_config() {
         REPO_URL="$DEFAULT_REPO_URL"
         echo "[!] 未找到配置文件，使用默认值"
     fi
-    ORIGIN="$(detect_origin)"
+    ORIGIN="${ORIGIN:-$(detect_origin)}"
 }
 
 # ---- 保存配置文件 ----
@@ -61,6 +61,7 @@ save_config() {
     cat > "$REPO_CONFIG" <<EOF
 # Sileo Repo 配置
 # 可通过 ./scripts/update.sh --config 交互式修改
+ORIGIN="$ORIGIN"
 LABEL="$LABEL"
 DESCRIPTION="$DESCRIPTION"
 REPO_URL="$REPO_URL"
@@ -77,6 +78,9 @@ interactive_config() {
     echo "========================================"
     echo ""
 
+    read -r -p "Origin  [$ORIGIN]: " input
+    ORIGIN="${input:-$ORIGIN}"
+
     read -r -p "Label   [$LABEL]: " input
     LABEL="${input:-$LABEL}"
 
@@ -91,6 +95,7 @@ interactive_config() {
     echo "========================================"
     echo "  配置预览"
     echo "========================================"
+    echo "  Origin:      $ORIGIN"
     echo "  Label:       $LABEL"
     echo "  Description: $DESCRIPTION"
     echo "  Repo URL:    $REPO_URL"

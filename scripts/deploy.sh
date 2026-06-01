@@ -8,8 +8,8 @@ ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
 # 自动检测 git 远程名
-ORIGIN="$(git remote 2>/dev/null | head -1)"
-if [ -z "$ORIGIN" ]; then
+REMOTE="$(git remote 2>/dev/null | head -1)"
+if [ -z "$REMOTE" ]; then
     echo "[错误] 没有找到 git 远程仓库"
     exit 1
 fi
@@ -53,11 +53,11 @@ echo ""
 echo "========================================="
 echo "  步骤 3/3: 推送到 GitHub"
 echo "========================================="
-if git push "$ORIGIN" main 2>/dev/null; then
+if git push "$REMOTE" main 2>/dev/null; then
     :
 else
     echo "       (权限不足，使用 sudo)"
-    echo "q" | sudo -S git push "$ORIGIN" main
+    echo "q" | sudo -S git push "$REMOTE" main
 fi
 echo "[完成] 已推送，GitHub Pages 稍后自动更新"
 
