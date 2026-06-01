@@ -9,11 +9,11 @@
       "class": "DepictionStackView",
       "views": [
         {"title": "说明", "class": "DepictionHeaderView"},
-        {"class": "DepictionMarkdownView", "markdown": "Medusa!"},
+        {"class": "DepictionMarkdownView", "markdown": "Medusa,Jump Whenever。"},
         {"class": "DepictionSeparatorView"},
         {"title": "信息", "class": "DepictionHeaderView"},
-        {"title": "名称", "text": "Stheno奥利奥分屏", "class": "DepictionTableTextView"},
-        {"title": "版本", "text": "77.1.4.7", "class": "DepictionTableTextView"},
+        {"title": "名称", "text": "Stheno", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "77.1.4.8", "class": "DepictionTableTextView"},
         {"title": "包名", "text": "com.Axs.stheno", "class": "DepictionTableTextView"},
         {"title": "作者", "text": "Crassna", "class": "DepictionTableTextView"},
         {"spacing": 20, "class": "DepictionSpacerView"}

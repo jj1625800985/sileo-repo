@@ -382,15 +382,29 @@ function generate() {
     system("mkdir -p " pDir)
     jFile = pDir "/info.json"
 
-    # 缓存命中：info.json 已存在且未过期
+    # info.json 已存在 → 检查版本是否一致
     if (system("test -f \"" jFile "\"") == 0) {
-        # 仍需要处理图标
-        iFile = "icon/" pkg ".png"
-        if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
-            system("cp \"" defaultIcon "\" \"" iFile "\"")
+        oldVer = ""
+        while ((getline line < jFile) > 0) {
+            if (line ~ /"版本", "text": "/) {
+                gsub(/.*"版本", "text": "/, "", line)
+                gsub(/".*/, "", line)
+                oldVer = line
+                break
+            }
         }
-        pkg = ""
-        return
+        close(jFile)
+        if (oldVer == version) {
+            # 版本一致 → 跳过，只处理图标
+            iFile = "icon/" pkg ".png"
+            if (system("test -f \"" iFile "\"") != 0 && system("test -f \"" defaultIcon "\"") == 0) {
+                system("cp \"" defaultIcon "\" \"" iFile "\"")
+            }
+            pkg = ""
+            return
+        }
+        # 版本不一致 → 删除旧的 info.json，重新生成
+        system("rm -f \"" jFile "\"")
     }
 
     # 检测截图：depictions/<pkg>/screenshots/ 目录下的 png
@@ -587,6 +601,7 @@ EOF
     fi
 } >> Release
 
+if [ "$DEPLOY_MODE" != "1" ]; then
 echo ""
 echo "========================================"
 echo " Done! Repo ready at:"
@@ -606,3 +621,4 @@ echo "   4. Enable GitHub Pages (main branch, /root)"
 echo "   5. Add source in Sileo:"
 echo "      $REPO_URL"
 echo ""
+fi

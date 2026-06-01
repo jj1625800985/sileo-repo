@@ -4,6 +4,9 @@
 #  用法: bash scripts/deploy.sh
 # ============================================================
 
+export LC_ALL=C
+export DEPLOY_MODE=1
+
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
