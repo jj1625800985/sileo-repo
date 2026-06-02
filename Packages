@@ -68,26 +68,6 @@ SHA512: 27cba4e78515c285ecc2ca0532746721346261c8a6545cfc0f3dd7865368dd4bb0e06169
 
 Package: ai-config-gui
 Name: AI-Config-GUI
-Description: Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP/权限/指令/历史)，支持 Anthropic/OpenAI/DeepSeek/阿里云/智谱/MiniMax/小米等多厂商
-Maintainer: DaFei
-Author: DaFei
-Section: Utilities
-Depends: firmware (>= 14.0), libvterm0
-Architecture: iphoneos-arm64e
-Version: 3.1.0-7+debug
-Installed-Size: 636
-Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/ai-config-gui_3.1.0-7+debug_iphoneos-arm64e.deb
-Size: 176004
-MD5sum: 59c56879654bf724789a211b415dca72
-SHA1: 628374ca79ee3f191ffa9218f15252cd071ed935
-SHA256: e28529fc9dff936c45ccf5851b11a6ae70a7633fe7bceace7452dfdc2d8f4adc
-SHA512: 0982ff2e716030c5eb391683680a85cb9bb92048acf7a739835eca210bd24f7054633a9e4f3ac9885bab8be61014fe935334e01d38c7c663e5949f6255b58293
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
-
-Package: ai-config-gui
-Name: AI-Config-GUI
 Description: Ai-ios-ccswich，ai配置app，要先安装大飞源里面的claude和codex，然后终端启动一次“claude”和“codex”指令，初始化文件
 Maintainer: DaFei
 Author: DaFei
@@ -182,26 +162,6 @@ MD5sum: 8b189bdfd446b1daf9e1faeaa2c9973b
 SHA1: 3f6981bfb23facfabba513b1d913dfb85a2a825c
 SHA256: f5b61f406f02a3769a8d25ce500ebccc9408a7730979047b17c6a711b2ceed4c
 SHA512: a8cc45cd3d463116e9836ee42bbd1473362d5d306ea8ef93945f8fa2c02a3b612c584315f02a1595ce2f6924d74caaaff0353fca910727a7bdd712a07880ecda
-
-Package: com.Axs.stheno
-Name: Stheno奥利奥分屏
-Description: Medusa!
-Maintainer: Crassna
-Author: Crassna
-Section: 分屏插件
-Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
-Architecture: iphoneos-arm64e
-Version: 77.1.4.7
-Installed-Size: 1928
-Icon: https://axs66.github.io/repo/icon/stheno.png
-Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
-Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
-Size: 522250
-MD5sum: da397e79152000d9ff5b377853119662
-SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
-SHA256: 8e5689997b0427e00a8c8c99963bd849cd6dafd09a8a52c2adccad9ee2d6682d
-SHA512: 40f45ca7e8918e081808d41ffd62f23136f827de1000bd725d65052c98045070f660f0a0b03bd6cbe27436043f3496ed6720b08e37b29df7d1cd890632dbb23c
 
 Package: com.Axs.stheno
 Name: Stheno
@@ -393,4 +353,3 @@ SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec
 SHA256: a39c394d57b3ef1b7bfb575b5d990071e3c9de7a4c09bfd4fc0dda9993a04b1f
 SHA512: ba0ddb1535ed92b0e284b2176327213f3e325805337a37e427dcfe3878e33740faa4d6cf63de671402ea2de5311fc327bf28b5088a36b3606f87226d5fe3360a
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ws.hbang.newterm3/info.json
-
