@@ -305,60 +305,8 @@ END {
 }
 ' Packages > Packages.tmp && mv Packages.tmp Packages
 
-# 去重：每个包只保留最新版本
-echo "       (Deduplicating: keeping only latest version per package...)"
-awk '
-BEGIN {
-    pkg_count = 0
-    sep = ""
-}
-/^Package: / {
-    if (rec != "") save_rec()
-    pkg = substr($0, index($0, ": ") + 2)
-    rec = $0 "\n"
-    next
-}
-/^$/ {
-    next
-}
-{
-    if (rec != "") rec = rec $0 "\n"
-}
-END {
-    if (rec != "") save_rec()
-    for (i = 0; i < pkg_count; i++) {
-        printf "%s", records[i]
-        if (i < pkg_count - 1) printf "\n"
-    }
-}
-function save_rec() {
-    ver = ""
-    n = split(rec, lines, "\n")
-    for (i = 1; i <= n; i++) {
-        if (lines[i] ~ /^Version: /) {
-            ver = substr(lines[i], index(lines[i], ": ") + 2)
-            break
-        }
-    }
-    for (i = 0; i < pkg_count; i++) {
-        if (pkg_names[i] == pkg) {
-            cmd = "dpkg --compare-versions \"" ver "\" gt \"" pkg_vers[i] "\" 2>/dev/null"
-            if (system(cmd) == 0) {
-                pkg_vers[i] = ver
-                records[i] = rec
-            }
-            rec = ""; pkg = ""
-            return
-        }
-    }
-    pkg_names[pkg_count] = pkg
-    pkg_vers[pkg_count] = ver
-    records[pkg_count] = rec
-    pkg_count++
-    rec = ""; pkg = ""
-}
-' Packages > Packages.tmp && mv Packages.tmp Packages
-echo "       Packages generated (deduplicated)."
+# 保留所有版本：Sileo 列表按包名去重，但点进去可以看到所有版本可选
+echo "       (Keeping all versions for Sileo multi-version support)"
 
 # ---- Step 2: 生成 depictions + 图标 + sileo-featured ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
