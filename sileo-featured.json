@@ -19,6 +19,7 @@
         {"class": "FeaturePackage", "package": "com.lenglengyu.ghallownetwork"},
         {"class": "FeaturePackage", "package": "com.nx.accode"},
         {"class": "FeaturePackage", "package": "com.wkk.dynamicnotland"},
+        {"class": "FeaturePackage", "package": "com.wkk.zone"},
         {"class": "FeaturePackage", "package": "nodejs22-ios-roothide"},
         {"class": "FeaturePackage", "package": "wiki.qaq.colorfulwallpaperx"},
         {"class": "FeaturePackage", "package": "ws.hbang.newterm3"}
