@@ -245,25 +245,6 @@ SHA512: a8bfae7964fde561b54163add42631c17703ff559d9ebaf14fca885160c52aa0481c424c
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.dafei.terminal/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png
 
-Package: com.iosdump.zone
-Name: Zone
-Depends: mobilesubstrate, preferenceloader
-Description: Zone 插件用于设置.tendies交互壁纸/视频壁纸 支持iOS14-17
-Maintainer: iosdump
-Author: iosdump
-Section: Tweaks
-Architecture: iphoneos-arm64e
-Version: 0.0.8
-Installed-Size: 648
-Filename: debs/com.iosdump.zone_0.0.8_iphoneos-arm64e.deb
-Size: 129230
-MD5sum: 280450961fb44da6980a3154d1370504
-SHA1: b28fe6c85e7c4a02eb2b1129611ed000ea6a0bb4
-SHA256: b79a8fca79d3a51516dc6fa35d011a863c0a711edd79b4eb3ee6e73d17974b8b
-SHA512: e256cb036880aaadcda5ff3b8ae19e7ef25f3d4ec6980e7dc54e0993495cdeb2c71c214ed635d75ccff5744e05e464f38437f6ec3e10cc522e05e9cd263f9009
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.iosdump.zone/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.iosdump.zone.png
-
 Package: com.lenglengyu.ghallownetwork
 Name: Allow Network-roothide
 Author: lenglengyu
