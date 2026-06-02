@@ -41,6 +41,7 @@ done
 DEFAULT_LABEL="jj1625800985 Repo"
 DEFAULT_DESCRIPTION="jj1625800985's Sileo package repository"
 DEFAULT_REPO_URL="https://jj1625800985.github.io/sileo-repo"
+DEFAULT_SUITE="sxllm"
 
 # 自动检测 git 远程名
 detect_origin() {
@@ -58,6 +59,7 @@ load_config() {
         LABEL="$DEFAULT_LABEL"
         DESCRIPTION="$DEFAULT_DESCRIPTION"
         REPO_URL="$DEFAULT_REPO_URL"
+        SUITE="$DEFAULT_SUITE"
         echo "[!] 未找到配置文件，使用默认值"
     fi
     ORIGIN="${ORIGIN:-$(detect_origin)}"
@@ -70,6 +72,7 @@ save_config() {
 # 可通过 ./scripts/update.sh --config 交互式修改
 ORIGIN="$ORIGIN"
 LABEL="$LABEL"
+SUITE="$SUITE"
 DESCRIPTION="$DESCRIPTION"
 REPO_URL="$REPO_URL"
 EOF
@@ -91,6 +94,9 @@ interactive_config() {
     read -r -p "Label   [$LABEL]: " input
     LABEL="${input:-$LABEL}"
 
+    read -r -p "Suite   [$SUITE]: " input
+    SUITE="${input:-$SUITE}"
+
     echo "Description (当前: $DESCRIPTION)"
     read -r -p "  新描述: " input
     DESCRIPTION="${input:-$DESCRIPTION}"
@@ -104,6 +110,7 @@ interactive_config() {
     echo "========================================"
     echo "  Origin:      $ORIGIN"
     echo "  Label:       $LABEL"
+    echo "  Suite:       $SUITE"
     echo "  Description: $DESCRIPTION"
     echo "  Repo URL:    $REPO_URL"
     echo "========================================"
@@ -683,7 +690,7 @@ echo "[$CURRENT_STEP/$TOTAL_STEPS] Writing Release file..."
 cat > Release <<EOF
 Origin: $ORIGIN
 Label: $LABEL
-Suite: stable
+Suite: $SUITE
 Version: 1.0
 Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
