@@ -167,7 +167,7 @@ fi
 auto_fill_description
 
 # 动态步骤计数
-TOTAL_STEPS=6
+TOTAL_STEPS=7
 CURRENT_STEP=0
 
 # 检查 debs 目录
@@ -715,6 +715,14 @@ for algo in "MD5Sum" "SHA1" "SHA256" "SHA512"; do
 done
 
 echo "       Release file written."
+
+# ---- Step 7: 生成 packages.json（供 index.html 动态加载） ----
+CURRENT_STEP=$((CURRENT_STEP + 1))
+echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating packages.json..."
+bash "$ROOT_DIR/scripts/gen-pkgdata.sh"
+
+# 更新 TOTAL_STEPS
+TOTAL_STEPS=$((TOTAL_STEPS + 1))
 
 # 不覆盖 repo.conf 中的 DESCRIPTION（保留用户的设置）
 # 但如果之前自动填充了，保存到配置文件持久化
