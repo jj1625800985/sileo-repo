@@ -604,6 +604,44 @@ for cf in "$CACHE_DIR"/*.ctrl; do
 done
 echo "       下载 $DL_COUNT，跳过 $DL_SKIP，失败 $DL_FAIL"
 
+# 从 deb 包内提取原始 app 图标（优先于外链下载）
+echo "       (从 deb 内提取 App 图标...)"
+EXTRACT_COUNT=0
+EXTRACT_SKIP=0
+for deb in "$DEBS_DIR"/*.deb; do
+    [ -f "$deb" ] || continue
+    deb_name=$(basename "$deb")
+    pkg_id="${deb_name%_*}"; pkg_id="${pkg_id%_*}"
+    icon_file="icon/$pkg_id.png"
+
+    # 如果已有自定义图标（非默认），跳过
+    if [ -f "$icon_file" ] && ! cmp -s "$icon_file" "$DEFAULT_ICON" 2>/dev/null; then
+        EXTRACT_SKIP=$((EXTRACT_SKIP + 1))
+        continue
+    fi
+
+    # 查找 deb 内 app 图标（优先 AppIcon60x60@2x.png）
+    app_icon=$(dpkg-deb -c "$deb" 2>/dev/null | grep -oP '\.app/AppIcon(60x60@2x|60x60|).*\.\Kpng' | head -1)
+    [ -z "$app_icon" ] && { EXTRACT_SKIP=$((EXTRACT_SKIP + 1)); continue; }
+
+    # 提取具体路径
+    icon_path=$(dpkg-deb -c "$deb" 2>/dev/null | grep -oP '/Applications/.*?AppIcon[^ ]*\.png' | head -1)
+    [ -z "$icon_path" ] && { EXTRACT_SKIP=$((EXTRACT_SKIP + 1)); continue; }
+
+    if dpkg-deb --fsys-tarfile "$deb" 2>/dev/null | tar xO ".$icon_path" > "$icon_file" 2>/dev/null; then
+        if file "$icon_file" | grep -qi "PNG image data" 2>/dev/null; then
+            echo "       [提取] $icon_file ← $icon_path"
+            EXTRACT_COUNT=$((EXTRACT_COUNT + 1))
+        else
+            rm -f "$icon_file"
+            EXTRACT_SKIP=$((EXTRACT_SKIP + 1))
+        fi
+    else
+        EXTRACT_SKIP=$((EXTRACT_SKIP + 1))
+    fi
+done
+echo "       提取 $EXTRACT_COUNT 个，跳过 $EXTRACT_SKIP 个"
+
 # 验证所有图标是否是真正的 PNG（修复 JPEG 伪装问题）
 echo "       (验证图标格式...)"
 PNG_FIXED=0
