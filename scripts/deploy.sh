@@ -10,11 +10,21 @@ export DEPLOY_MODE=1
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
-# 自动检测 git 远程名
+# 自动检测 git 远程名（多层 fallback）
 REMOTE="$(git remote 2>/dev/null | head -1)"
 if [ -z "$REMOTE" ]; then
-    echo "[错误] 没有找到 git 远程仓库"
-    exit 1
+    echo "[!] git remote 检测失败，尝试读取 .git/config..."
+    # fallback 1: 直接从 .git/config 读取
+    if [ -f ".git/config" ]; then
+        REMOTE=$(grep '^\[remote "' .git/config 2>/dev/null | head -1 | sed 's/\[remote "//;s/"\]//')
+    fi
+    # fallback 2: 使用 origin 作为默认
+    if [ -z "$REMOTE" ]; then
+        echo "[!] 无法检测远程名，使用默认: origin"
+        REMOTE="origin"
+    else
+        echo "[i] 已从 .git/config 读取远程名: $REMOTE"
+    fi
 fi
 
 # 2. 运行 update.sh

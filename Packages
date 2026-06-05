@@ -10,7 +10,7 @@ SileoDepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-205
 Installed-Size: 664
-Filename: debs/A狗动态岛破解版205.deb
+Filename: ./debs/A狗动态岛破解版205.deb
 Size: 78328
 MD5sum: d6c8ab29cf4b566451c5deb4f1982523
 SHA1: 4671249bd0defcc1d7cd0d69233ab327c60adfa9
@@ -36,11 +36,11 @@ Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
 Icon: https://axs66.github.io/pro/icon/switchicon.png
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
+SileoDepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-131
 Installed-Size: 836
-Filename: debs/A狗液态开关破解版.deb
+Filename: ./debs/A狗液态开关破解版.deb
 Size: 122528
 MD5sum: ab68e821f2630db3ae297f49732e978a
 SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
@@ -55,11 +55,11 @@ Author: Axs
 Section: Tweaks
 Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
 Icon: https://axs66.github.io/pro/icon/screenrecording.png
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
+SileoDepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
 Architecture: iphoneos-arm64
 Version: 5.2.0-35
 Installed-Size: 508
-Filename: debs/A狗视频套壳_破解版.deb
+Filename: ./debs/A狗视频套壳_破解版.deb
 Size: 46396
 MD5sum: 8db00ea2cae55545d67cc9a45e255050
 SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
@@ -77,7 +77,7 @@ Architecture: iphoneos-arm64e
 Version: 3.1.0-7+debug
 Installed-Size: 636
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/ai-config-gui_3.1.0-7+debug_iphoneos-arm64e.deb
+Filename: ./debs/ai-config-gui_3.1.0-7+debug_iphoneos-arm64e.deb
 Size: 176004
 MD5sum: 59c56879654bf724789a211b415dca72
 SHA1: 628374ca79ee3f191ffa9218f15252cd071ed935
@@ -97,7 +97,7 @@ Architecture: iphoneos-arm64e
 Version: 3.2.0
 Installed-Size: 376
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/ai-config-gui_3.2.0_iphoneos-arm64e.deb
+Filename: ./debs/ai-config-gui_3.2.0_iphoneos-arm64e.deb
 Size: 127616
 MD5sum: b1352bd27fdd67833bd1c1fcdab3119a
 SHA1: 06cd026a3b7da4d95269b992cfa5fc56caadd0be
@@ -122,7 +122,7 @@ Homepage: https://claude.ai
 Depiction: https://github.com/anthropics/claude-code
 SileoDepiction: https://github.com/anthropics/claude-code
 Installed-Size: 142528
-Filename: debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
+Filename: ./debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
 Size: 27881552
 MD5sum: 952f7a498a951d49b843f6b95bc3fed5
 SHA1: 7c72b4a210c9cf5d2540140ea117d94767255a09
@@ -150,7 +150,7 @@ Description: OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal
  Features / 特性:
    - Native arm64 binary, no emulation / 原生 arm64 二进制
    - Works in NewTerm2/3 and SSH / 支持 NewTerm2/3 和 SSH 终端 只能接受responses端点的OpenAI 兼容的 API 密钥(二进制文件限制-不兼容的需要自己搭代理服务器翻译)。
-Filename: debs/codex-ios-roothide_0.134.0-2_iphoneos-arm64e.deb
+Filename: ./debs/codex-ios-roothide_0.134.0-2_iphoneos-arm64e.deb
 Size: 22390000
 MD5sum: 9bf1d7c4101610d9379a3455adbe1d35
 SHA1: c81f64e2515a2de5908af71a7b962a77dd669d9e
@@ -175,8 +175,8 @@ Architecture: iphoneos-arm64
 Version: 1.6.0-6
 Installed-Size: 2700
 Icon: https://axs66.github.io/pro/icon/svp.png
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/floating-view/js.json
-Filename: debs/com.Axs.floating-view_1.6.0-6_iphoneos-arm64.deb
+SileoDepiction: https://axs66.github.io/pro/sileodepiction/floating-view/js.json
+Filename: ./debs/com.Axs.floating-view_1.6.0-6_iphoneos-arm64.deb
 Size: 652884
 MD5sum: 8b189bdfd446b1daf9e1faeaa2c9973b
 SHA1: 3f6981bfb23facfabba513b1d913dfb85a2a825c
@@ -194,9 +194,9 @@ Architecture: iphoneos-arm64e
 Version: 77.1.4.7
 Installed-Size: 1928
 Icon: https://axs66.github.io/repo/icon/stheno.png
-Sileodepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
+SileoDepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
+Filename: ./debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
 Size: 522250
 MD5sum: da397e79152000d9ff5b377853119662
 SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
@@ -214,9 +214,9 @@ Architecture: iphoneos-arm64e
 Version: 77.1.4.8
 Installed-Size: 2788
 Icon: https://axs66.github.io/pro/icon/stheno.png
-Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
+SileoDepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
+Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
 Size: 1470186
 MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
 SHA1: d591168b0604ffd8152c154377e18f08c633d55a
@@ -236,7 +236,7 @@ Architecture: iphoneos-arm64e
 Version: 1.0.0-27+debug
 Installed-Size: 732
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/com.dafei.terminal_1.0.0-27+debug_iphoneos-arm64e.deb
+Filename: ./debs/com.dafei.terminal_1.0.0-27+debug_iphoneos-arm64e.deb
 Size: 212730
 MD5sum: a4aec55c980d1b3fa1ca638e4dac17ab
 SHA1: 03b3e0dbe39979fdc70fa660bcfc74fde15a6162
@@ -254,18 +254,17 @@ Maintainer: lenglengyu <lenglengyu@126.com>
 Architecture: iphoneos-arm64e
 Section: Tweaks
 Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
-Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
+SileoDepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
 Installed-Size: 152
 Pre-Depends: rootless-compat(>= 0.9)
-icon: https://huayuarc.github.io/icon/huayuarc.jpg
-Filename: debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64e.deb
+Icon: https://huayuarc.github.io/icon/huayuarc.jpg
+Filename: ./debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64e.deb
 Size: 7992
 MD5sum: 71e98cb5b37108c39726eae5a46da22f
 SHA1: 7bad07d0dc96b6a1d29faae791ac16d2291c0a55
 SHA256: 84c2a319c0c640ead0c85bfb35c954c33886e2e5dcf2f6906c8a3737b116b50d
 SHA512: 915c7578d18164e64e1b81f55d170363b926e99676549a9156d24d9c8d3b4a51021bdcbc5e888dfa69316e2245cb4174c3169f21317c6d1115f321442f3b68fc
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.lenglengyu.ghallownetwork.png
 
 Package: com.nx.accode
 Name: Stheno激活码生成器
@@ -278,7 +277,7 @@ Depends: firmware (>= 16.1) | org.swift.libswift (>= 5.0)
 Architecture: iphoneos-arm64
 Version: 1.0
 Installed-Size: 204
-Filename: debs/com.nx.accode_1.0_iphoneos-arm64.deb
+Filename: ./debs/com.nx.accode_1.0_iphoneos-arm64.deb
 Size: 19444
 MD5sum: f52cafa3cd8779082a9c03ff08f59bf5
 SHA1: 2457c0ff1678660cea7e3f90ec167cc57480d074
@@ -299,7 +298,7 @@ Version: 1.2.5
 Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
 Installed-Size: 348
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64e.deb
+Filename: ./debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64e.deb
 Size: 16646
 MD5sum: dbf3a5e99293a14d71dfdc8599436f8e
 SHA1: 6902dddfc9ffdfd7365965ab0d727a777e2e5871
@@ -318,7 +317,7 @@ Architecture: iphoneos-arm64e
 Version: 0.0.9
 Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
 Installed-Size: 664
-Filename: debs/com.wkk.zone_0.0.9_iphoneos-arm64e.deb
+Filename: ./debs/com.wkk.zone_0.0.9_iphoneos-arm64e.deb
 Size: 134608
 MD5sum: 5f525f49cbf9dacbf19fd7796d09de32
 SHA1: e7b8d8a906a37425b54e59cd46689cda462fac97
@@ -341,7 +340,7 @@ Description: Node.js 22.12.0 for iOS arm64 (side-by-side as node22)
  Node.js 22.12.0 iOS arm64 运行时。
  以 node22/npm22/npx22 安装，不与其他 Node 版本冲突。
  内含 npm 10.9.0.
-Filename: debs/nodejs22-ios-roothide_22.12.0-27_iphoneos-arm64e.deb
+Filename: ./debs/nodejs22-ios-roothide_22.12.0-27_iphoneos-arm64e.deb
 Size: 23726452
 MD5sum: 3a5485257ab93617d3e7777a08448692
 SHA1: e1b2a8d5aa9430821183af0f1be889460ee4eccd
@@ -362,7 +361,7 @@ Version: 5.6
 Installed-Size: 6016
 SileoDepiction: https://havoc.app/package/colorfulx/depiction.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
-Filename: debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
+Filename: ./debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
 Size: 1449396
 MD5sum: 9ea84fe740b3380ad188743bf38044c7
 SHA1: 6eaf0e835d6dbd979d2e51c43c835a3d3658dd38
@@ -386,7 +385,7 @@ Tag: compatible_min::ios14.0
 Architecture: iphoneos-arm64e
 Version: 3.0~beta1-670+debug
 Installed-Size: 24128
-Filename: debs/ws.hbang.newterm3_3.0~beta1-670+debug_iphoneos-arm64e.deb
+Filename: ./debs/ws.hbang.newterm3_3.0~beta1-670+debug_iphoneos-arm64e.deb
 Size: 4738394
 MD5sum: fcdb774634eb41e936b949ab70bebe47
 SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec

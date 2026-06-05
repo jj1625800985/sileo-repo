@@ -41,7 +41,7 @@ done
 DEFAULT_LABEL="jj1625800985 Repo"
 DEFAULT_DESCRIPTION="jj1625800985's Sileo package repository"
 DEFAULT_REPO_URL="https://jj1625800985.github.io/sileo-repo"
-DEFAULT_SUITE="sxllm"
+DEFAULT_SUITE="stable"
 
 # 自动检测 git 远程名
 detect_origin() {
@@ -261,7 +261,7 @@ for deb in "$DEBS_DIR"/*.deb; do
             SHA512=$(sha512sum "$deb" | cut -d' ' -f1)
             PKG_ID=$(echo "$CTRL_DATA" | grep -i "^Package:" | head -1 | cut -d' ' -f2)
             echo "$CTRL_DATA"
-            echo "Filename: debs/$deb_name"
+            echo "Filename: ./debs/$deb_name"
             echo "Size: $SIZE"
             echo "MD5sum: $MD5"
             echo "SHA1: $SHA1"
@@ -285,8 +285,8 @@ awk -v url="$REPO_URL" '
     print
     next
 }
-/^[Ss]ileo[dD]epiction: / { needs_dep = 0; print; next }
-/^Icon: / { needs_icon = 0; print; next }
+/^[Ss]ileo[dD]epiction: / { needs_dep = 0; sub(/^[Ss]ileo[dD]epiction: /, "SileoDepiction: "); print; next }
+/^[Ii]con: / { needs_icon = 0; sub(/^[Ii]con: /, "Icon: "); print; next }
 /^Depiction: / { print; next }  # 保留 Depiction 字段
 /^$/ {
     if (pkg != "") {
@@ -592,38 +592,35 @@ for dep_dir in depictions/*/; do
     fi
 done
 
-# ---- Step 3: 生成 sileo-featured.json ----
+# ---- Step 3: 生成 sileo-featured.json（FeaturedBannersView 轮播横幅格式） ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
 echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating sileo-featured.json..."
-awk '
+awk -v url="$REPO_URL" '
 BEGIN {
     print "{"
-    print "  \"class\": \"FeatureView\","
-    print "  \"tintColor\": \"#4A90D9\","
-    print "  \"features\": ["
-    print "    {"
-    print "      \"class\": \"FeatureSection\","
-    print "      \"title\": \"精选插件\","
-    print "      \"features\": ["
+    print "  \"class\": \"FeaturedBannersView\","
+    print "  \"itemSize\": \"{390, 190}\","
+    print "  \"itemCornerRadius\": 10,"
+    print "  \"banners\": ["
     first = 1
+    bannerIdx = 0
 }
 /^Package: / {
     pkg = substr($0, index($0, ": ") + 2)
-    if (!seen[pkg]++) {
+    if (!seen[pkg]++ && bannerIdx < 5) {
         if (!first) print ","
-        printf "        {\"class\": \"FeaturePackage\", \"package\": \"%s\"}", pkg
         first = 0
+        bannerIdx++
+        printf "    {\"url\": \"%s/icon/%s.png\", \"title\": \"\", \"package\": \"%s\", \"hideShadow\": false}", url, pkg, pkg
     }
 }
 END {
     print ""
-    print "      ]"
-    print "    }"
     print "  ]"
     print "}"
 }
 ' Packages > sileo-featured.json
-echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) packages)."
+echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) banners)."
 
 # ---- Step 4: 并行压缩 Packages ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
