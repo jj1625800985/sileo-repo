@@ -588,7 +588,7 @@ for cf in "$CACHE_DIR"/*.ctrl; do
     echo "       [下载] $icon_url → $icon_file"
     if curl -sL --max-time 10 -o "$icon_file" "$icon_url" 2>/dev/null && [ -s "$icon_file" ]; then
         # 验证是真实图片
-        if file "$icon_file" | grep -qiE "image|png|jpeg|gif" 2>/dev/null; then
+        if file "$icon_file" | grep -qi "PNG image data" 2>/dev/null; then
             DL_COUNT=$((DL_COUNT + 1))
             echo "       [图标] $icon_file (已下载原始图标)"
         else
@@ -603,6 +603,22 @@ for cf in "$CACHE_DIR"/*.ctrl; do
     fi
 done
 echo "       下载 $DL_COUNT，跳过 $DL_SKIP，失败 $DL_FAIL"
+
+# 验证所有图标是否是真正的 PNG（修复 JPEG 伪装问题）
+echo "       (验证图标格式...)"
+PNG_FIXED=0
+for icon_f in icon/*.png; do
+    [ -f "$icon_f" ] || continue
+    if ! file "$icon_f" | grep -qi "PNG image data" 2>/dev/null; then
+        # 不是真 PNG，替换为默认图标
+        if [ -f "$DEFAULT_ICON" ]; then
+            cp "$DEFAULT_ICON" "$icon_f"
+            PNG_FIXED=$((PNG_FIXED + 1))
+            echo "       [修复] $icon_f (非 PNG，替换为默认图标)"
+        fi
+    fi
+done
+[ "$PNG_FIXED" -gt 0 ] && echo "       修复 $PNG_FIXED 个非 PNG 图标"
 
 # 清理孤立 depictions/icons（对应 debs 中已不存在的包）
 echo "       (Checking for orphaned depictions/icons...)"
