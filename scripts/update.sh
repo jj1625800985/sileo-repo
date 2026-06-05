@@ -20,6 +20,18 @@
 
 set -e
 
+# ---- 颜色定义 ----
+C_RESET="\033[0m"; C_BOLD="\033[1m"; C_DIM="\033[2m"
+C_RED="\033[0;31m"; C_GREEN="\033[0;32m"; C_YELLOW="\033[0;33m"
+C_BLUE="\033[0;34m"; C_PURPLE="\033[1;35m"; C_CYAN="\033[1;36m"
+C_WHITE="\033[1;37m"; C_GRAY="\033[0;90m"
+cecho() { local c="$1"; shift; echo -e "${c}$*${C_RESET}"; }
+cprintf() { local c="$1"; shift; printf "${c}$*${C_RESET}"; }
+
+# ---- 计时器 ----
+SCRIPT_START=$(date +%s)
+elapsed() { echo "$(($(date +%s) - SCRIPT_START))s"; }
+
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 DEBS_DIR="$ROOT_DIR/debs"
 REPO_CONFIG="$ROOT_DIR/repo.conf"
@@ -54,13 +66,13 @@ detect_origin() {
 load_config() {
     if [ -f "$REPO_CONFIG" ]; then
         source "$REPO_CONFIG"
-        echo "[✓] 已加载配置: $REPO_CONFIG"
+        cecho "$C_GREEN" "[✓] 已加载配置: $REPO_CONFIG"
     else
         LABEL="$DEFAULT_LABEL"
         DESCRIPTION="$DEFAULT_DESCRIPTION"
         REPO_URL="$DEFAULT_REPO_URL"
         SUITE="$DEFAULT_SUITE"
-        echo "[!] 未找到配置文件，使用默认值"
+        cecho "$C_YELLOW" "[!] 未找到配置文件，使用默认值"
     fi
     ORIGIN="${ORIGIN:-$(detect_origin)}"
 }
@@ -76,16 +88,16 @@ SUITE="$SUITE"
 DESCRIPTION="$DESCRIPTION"
 REPO_URL="$REPO_URL"
 EOF
-    echo "[✓] 配置已保存: $REPO_CONFIG"
+    cecho "$C_GREEN" "[✓] 配置已保存: $REPO_CONFIG"
 }
 
 # ---- 交互式配置 ----
 interactive_config() {
     echo ""
-    echo "========================================"
-    echo "  仓库信息配置"
-    echo "  留空则保持当前值不变"
-    echo "========================================"
+    cecho "$C_CYAN" "═══════════════════════════════════════════"
+    cecho "$C_CYAN" "  仓库信息配置"
+    cecho "$C_GRAY" "  留空则保持当前值不变"
+    cecho "$C_CYAN" "═══════════════════════════════════════════"
     echo ""
 
     read -r -p "Origin  [$ORIGIN]: " input
@@ -97,7 +109,7 @@ interactive_config() {
     read -r -p "Suite   [$SUITE]: " input
     SUITE="${input:-$SUITE}"
 
-    echo "Description (当前: $DESCRIPTION)"
+    echo -e "Description ${C_DIM}(当前: $DESCRIPTION)${C_RESET}"
     read -r -p "  新描述: " input
     DESCRIPTION="${input:-$DESCRIPTION}"
 
@@ -105,19 +117,19 @@ interactive_config() {
     REPO_URL="${input:-$REPO_URL}"
 
     echo ""
-    echo "========================================"
-    echo "  配置预览"
-    echo "========================================"
-    echo "  Origin:      $ORIGIN"
-    echo "  Label:       $LABEL"
-    echo "  Suite:       $SUITE"
-    echo "  Description: $DESCRIPTION"
-    echo "  Repo URL:    $REPO_URL"
-    echo "========================================"
+    cecho "$C_CYAN" "═══════════════════════════════════════════"
+    cecho "$C_CYAN" "  配置预览"
+    cecho "$C_CYAN" "═══════════════════════════════════════════"
+    echo -e "  ${C_DIM}Origin:${C_RESET}      $ORIGIN"
+    echo -e "  ${C_DIM}Label:${C_RESET}       $LABEL"
+    echo -e "  ${C_DIM}Suite:${C_RESET}       $SUITE"
+    echo -e "  ${C_DIM}Description:${C_RESET} $DESCRIPTION"
+    echo -e "  ${C_DIM}Repo URL:${C_RESET}    $REPO_URL"
+    cecho "$C_CYAN" "═══════════════════════════════════════════"
     echo ""
     read -r -p "确认保存？(Y/n): " confirm
     case "$confirm" in
-        n|N|no|NO) echo "已取消"; exit 0 ;;
+        n|N|no|NO) echo -e "  ${C_YELLOW}已取消${C_RESET}"; exit 0 ;;
         *) save_config ;;
     esac
 }
@@ -136,17 +148,19 @@ auto_fill_description() {
             fi
             if [ -n "$pkg_desc" ]; then
                 DESCRIPTION="$pkg_desc"
-                echo "[i] DESCRIPTION 已自动更新为: $DESCRIPTION"
+                echo -e "  ${C_DIM}[i] DESCRIPTION 已自动更新为: $DESCRIPTION${C_RESET}"
             fi
         fi
     fi
 }
 
 # ---- 主流程开始 ----
-echo "========================================"
-echo " Sileo Repo Update"
-echo "========================================"
-echo "Root: $ROOT_DIR"
+cecho "$C_CYAN" ""
+cecho "$C_CYAN" "╔═══════════════════════════════════════════╗"
+cecho "$C_CYAN" "║        Sileo Repo Update v6.0            ║"
+cecho "$C_CYAN" "╚═══════════════════════════════════════════╝"
+cecho "$C_GRAY" "  路径: $ROOT_DIR"
+cecho "$C_GRAY" "  时间: $(date '+%Y-%m-%d %H:%M:%S')"
 echo ""
 
 # 加载现有配置
@@ -173,18 +187,18 @@ CURRENT_STEP=0
 # 检查 debs 目录
 DEB_COUNT=$(ls "$DEBS_DIR"/*.deb 2>/dev/null | wc -l)
 if [ "$DEB_COUNT" -eq 0 ]; then
-    echo "[!] debs/ 目录下没有 .deb 文件"
-    echo "    请先将 .deb 放入 debs/ 目录"
+    echo -e "  ${C_RED}[!]${C_RESET} ${C_BOLD}debs/ 目录下没有 .deb 文件${C_RESET}"
+    echo -e "  ${C_DIM}    请先将 .deb 放入 debs/ 目录${C_RESET}"
     echo ""
     exit 1
 fi
-echo "[$CURRENT_STEP/$TOTAL_STEPS] 检测到 $DEB_COUNT 个 .deb 包"
+echo -e "  ${C_PURPLE}▸${C_RESET} 检测到 ${C_BOLD}$DEB_COUNT${C_RESET} 个 .deb 包  ${C_GRAY}$(elapsed)${C_RESET}"
 echo ""
 
 # 修复之前可能由 sudo 留下的 root 权限文件（否则 awk 写入会失败）
 for dir in depictions icon .cache; do
     if [ -d "$dir" ] && [ -n "$(find "$dir" -user root 2>/dev/null | head -1)" ]; then
-        echo "       (修复 $dir 下 root 权限文件...)"
+        echo -e "  ${C_PURPLE}▸${C_RESET} 修复 ${C_YELLOW}$dir${C_RESET} 下 root 权限文件... ${C_GRAY}$(elapsed)${C_RESET}"
         echo "q" | sudo -S chown -R mobile:mobile "$dir" 2>/dev/null || true
     fi
 done
@@ -200,20 +214,22 @@ if [ -d "$CACHE_DIR" ]; then
         deb_name=$(basename "$cf" .ctrl)
         if [ ! -f "$DEBS_DIR/$deb_name" ]; then
             rm -f "$cf"
-            echo "       (清除过期缓存: $deb_name)"
+            echo -e "  ${C_DIM}清除过期缓存: $deb_name${C_RESET}"
         fi
     done
 fi
 
 # ---- Step 1: 生成 Packages（手动提取，支持所有压缩格式 + SHA512） ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating Packages..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}生成 Packages${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 
 mkdir -p "$CACHE_DIR"
 EXTRACTED=0
 CACHED=0
 
-echo "       (提取 deb 控制信息...)"
+echo -e "  ${C_BLUE}提取 deb 控制信息...${C_RESET}"
 > Packages
 for deb in "$DEBS_DIR"/*.deb; do
         [ -f "$deb" ] || continue
@@ -277,7 +293,7 @@ for deb in "$DEBS_DIR"/*.deb; do
             echo ""
         fi
     done >> Packages
-    echo "       提取 $EXTRACTED 个，缓存命中 $CACHED 个"
+    echo -e "  ${C_GREEN}✓${C_RESET} 提取 ${C_BOLD}$EXTRACTED${C_RESET} 个，缓存命中 ${C_BOLD}$CACHED${C_RESET} 个  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 后处理：只对缺失的包补充 SileoDepiction 和 Icon 字段
 # 已有的保留不动（如外部 depiction 链接），避免破坏原本正常的显示
@@ -313,11 +329,13 @@ END {
 ' Packages > Packages.tmp && mv Packages.tmp Packages
 
 # 保留所有版本：Sileo 列表按包名去重，但点进去可以看到所有版本可选
-echo "       (Keeping all versions for Sileo multi-version support)"
+echo -e "  ${C_GREEN}✓${C_RESET} 保留所有版本（Sileo 多版本支持）  ${C_GRAY}$(elapsed)${C_RESET}"
 
-# ---- Step 2: 生成 depictions + 图标 + sileo-featured ----
+# ---- Step 2: 生成 depictions + 图标 ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating depictions & icons..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}生成 Depictions & 图标${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 
 mkdir -p icon depictions
 DEFAULT_ICON="icon/myicon.png"
@@ -372,7 +390,7 @@ for deb in "$DEBS_DIR"/*.deb; do
 done
 
 if [ "$STALE_COUNT" -gt 0 ]; then
-    echo "       过期 $STALE_COUNT 个"
+    echo -e "  ${C_YELLOW}过期 $STALE_COUNT 个${C_RESET}"
 fi
 
 # 解析 Packages，为每个包生成 depiction JSON + 处理图标
@@ -561,10 +579,10 @@ function generate() {
 }
 ' Packages
 
-echo "       depictions & icons done."
+echo -e "  ${C_GREEN}✓${C_RESET} depictions & icons 已生成  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 从原始插件 Icon URL 下载真实图标（替代通用 myicon.png）
-echo "       (Downloading original plugin icons...)"
+echo -e "\n  ${C_BLUE}▸ 从外链下载原始图标...${C_RESET}"
 DL_COUNT=0
 DL_SKIP=0
 DL_FAIL=0
@@ -585,12 +603,12 @@ for cf in "$CACHE_DIR"/*.ctrl; do
         continue
     fi
 
-    echo "       [下载] $icon_url → $icon_file"
+    echo -e "  ${C_DIM}[下载]${C_RESET} $icon_url → $icon_file"
     if curl -sL --max-time 10 -o "$icon_file" "$icon_url" 2>/dev/null && [ -s "$icon_file" ]; then
         # 验证是真实图片
         if file "$icon_file" | grep -qi "PNG image data" 2>/dev/null; then
             DL_COUNT=$((DL_COUNT + 1))
-            echo "       [图标] $icon_file (已下载原始图标)"
+            echo -e "  ${C_GREEN}[图标]${C_RESET} $icon_file ${C_DIM}(已下载原始图标)${C_RESET}"
         else
             # 下载内容不是图片，恢复默认
             cp "$DEFAULT_ICON" "$icon_file"
@@ -602,10 +620,10 @@ for cf in "$CACHE_DIR"/*.ctrl; do
         DL_FAIL=$((DL_FAIL + 1))
     fi
 done
-echo "       下载 $DL_COUNT，跳过 $DL_SKIP，失败 $DL_FAIL"
+echo -e "  ${C_GREEN}✓${C_RESET} 下载 ${C_BOLD}$DL_COUNT${C_RESET}，跳过 ${C_BOLD}$DL_SKIP${C_RESET}，失败 ${C_YELLOW}$DL_FAIL${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 从 deb 包内提取原始 app 图标（优先于外链下载）
-echo "       (从 deb 内提取 App 图标...)"
+echo -e "\n  ${C_BLUE}▸ 从 deb 内提取 App 图标...${C_RESET}"
 EXTRACT_COUNT=0
 EXTRACT_SKIP=0
 for deb in "$DEBS_DIR"/*.deb; do
@@ -630,7 +648,7 @@ for deb in "$DEBS_DIR"/*.deb; do
 
     if dpkg-deb --fsys-tarfile "$deb" 2>/dev/null | tar xO ".$icon_path" > "$icon_file" 2>/dev/null; then
         if file "$icon_file" | grep -qi "PNG image data" 2>/dev/null; then
-            echo "       [提取] $icon_file ← $icon_path"
+            echo -e "  ${C_GREEN}[提取]${C_RESET} $icon_file ${C_DIM}← $icon_path${C_RESET}"
             EXTRACT_COUNT=$((EXTRACT_COUNT + 1))
         else
             rm -f "$icon_file"
@@ -640,10 +658,10 @@ for deb in "$DEBS_DIR"/*.deb; do
         EXTRACT_SKIP=$((EXTRACT_SKIP + 1))
     fi
 done
-echo "       提取 $EXTRACT_COUNT 个，跳过 $EXTRACT_SKIP 个"
+echo -e "  ${C_GREEN}✓${C_RESET} 提取 ${C_BOLD}$EXTRACT_COUNT${C_RESET} 个，跳过 ${C_BOLD}$EXTRACT_SKIP${C_RESET} 个  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 验证所有图标是否是真正的 PNG（修复 JPEG 伪装问题）
-echo "       (验证图标格式...)"
+echo -e "\n  ${C_BLUE}▸ 验证图标格式...${C_RESET}"
 PNG_FIXED=0
 for icon_f in icon/*.png; do
     [ -f "$icon_f" ] || continue
@@ -652,14 +670,15 @@ for icon_f in icon/*.png; do
         if [ -f "$DEFAULT_ICON" ]; then
             cp "$DEFAULT_ICON" "$icon_f"
             PNG_FIXED=$((PNG_FIXED + 1))
-            echo "       [修复] $icon_f (非 PNG，替换为默认图标)"
+            echo -e "  ${C_YELLOW}[修复]${C_RESET} $icon_f ${C_DIM}(非 PNG，替换为默认图标)${C_RESET}"
         fi
     fi
 done
-[ "$PNG_FIXED" -gt 0 ] && echo "       修复 $PNG_FIXED 个非 PNG 图标"
+[ "$PNG_FIXED" -gt 0 ] && echo -e "  ${C_GREEN}✓${C_RESET} 修复 ${C_YELLOW}$PNG_FIXED${C_RESET} 个非 PNG 图标  ${C_GRAY}$(elapsed)${C_RESET}"
+[ "$PNG_FIXED" -eq 0 ] && echo -e "  ${C_GREEN}✓${C_RESET} 所有图标均为 PNG 格式  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 清理孤立 depictions/icons（对应 debs 中已不存在的包）
-echo "       (Checking for orphaned depictions/icons...)"
+echo -e "\n  ${C_BLUE}▸ 清理孤立 depictions/icons...${C_RESET}"
 for dep_dir in depictions/*/; do
     [ -d "$dep_dir" ] || continue
     pkg_id=$(basename "$dep_dir")
@@ -673,15 +692,18 @@ for dep_dir in depictions/*/; do
         fi
     done
     if [ "$found" = false ]; then
-        echo "       (清除孤立: depictions/$pkg_id)"
+        echo -e "  ${C_DIM}[清除]${C_RESET} depictions/$pkg_id"
         rm -rf "$dep_dir"
         rm -f "icon/$pkg_id.png"
     fi
 done
+echo -e "  ${C_GREEN}✓${C_RESET} 孤立检查完成  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # ---- Step 3: 生成 sileo-featured.json（FeaturedBannersView 轮播横幅格式） ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating sileo-featured.json..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}生成 sileo-featured.json${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 awk -v url="$REPO_URL" '
 BEGIN {
     print "{"
@@ -707,35 +729,38 @@ END {
     print "}"
 }
 ' Packages > sileo-featured.json
-echo "       sileo-featured.json done ($(grep -c '"package"' sileo-featured.json) banners)."
+BANNER_COUNT=$(grep -c '"package"' sileo-featured.json)
+echo -e "  ${C_GREEN}✓${C_RESET} sileo-featured.json ${C_DIM}(${C_RESET}${C_BOLD}$BANNER_COUNT${C_RESET}${C_DIM} banners)${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # ---- Step 4: 并行压缩 Packages ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Compressing Packages (parallel)..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}并行压缩 Packages${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 COMPRESS_START=$(date +%s)
 
 # 所有压缩任务并行执行
-(bzip2 -fzk Packages 2>/dev/null; echo "       bz2 done") &
+(bzip2 -fzk Packages 2>/dev/null; echo -e "  ${C_DIM}bzip2${C_RESET} ${C_GREEN}✓${C_RESET}") &
 PID_BZ2=$!
-(gzip -fk Packages 2>/dev/null; echo "       gz done") &
+(gzip -fk Packages 2>/dev/null; echo -e "  ${C_DIM}gzip${C_RESET} ${C_GREEN}✓${C_RESET}") &
 PID_GZ=$!
-(xz -fzk Packages 2>/dev/null; echo "       xz done") &
+(xz -fzk Packages 2>/dev/null; echo -e "  ${C_DIM}xz${C_RESET} ${C_GREEN}✓${C_RESET}") &
 PID_XZ=$!
 
 PID_LZMA=""
 if command -v lzma &>/dev/null; then
-    (lzma -fzk Packages 2>/dev/null; echo "       lzma done") &
+    (lzma -fzk Packages 2>/dev/null; echo -e "  ${C_DIM}lzma${C_RESET} ${C_GREEN}✓${C_RESET}") &
     PID_LZMA=$!
 else
-    echo "       (lzma not installed, skipped)"
+    echo -e "  ${C_DIM}lzma${C_RESET} ${C_YELLOW}未安装，跳过${C_RESET}"
 fi
 
 PID_ZST=""
 if command -v zstd &>/dev/null; then
-    (zstd -fk Packages 2>/dev/null; echo "       zst done") &
+    (zstd -fk Packages 2>/dev/null; echo -e "  ${C_DIM}zstd${C_RESET} ${C_GREEN}✓${C_RESET}") &
     PID_ZST=$!
 else
-    echo "       (zstd not installed, skipped)"
+    echo -e "  ${C_DIM}zstd${C_RESET} ${C_YELLOW}未安装，跳过${C_RESET}"
 fi
 
 # 等待所有压缩任务完成
@@ -744,11 +769,13 @@ wait $PID_BZ2 $PID_GZ $PID_XZ
 [ -n "$PID_ZST" ] && wait $PID_ZST 2>/dev/null || true
 
 COMPRESS_ELAPSED=$(($(date +%s) - COMPRESS_START))
-echo "       并行压缩完成 (耗时 ${COMPRESS_ELAPSED}s)"
+echo -e "  ${C_GREEN}✓${C_RESET} 并行压缩完成 ${C_DIM}(${C_RESET}${COMPRESS_ELAPSED}s${C_DIM})${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # ---- Step 5: 计算校验和 ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Calculating checksums..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}计算校验和${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 
 # 定义所有 Packages 变体
 declare -a PACKAGE_FILES=("Packages")
@@ -766,10 +793,13 @@ for file in "Packages" "${COMPRESSED_FILES[@]}"; do
     CKSUM["$file|sha256"]=$(sha256sum "$file" | cut -d' ' -f1)
     CKSUM["$file|sha512"]=$(sha512sum "$file" | cut -d' ' -f1)
 done
+echo -e "  ${C_GREEN}✓${C_RESET} 校验和计算完成 ${C_DIM}(${C_RESET}${#COMPRESSED_FILES[@]} 个压缩文件${C_DIM})${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # ---- Step 6: 生成 Release 文件 ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Writing Release file..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}生成 Release 文件${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 
 cat > Release <<EOF
 Origin: $ORIGIN
@@ -798,12 +828,15 @@ for algo in "MD5Sum" "SHA1" "SHA256" "SHA512"; do
     done
 done
 
-echo "       Release file written."
+echo -e "  ${C_GREEN}✓${C_RESET} Release 文件已生成  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # ---- Step 7: 生成 packages.json（供 index.html 动态加载） ----
 CURRENT_STEP=$((CURRENT_STEP + 1))
-echo "[$CURRENT_STEP/$TOTAL_STEPS] Generating packages.json..."
+echo -e "\n  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
+echo -e "  ${C_PURPLE}步骤 $CURRENT_STEP/$TOTAL_STEPS${C_RESET}: ${C_BOLD}生成 packages.json${C_RESET}  ${C_GRAY}$(elapsed)${C_RESET}"
+echo -e "  ${C_CYAN}═══════════════════════════════════════════${C_RESET}"
 bash "$ROOT_DIR/scripts/gen-pkgdata.sh"
+echo -e "  ${C_GREEN}✓${C_RESET} packages.json 已生成  ${C_GRAY}$(elapsed)${C_RESET}"
 
 # 更新 TOTAL_STEPS
 TOTAL_STEPS=$((TOTAL_STEPS + 1))
@@ -815,28 +848,32 @@ if [ "$DESCRIPTION" != "无" ] && [ "$DESCRIPTION" != "" ]; then
     CURRENT_DESC=$(grep "^DESCRIPTION=" "$REPO_CONFIG" 2>/dev/null | cut -d'"' -f2)
     if [ "$CURRENT_DESC" = "无" ] || [ "$CURRENT_DESC" = "" ]; then
         save_config 2>/dev/null || true
-        echo "[i] DESCRIPTION 已持久化到 repo.conf"
+        echo -e "  ${C_DIM}[i] DESCRIPTION 已持久化到 repo.conf${C_RESET}"
     fi
 fi
 
 if [ "$DEPLOY_MODE" != "1" ]; then
+TOTAL_ELAPSED=$(elapsed)
 echo ""
-echo "========================================"
-echo " Done! Repo ready at:"
-echo "   $ROOT_DIR"
-echo "========================================"
+cecho "$C_CYAN" "╔═══════════════════════════════════════════╗"
+cecho "$C_CYAN" "║           更新完成！                      ║"
+cecho "$C_CYAN" "╚═══════════════════════════════════════════╝"
+echo -e "  ${C_GRAY}耗时: ${C_BOLD}$TOTAL_ELAPSED${C_RESET}"
 echo ""
-echo "Current Sileo display:"
-echo "  源名称:  $LABEL"
-echo "  描述:    $DESCRIPTION"
-echo "  地址:    $REPO_URL"
+cecho "$C_BOLD" "  仓库就绪:"
+echo -e "  ${C_CYAN}▸${C_RESET} ${C_DIM}路径:${C_RESET}  $ROOT_DIR"
 echo ""
-echo "Next steps:"
-echo "   1. Add .deb files to debs/"
-echo "   2. Run ./scripts/update.sh"
-echo "   3. Commit & push to GitHub"
-echo "   4. Enable GitHub Pages (main branch, /root)"
-echo "   5. Add source in Sileo:"
-echo "      $REPO_URL"
+cecho "$C_BOLD" "  Sileo 显示:"
+echo -e "  ${C_CYAN}▸${C_RESET} ${C_DIM}源名称:${C_RESET}  ${C_YELLOW}$LABEL${C_RESET}"
+echo -e "  ${C_CYAN}▸${C_RESET} ${C_DIM}描述:${C_RESET}    $DESCRIPTION"
+echo -e "  ${C_CYAN}▸${C_RESET} ${C_DIM}地址:${C_RESET}    ${C_BLUE}$REPO_URL${C_RESET}"
+echo ""
+cecho "$C_BOLD"  " 后续步骤:"
+cecho "$C_DIM"   "   1. 添加 .deb 文件到 debs/"
+cecho "$C_DIM"   "   2. 运行 ./scripts/update.sh"
+cecho "$C_DIM"   "   3. Commit & push 到 GitHub"
+cecho "$C_DIM"   "   4. 启用 GitHub Pages (main branch, /root)"
+cecho "$C_DIM"   "   5. 在 Sileo 中添加源:"
+echo -e "      ${C_BLUE}$REPO_URL${C_RESET}"
 echo ""
 fi
