@@ -9,11 +9,11 @@
       "class": "DepictionStackView",
       "views": [
         {"title": "说明", "class": "DepictionHeaderView"},
-        {"class": "DepictionMarkdownView", "markdown": "Ai-ios-ccswich，ai配置app，要先安装大飞源里面的claude和codex，然后终端启动一次“claude”和“codex”指令，初始化文件"},
+        {"class": "DepictionMarkdownView", "markdown": "Claude Code / Codex API 配置管理工具 内置ai终端，双指缩放页面，需要先安装大飞源里面的ai，claude和codex然后执行一次“claude”和“codex”命令初始化文件，修复roothide闪退问题."},
         {"class": "DepictionSeparatorView"},
         {"title": "信息", "class": "DepictionHeaderView"},
         {"title": "名称", "text": "AI-Config-GUI", "class": "DepictionTableTextView"},
-        {"title": "版本", "text": "3.2.0", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "3.3.1", "class": "DepictionTableTextView"},
         {"title": "包名", "text": "ai-config-gui", "class": "DepictionTableTextView"},
         {"title": "作者", "text": "DaFei", "class": "DepictionTableTextView"},
         {"spacing": 20, "class": "DepictionSpacerView"}

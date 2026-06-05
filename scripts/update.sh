@@ -464,21 +464,6 @@ function generate() {
     pkgState_iconExists = getPkgState(pkg, 5)
     pkgState_defIconExists = getPkgState(pkg, 6)
 
-    # info.json 已存在且版本一致 → 跳过
-    if (pkgState_depExists == "1" && pkgState_depVer == version) {
-        # 只处理图标
-        if (pkgState_iconExists != "1" && pkgState_defIconExists == "1") {
-            system("cp \"" defaultIcon "\" \"icon/" pkg ".png\"")
-        }
-        pkg = ""
-        return
-    }
-
-    # 版本不一致 → 删除旧的 info.json，重新生成
-    if (pkgState_depExists == "1") {
-        system("rm -f \"" jFile "\"")
-    }
-
     # 截图目录
     ss_dir = pDir "/screenshots"
     system("mkdir -p " ss_dir)
