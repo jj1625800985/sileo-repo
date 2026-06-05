@@ -578,6 +578,47 @@ function generate() {
 
 echo "       depictions & icons done."
 
+# 从原始插件 Icon URL 下载真实图标（替代通用 myicon.png）
+echo "       (Downloading original plugin icons...)"
+DL_COUNT=0
+DL_SKIP=0
+DL_FAIL=0
+for cf in "$CACHE_DIR"/*.ctrl; do
+    [ -f "$cf" ] || continue
+    pkg_id=$(grep "^Package:" "$cf" | head -1 | cut -d' ' -f2)
+    icon_url=$(grep -i "^[Ii]con:" "$cf" | head -1 | cut -d' ' -f2-)
+    [ -z "$icon_url" ] && { DL_SKIP=$((DL_SKIP + 1)); continue; }
+    # 跳过 file:// 本地路径
+    [[ "$icon_url" == file://* ]] && { DL_SKIP=$((DL_SKIP + 1)); continue; }
+    # 跳过已经是本源的图标（避免回环下载）
+    [[ "$icon_url" == *"jj1625800985.github.io"* ]] && { DL_SKIP=$((DL_SKIP + 1)); continue; }
+
+    icon_file="icon/$pkg_id.png"
+    # 如果图标已存在且不是 myicon.png（不同 blob），跳过
+    if [ -f "$icon_file" ] && ! cmp -s "$icon_file" "$DEFAULT_ICON" 2>/dev/null; then
+        DL_SKIP=$((DL_SKIP + 1))
+        continue
+    fi
+
+    echo "       [下载] $icon_url → $icon_file"
+    if curl -sL --max-time 10 -o "$icon_file" "$icon_url" 2>/dev/null && [ -s "$icon_file" ]; then
+        # 验证是真实图片
+        if file "$icon_file" | grep -qiE "image|png|jpeg|gif" 2>/dev/null; then
+            DL_COUNT=$((DL_COUNT + 1))
+            echo "       [图标] $icon_file (已下载原始图标)"
+        else
+            # 下载内容不是图片，恢复默认
+            cp "$DEFAULT_ICON" "$icon_file"
+            DL_FAIL=$((DL_FAIL + 1))
+        fi
+    else
+        # 下载失败，恢复默认
+        [ -f "$DEFAULT_ICON" ] && cp "$DEFAULT_ICON" "$icon_file"
+        DL_FAIL=$((DL_FAIL + 1))
+    fi
+done
+echo "       下载 $DL_COUNT，跳过 $DL_SKIP，失败 $DL_FAIL"
+
 # 清理孤立 depictions/icons（对应 debs 中已不存在的包）
 echo "       (Checking for orphaned depictions/icons...)"
 for dep_dir in depictions/*/; do
