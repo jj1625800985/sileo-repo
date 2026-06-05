@@ -3,6 +3,10 @@
   "itemSize": "{390, 190}",
   "itemCornerRadius": 10,
   "banners": [
-
+    {"url": "https://jj1625800985.github.io/sileo-repo/icon/com.axs.ios16dao.png", "title": "", "package": "com.axs.ios16dao", "hideShadow": false},
+    {"url": "https://jj1625800985.github.io/sileo-repo/icon/com.axs.switchicon.png", "title": "", "package": "com.axs.switchicon", "hideShadow": false},
+    {"url": "https://jj1625800985.github.io/sileo-repo/icon/com.axs.screenrecording.png", "title": "", "package": "com.axs.screenrecording", "hideShadow": false},
+    {"url": "https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png", "title": "", "package": "ai-config-gui", "hideShadow": false},
+    {"url": "https://jj1625800985.github.io/sileo-repo/icon/claude-code-roothide.png", "title": "", "package": "claude-code-roothide", "hideShadow": false}
   ]
 }

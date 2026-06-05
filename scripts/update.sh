@@ -230,21 +230,28 @@ for deb in "$DEBS_DIR"/*.deb; do
         fi
 
         if [ "$NEED_EXTRACT" = true ]; then
-            # 从 deb 中提取 control
+            # 从 deb 中提取 control（优先 dpkg-deb，无 ar 依赖）
             set +e
             CTRL_DATA=""
-            for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
-                case "$ctrl" in
-                    *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
-                    *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
-                    *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
-                    *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
-                esac
-                if [ -n "$CTRL_DATA" ]; then
-                    echo "$CTRL_DATA" > "$cache_file"
-                    break
-                fi
-            done
+            # 方法1: dpkg-deb -f（iOS/APT 环境可用）
+            if command -v dpkg-deb &>/dev/null; then
+                CTRL_DATA=$(dpkg-deb -f "$deb" 2>/dev/null)
+            fi
+            # 方法2: 手动 ar 提取（传统方式，需 binutils）
+            if [ -z "$CTRL_DATA" ]; then
+                for ctrl in control.tar.zst control.tar.gz control.tar.xz control.tar; do
+                    case "$ctrl" in
+                        *.zst) CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | timeout 3 zstd -d 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+                        *.gz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xzO ./control 2>/dev/null) ;;
+                        *.xz)  CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xJO ./control 2>/dev/null) ;;
+                        *)     CTRL_DATA=$(ar p "$deb" "$ctrl" 2>/dev/null | tar xO ./control 2>/dev/null) ;;
+                    esac
+                    if [ -n "$CTRL_DATA" ]; then break; fi
+                done
+            fi
+            if [ -n "$CTRL_DATA" ]; then
+                echo "$CTRL_DATA" > "$cache_file"
+            fi
             set -e
             EXTRACTED=$((EXTRACTED + 1))
         else

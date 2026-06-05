@@ -1,0 +1,36 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/codex-ios-roothide.png",
+  "tintColor": "#4A90D9",
+  "tabs": [
+    {
+      "tabname": "插件信息",
+      "class": "DepictionStackView",
+      "views": [
+        {"title": "说明", "class": "DepictionHeaderView"},
+        {"class": "DepictionMarkdownView", "markdown": "OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal\nOpenAI Codex CLI ported to iOS arm64 (aarch64-apple-ios).\nAn AI-powered coding agent that runs directly in your terminal.\n.\nUsage / 使用方法:\n  1. Run 'codex' to enter interactive mode\n     运行 codex 进入交互模式\n  2. Or use 'codex exec \"your prompt\"' for non-interactive mode\n     或用 codex exec \"提示词\" 进行非交互式调用\n  3.运行\"codex\"后可在jb目录下的var/mobile/codex里面进行配置修改api接口\nFeatures / 特性:\n  - Native arm64 binary, no emulation / 原生 arm64 二进制\n  - Works in NewTerm2/3 and SSH / 支持 NewTerm2/3 和 SSH 终端 只能接受responses端点的OpenAI 兼容的 API 密钥(二进制文件限制-不兼容的需要自己搭代理服务器翻译)。"},
+        {"class": "DepictionSeparatorView"},
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "codex-ios-roothide", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "0.134.0-2", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "codex-ios-roothide", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
+      ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionLayerView",
+          "views": [
+            {"text": "更新日志", "class": "DepictionLabelView", "fontWeight": "bold", "fontSize": 16}
+          ]
+        },
+        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionSeparatorView"}
+      ]
+    }
+  ]
+}

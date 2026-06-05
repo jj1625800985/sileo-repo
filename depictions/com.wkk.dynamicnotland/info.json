@@ -1,0 +1,37 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.wkk.dynamicnotland.png",
+  "tintColor": "#F5A623",
+  "tabs": [
+    {
+      "tabname": "插件信息",
+      "class": "DepictionStackView",
+      "views": [
+        {"title": "说明", "class": "DepictionHeaderView"},
+        {"class": "DepictionMarkdownView", "markdown": "在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）"},
+        {"class": "DepictionSeparatorView"},
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "DynamicNotLand", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "1.2.5", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "com.wkk.dynamicnotland", "class": "DepictionTableTextView"},
+        {"title": "作者", "text": "Nathan", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
+      ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionLayerView",
+          "views": [
+            {"text": "更新日志", "class": "DepictionLabelView", "fontWeight": "bold", "fontSize": 16}
+          ]
+        },
+        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionSeparatorView"}
+      ]
+    }
+  ]
+}

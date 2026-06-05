@@ -1,0 +1,36 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/nodejs22-ios-roothide.png",
+  "tintColor": "#4A90D9",
+  "tabs": [
+    {
+      "tabname": "插件信息",
+      "class": "DepictionStackView",
+      "views": [
+        {"title": "说明", "class": "DepictionHeaderView"},
+        {"class": "DepictionMarkdownView", "markdown": "Node.js 22.12.0 for iOS arm64 (side-by-side as node22)\nNode.js v22.12.0 runtime compiled for iOS arm64.\nInstalls as node22/npm22/npx22 to avoid conflicts with other Node versions.\nIncludes bundled npm 10.9.0 and pre-signed with iOS entitlements.\n.\nNode.js 22.12.0 iOS arm64 运行时。\n以 node22/npm22/npx22 安装，不与其他 Node 版本冲突。\n内含 npm 10.9.0."},
+        {"class": "DepictionSeparatorView"},
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "nodejs22-ios-roothide", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "22.12.0-27", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "nodejs22-ios-roothide", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
+      ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionLayerView",
+          "views": [
+            {"text": "更新日志", "class": "DepictionLabelView", "fontWeight": "bold", "fontSize": 16}
+          ]
+        },
+        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionSeparatorView"}
+      ]
+    }
+  ]
+}
