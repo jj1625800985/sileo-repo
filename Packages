@@ -398,13 +398,13 @@ Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
 Architecture: iphoneos-arm64e
 Version: 5.6
 Installed-Size: 6016
+SileoDepiction: https://havoc.app/package/colorfulx/depiction.json
 Filename: ./debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
 Size: 1449396
 MD5sum: 9ea84fe740b3380ad188743bf38044c7
 SHA1: 6eaf0e835d6dbd979d2e51c43c835a3d3658dd38
 SHA256: 1b6ba09b706a2e80930982ebf9bcb1487bf9c47dcb0ab20615997fe704f4d761
 SHA512: f4a3e69830566d0a715940eb07e0ebc25fd25d4446d8c4f924d7ff9dd7920aa258357355e4eb008630b513e9f55d20884a3ad4cbaef1a3cc1c0c8e5214117bfc
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/wiki.qaq.colorfulwallpaperx/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
 
 Package: ws.hbang.newterm3
