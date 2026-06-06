@@ -40,6 +40,14 @@
     "featured": true
   },
   {
+    "id": "codes.aurora.kayoko",
+    "name": "Hello Kayoko",
+    "version": "3.3.6-6",
+    "desc": "Clipboard manager for iOS.",
+    "section": "系统美化",
+    "featured": false
+  },
+  {
     "id": "codex-ios-roothide",
     "name": "codex-ios-roothide",
     "version": "0.134.0-2",
@@ -53,6 +61,14 @@
     "version": "1.6.0-6",
     "desc": "温馨提示:\n* 1、仅供个人备份与学习研究使用。\n* 2、本插件未经过大量设备测试，仅在 iPhone 14 Pro iOS 16.2、iPhone 14 Pro Max iOS 16.5 无根越狱环境下测试正�…",
     "section": "分屏插件",
+    "featured": false
+  },
+  {
+    "id": "com.Axs.ibisPaintX",
+    "name": "爱笔思画X 解锁VIP",
+    "version": "0.1-1",
+    "desc": "爱笔思画解锁会员",
+    "section": "系统美化",
     "featured": false
   },
   {
