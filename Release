@@ -6,18 +6,18 @@ Codename: ios
 Architectures: iphoneos-arm iphoneos-arm64 iphoneos-arm64e
 Components: main
 Description: 
-Date: Sat, 13 Jun 2026 10:45:29 UTC
+Date: Sat, 13 Jun 2026 10:48:25 UTC
 
 MD5Sum:
  592db1cee5e7dada3323b643869c83cb 16540 Packages
- 0dee63ab8cb65b7340f7827949183e9a 7329 Packages.gz
+ 58680622816f6dee5ee14f2b8e7afca1 7329 Packages.gz
  5c5772bb9b93dec3c361805657fc17e2 7708 Packages.zst
  fee5160a51e618ef38bc4f11881220e9 6856 Packages.bz2
  64d294d1df809d0a81a95edb8269d0a7 6692 Packages.xz
 
 SHA256:
  22016c7b342d3fad597c3d64fe45f88002e2d84c241578c32d78a8198ab8236c 16540 Packages
- d6c3643d3007e0edcae292992b10479484cf1fbcd02782b50e2f9c8738c91ee0 7329 Packages.gz
+ f5c292c267f1db6cde06001e707738f3516fc7621d51afe5555a0bd9dfe477f3 7329 Packages.gz
  dcfba5aa650ae9a3dc550c85b4e0e6ed07c22d5a2528905875c3b5bbadb87478 7708 Packages.zst
  c72a91b3035af0b3676e7844200985607d6e15391f6e289ad0899377524c7158 6856 Packages.bz2
  ed0872bd35bca4bcb275c11475e14ecab8d74d1106df3ba133f45a181bc749c4 6692 Packages.xz
