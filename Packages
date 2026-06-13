@@ -260,6 +260,25 @@ Icon: https://huayuarc.github.io/icon/huayuarc.jpg
 Name: Allow Network-roothide
 Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 
+Package: com.local.repokit
+Version: 0.1.0-7+debug
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
+Installed-Size: 584
+Pre-Depends: rootless-compat (>= 0.9)
+Depends: firmware (>= 15.0), dpkg, dpkg-dev, gzip, zstd, git, openssh-client
+Filename: debs/com.local.repokit_0.1.0-7+debug_iphoneos-arm64e.deb
+Size: 1580
+MD5sum: cff3087b1ad789c9f4ffec589d46813a
+SHA1: 22e16e8bcac054548a6646a288828e27af0e4d1d
+SHA256: 3961ed5e5b829c3358b65bf39a0164e3974d548e9cf3e9db23487fdbdab2de2f
+Section: Utilities
+Description: Local jailbreak repository manager with package CRUD, index building, and GitHub publishing.
+ 本地越狱仓库管理器，支持包的增删改查、索引构建以及GitHub发布功能。
+Author: DaFei
+Icon: https://langshiyunyi.github.io/my-repo/icons/repokit.png
+Name: RepoKit
+
 Package: com.nx.accode
 Version: 1.0
 Architecture: iphoneos-arm64
