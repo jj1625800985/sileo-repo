@@ -1,181 +1,73 @@
-Package: com.axs.ios16dao
-Name: ios16灵动岛
-Description: 灵动岛媒体美化增强，支持 PNG/JPG/GIF/MP4,录屏隐藏原生岛与阴影兼容控制。集成授权校验联系:VCR66T
-Maintainer: Axs
-Author: Axs
-Section: 灵动岛
-Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.altlist
-Icon: https://axs66.github.io/pro/icon/dynamicnotland.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
-Architecture: iphoneos-arm64
-Version: 5.2.0-205
-Installed-Size: 664
-Filename: ./debs/A狗动态岛破解版205.deb
-Size: 78328
-MD5sum: d6c8ab29cf4b566451c5deb4f1982523
-SHA1: 4671249bd0defcc1d7cd0d69233ab327c60adfa9
-SHA256: 6d560bb58d1657780214dea49cabdeeeb7a9016b404eaa2526a28205ce900b9b
-SHA512: 60b91f148e5f39724769197a479b73b4077c314a6e3a5d84c8ebd07bc9c63730ec53dc879950a8e12ae315256c3fd2418783b3fd62e050d8a0a5d9710ef14101
-
-Package: com.axs.switchicon
-Name: Switch Icon
-Description: 一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T
- * 一、纯代码开关组
- * 1. 动态组：昼夜开关、血瞳开关、液态开关，支持流畅的过渡动画与动态视觉效果；
- * 2. 静态组：日月开关、水滴开关、立体开关、温度开关、星月开关，覆盖多种精致静态样式；
- * 3. 液态开关：复刻 iOS 26 风格，并支持开启状态颜色自定义；
- * 4. 日月开关：支持太阳、云朵、月亮、星星颜色自定义，一个开关也能千变万化。
- * 二、素材开关组
- * 1. 素材开关：在指定路径放置 on.png/off.png 开关素材；
- * 2. 支持创建多套，在插件面板自由切换。
- * 三、温馨提示
- * 1. 早买早享受，后续免费更新；
- * 2. 后续增加新样式，新用户可能面临涨价。
-Maintainer: Axs
-Author: Axs
-Section: Tweaks
-Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
-Icon: https://axs66.github.io/pro/icon/switchicon.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
-Architecture: iphoneos-arm64
-Version: 5.2.0-131
-Installed-Size: 836
-Filename: ./debs/A狗液态开关破解版.deb
-Size: 122528
-MD5sum: ab68e821f2630db3ae297f49732e978a
-SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
-SHA256: 35de138df50dae2c4c160bfbd63bd0189d31d2cda2ca8f14836cca8962f53dc4
-SHA512: cfb89d53c93963aa49f3355d1c351537b3cb5c257b08f2c2e63fb7f92235421a3c935ca662812eaf494a3aecef14c552dc3f473a7eb79944cf9186ec9a301c21
-
-Package: com.axs.screenrecording
-Name: 全局水印&套壳『截屏.录屏』
-Description: 全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。
-Maintainer: Axs
-Author: Axs
-Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
-Icon: https://axs66.github.io/pro/icon/screenrecording.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
-Architecture: iphoneos-arm64
-Version: 5.2.0-35
-Installed-Size: 508
-Filename: ./debs/A狗视频套壳_破解版.deb
-Size: 46396
-MD5sum: 8db00ea2cae55545d67cc9a45e255050
-SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
-SHA256: 0e648846b7e8f40413637027daa5d9f1f0e5e627cd3e7711d909c0ef9a33796b
-SHA512: 27cba4e78515c285ecc2ca0532746721346261c8a6545cfc0f3dd7865368dd4bb0e06169a64136511ba18016c8795015eb286beec98e011ae830b9247879aea4
-
 Package: ai-config-gui
-Name: AI-Config-GUI
-Description: Claude Code / Codex API 配置管理工具 (凭据/模型抓取/MCP/权限/指令/历史)，支持 Anthropic/OpenAI/DeepSeek/阿里云/智谱/MiniMax/小米等多厂商
-Maintainer: DaFei
-Author: DaFei
-Section: Utilities
-Depends: firmware (>= 14.0), libvterm0
-Architecture: iphoneos-arm64e
-Version: 3.1.0-7+debug
-Installed-Size: 636
-Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/ai-config-gui_3.1.0-7+debug_iphoneos-arm64e.deb
-Size: 176004
-MD5sum: 59c56879654bf724789a211b415dca72
-SHA1: 628374ca79ee3f191ffa9218f15252cd071ed935
-SHA256: e28529fc9dff936c45ccf5851b11a6ae70a7633fe7bceace7452dfdc2d8f4adc
-SHA512: 0982ff2e716030c5eb391683680a85cb9bb92048acf7a739835eca210bd24f7054633a9e4f3ac9885bab8be61014fe935334e01d38c7c663e5949f6255b58293
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
-
-Package: ai-config-gui
-Name: AI-Config-GUI
-Description: Ai-ios-ccswich，ai配置app，要先安装大飞源里面的claude和codex，然后终端启动一次“claude”和“codex”指令，初始化文件
-Maintainer: DaFei
-Author: DaFei
-Section: Utilities
-Depends: firmware (>= 14.0), libvterm0,libvterm-bin
-Architecture: iphoneos-arm64e
-Version: 3.2.0
-Installed-Size: 376
-Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/ai-config-gui_3.2.0_iphoneos-arm64e.deb
-Size: 127616
-MD5sum: b1352bd27fdd67833bd1c1fcdab3119a
-SHA1: 06cd026a3b7da4d95269b992cfa5fc56caadd0be
-SHA256: ea9a2cddbf5446993cd6b48544b904220b02ee7945416c51a6a787335a084929
-SHA512: 4130026f6417d0ee8b0f025f12401252030faf7a3260b806f7dede2399d8179b43ec404f32755face8ab8afa5cc42697b2cd8e130f096ad52330d009b71517f3
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/ai-config-gui.png
-
-Package: ai-config-gui
-Name: AI-Config-GUI
-Description: Claude Code / Codex API 配置管理工具 内置ai终端，双指缩放页面，需要先安装大飞源里面的ai，claude和codex然后执行一次“claude”和“codex”命令初始化文件，修复roothide闪退问题.
-Maintainer: DaFei
-Author: DaFei
-Section: Utilities
-Depends: firmware (>= 14.0), libvterm0,libvterm-bin
-Architecture: iphoneos-arm64e
 Version: 3.3.1
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
 Installed-Size: 680
-Icon: file:///Applications/ClaudeAuth.app/AppIcon60x60@2x.png
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/ai-config-gui_3.3.1_iphoneos-arm64e.deb
+Depends: firmware (>= 14.0), libvterm0,libvterm-bin
+Filename: debs/ai-config-gui_3.3.1_iphoneos-arm64e.deb
 Size: 186802
 MD5sum: 645a947e21705ee15ed298a034ba58b4
 SHA1: bbc07c647b31af41f8eaaf42e7eff1c4e7e5385f
 SHA256: 1ccdc3b97db4f4feb6c1db656c72c6bde28b4308127cf3982fe1f8eceaddbb0a
-SHA512: 3800b43c82e5c2ee33cbec25050f85c7e0957f1252459d3c631f837a7e550d26379044d24acef403a2cc91cb06653ff82445be85096461f79c4b628b633d30a2
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ai-config-gui/info.json
+Section: Utilities
+Description: Claude Code / Codex API 配置管理工具 内置ai终端，双指缩放页面，需要先安装大飞源里面的ai，claude和codex然后执行一次“claude”和“codex”命令初始化文件，修复roothide闪退问题.
+Author: DaFei
+Icon: file:///Applications/ClaudeAuth.app/AppIcon60x60@2x.png
+Name: AI-Config-GUI
 
 Package: claude-code-roothide
-Name: Claude Code Roothide
 Version: 2.1.19-1
 Architecture: iphoneos-arm64e
-Description: Claude Code CLI for iOS 人工智能 在越狱iPhone 上本 地运行Claude Code终端执行claude-auth以开始认证 配置 终端执行 claude以开始使用 可以配置 DeepSeek模型API和第三方模型API
 Maintainer: Bryan
-Author: Anthropic (iOS package by Bryan) DaFei(修改优化)
-Section: Development
+Installed-Size: 142528
 Depends: firmware (>= 14.0), zsh, ldid
 Conflicts: com.anthropic.claude-code-beta
 Provides: claude-code
-Tag: purpose::console, role::developer
-Homepage: https://claude.ai
-Depiction: https://github.com/anthropics/claude-code
-SileoDepiction: https://github.com/anthropics/claude-code
-Installed-Size: 142528
-Filename: ./debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
+Filename: debs/claude-code-roothide_2.1.19-1_iphoneos-arm64e.deb
 Size: 27881552
 MD5sum: 952f7a498a951d49b843f6b95bc3fed5
 SHA1: 7c72b4a210c9cf5d2540140ea117d94767255a09
 SHA256: adfffe9989bdda67476d66b5880d8b937564b0c174cbdeb2553272ec4fd660b1
-SHA512: 10d888c0d65d5b391529a0a20b96488b7cb452e4c798e8ab5c86c78f4dab64b5250a31ba3fbb3a9441c2e0ca9ac4154df77f8a2069f56fda96b2d12e1a207d60
-Icon: https://jj1625800985.github.io/sileo-repo/icon/claude-code-roothide.png
+Section: Development
+Homepage: https://claude.ai
+Description: Claude Code CLI for iOS 人工智能 在越狱iPhone 上本 地运行Claude Code终端执行claude-auth以开始认证 配置 终端执行 claude以开始使用 可以配置 DeepSeek模型API和第三方模型API
+Tag: purpose::console, role::developer
+Author: Anthropic (iOS package by Bryan) DaFei(修改优化)
+Depiction: https://github.com/anthropics/claude-code
+Name: Claude Code Roothide
+Sileodepiction: https://github.com/anthropics/claude-code
 
 Package: codes.aurora.kayoko
-Name: Hello Kayoko
-Description: Clipboard manager for iOS.
-Maintainer: Lessica <82flex@gmail.com>
-Author: Alexandra Aurora Göttlicher
-Section: Tweaks
-Depends: firmware (>= 14.0), mobilesubstrate, preferenceloader, com.opa334.libsandy
-Icon: https://apt.002599.xyz/web/icon/codes.aurora.kayoko.png
-SileoDepiction: https://apt.002599.xyz/web/codes.aurora.kayoko
-Architecture: iphoneos-arm64e
 Version: 3.3.6-6
+Architecture: iphoneos-arm64e
+Maintainer: Lessica <82flex@gmail.com>
 Installed-Size: 1044
-Filename: ./debs/codes.aurora.kayoko_3.3.6-6_iphoneos-arm64e.deb
+Depends: firmware (>= 14.0), mobilesubstrate, preferenceloader, com.opa334.libsandy
+Filename: debs/codes.aurora.kayoko_3.3.6-6_iphoneos-arm64e.deb
 Size: 138740
 MD5sum: df6aeccb376d8e5ca368fa0b51dcf28e
 SHA1: f9bae12e6463dac7e1483fbd640dbe82b156a854
 SHA256: 2bdb37db93ad362acf1598f16292f4cfcb1fe7576a41df463de724e753022e3d
-SHA512: e9d845e6f4b85e468747a63c6914b3abdec6ea74c1fb7d69b6e00c6f77a79ffa05428c7d6be7a74e72b9844faf7400485ac97848f030b713b4427978b1d6553b
+Section: Tweaks
+Description: Clipboard manager for iOS.
+Author: Alexandra Aurora Göttlicher
+Icon: https://apt.002599.xyz/web/icon/codes.aurora.kayoko.png
+Name: Hello Kayoko
+Sileodepiction: https://apt.002599.xyz/web/codes.aurora.kayoko
 
 Package: codex-ios-roothide
 Version: 0.134.0-2
-Section: Development
-Priority: optional
 Architecture: iphoneos-arm64e
 Maintainer: DaFei
 Depends: firmware (>= 14.0), nodejs22-ios-roothide (>= 22.12.0), ldid
+Filename: debs/codex-ios-roothide_0.134.0-2_iphoneos-arm64e.deb
+Size: 22390000
+MD5sum: 9bf1d7c4101610d9379a3455adbe1d35
+SHA1: c81f64e2515a2de5908af71a7b962a77dd669d9e
+SHA256: d5040a8d916440a4c4a3cd56d678fa3ec3380370ddb5f9640793a42fde361ba1
+Section: Development
+Priority: optional
 Description: OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal
  OpenAI Codex CLI ported to iOS arm64 (aarch64-apple-ios).
  An AI-powered coding agent that runs directly in your terminal.
@@ -189,224 +81,249 @@ Description: OpenAI Codex CLI for iOS arm64 - AI coding agent in your terminal
  Features / 特性:
    - Native arm64 binary, no emulation / 原生 arm64 二进制
    - Works in NewTerm2/3 and SSH / 支持 NewTerm2/3 和 SSH 终端 只能接受responses端点的OpenAI 兼容的 API 密钥(二进制文件限制-不兼容的需要自己搭代理服务器翻译)。
-Filename: ./debs/codex-ios-roothide_0.134.0-2_iphoneos-arm64e.deb
-Size: 22390000
-MD5sum: 9bf1d7c4101610d9379a3455adbe1d35
-SHA1: c81f64e2515a2de5908af71a7b962a77dd669d9e
-SHA256: d5040a8d916440a4c4a3cd56d678fa3ec3380370ddb5f9640793a42fde361ba1
-SHA512: c9f4a25afab59bda04fd12bddd671784cf6bce984d816805a414c0c72f7eac5e10b7f9da076d3646ab2dfe5ba1a4d374fb99ed21ef17209c3c26fca0c309d611
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/codex-ios-roothide/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/codex-ios-roothide.png
 
 Package: com.Axs.floating-view
-Name: Fv分屏破解版
+Version: 1.6.0-6
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 2700
+Depends: dev.theos.orion (>= 1.0.0), firmware (>= 12.2)
+Filename: debs/com.Axs.floating-view_1.6.0-6_iphoneos-arm64.deb
+Size: 652884
+MD5sum: 8b189bdfd446b1daf9e1faeaa2c9973b
+SHA1: 3f6981bfb23facfabba513b1d913dfb85a2a825c
+SHA256: f5b61f406f02a3769a8d25ce500ebccc9408a7730979047b17c6a711b2ceed4c
+Section: 分屏插件
 Description: 温馨提示:
   * 1、仅供个人备份与学习研究使用。
   * 2、本插件未经过大量设备测试，仅在 iPhone 14 Pro iOS 16.2、iPhone 14 Pro Max iOS 16.5 无根越狱环境下测试正常可用。
   * 3、本版本仅处理授权验证逻辑，插件其他原有逻辑未作修改。若安装后无效、冲突或导致设备/应用异常，请自行卸载。
   * 4、免责声明：安装和使用本插件所产生的一切风险由使用者自行承担。如因插件本身兼容性、原始代码逻辑或其他未知问题导致设备、系统、应用出现异常，请联系原插件作者处理。本人不承担因此产生的任何责任。
   * 5、安全预警：鉴于越狱圈内部分特定人员（如Fv作者、苏苏、Wkk等）存在发布恶意格机代码、恶意抹黑及录制栽赃嫁祸视频的前科，需要用户自行甄别，从正确渠道下载插件。
-Maintainer: Axs
 Author: be-huge
-Section: 分屏插件
-Depends: dev.theos.orion (>= 1.0.0), firmware (>= 12.2)
-Architecture: iphoneos-arm64
-Version: 1.6.0-6
-Installed-Size: 2700
 Icon: https://axs66.github.io/pro/icon/svp.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/floating-view/js.json
-Filename: ./debs/com.Axs.floating-view_1.6.0-6_iphoneos-arm64.deb
-Size: 652884
-MD5sum: 8b189bdfd446b1daf9e1faeaa2c9973b
-SHA1: 3f6981bfb23facfabba513b1d913dfb85a2a825c
-SHA256: f5b61f406f02a3769a8d25ce500ebccc9408a7730979047b17c6a711b2ceed4c
-SHA512: a8cc45cd3d463116e9836ee42bbd1473362d5d306ea8ef93945f8fa2c02a3b612c584315f02a1595ce2f6924d74caaaff0353fca910727a7bdd712a07880ecda
+Name: Fv分屏破解版
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/floating-view/js.json
 
 Package: com.Axs.ibisPaintX
-Name: 爱笔思画X 解锁VIP
 Version: 0.1-1
-Description: 爱笔思画解锁会员
-Section: 破解插件
-Depends: firmware (>= 5.0), mobilesubstrate
-Author: iosrxwy
 Architecture: iphoneos-arm64
-Icon: https://axs66.github.io/pro/icon/ibisPaintX.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/ibisPaintX/js.json
-Filename: ./debs/com.Axs.ibisPaintX_0.1-1_iphoneos-arm64.deb
+Depends: firmware (>= 5.0), mobilesubstrate
+Filename: debs/com.Axs.ibisPaintX_0.1-1_iphoneos-arm64.deb
 Size: 192152
 MD5sum: 7160ac9118002fafa691f9195f4a0e96
 SHA1: 9999aa876a31b7acee9d43f155758241977ed3fa
 SHA256: 4c65f3f838996a97e0910188cf19a958c64bfab3ba8100ad2e56f8dd17155c38
-SHA512: 7d892e1f1ecf21d2bb8e497917fb87ad29b8e865de4c1c0106d9cec3157ba72572c4cb72caf04c131a37adf6a105fe2a30b80dd22c377f1a81195c9d6b73b82c
+Section: 破解插件
+Description: 爱笔思画解锁会员
+Author: iosrxwy
+Icon: https://axs66.github.io/pro/icon/ibisPaintX.png
+Name: 爱笔思画X 解锁VIP
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/ibisPaintX/js.json
 
 Package: com.Axs.stheno
-Name: Stheno奥利奥分屏
-Description: Medusa!
-Maintainer: Crassna
-Author: Crassna
-Section: 分屏插件
-Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
-Architecture: iphoneos-arm64e
-Version: 77.1.4.7
-Installed-Size: 1928
-Icon: https://axs66.github.io/repo/icon/stheno.png
-SileoDepiction: https://axs66.github.io/repo/sileodepiction/stheno/js.json
-Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/com.axs.stheno_77.1.4.7_iphoneos-arm64e.deb
-Size: 522250
-MD5sum: da397e79152000d9ff5b377853119662
-SHA1: 7f6efedb2eb7a878780302c72af7de71a93844e6
-SHA256: 8e5689997b0427e00a8c8c99963bd849cd6dafd09a8a52c2adccad9ee2d6682d
-SHA512: 40f45ca7e8918e081808d41ffd62f23136f827de1000bd725d65052c98045070f660f0a0b03bd6cbe27436043f3496ed6720b08e37b29df7d1cd890632dbb23c
-
-Package: com.Axs.stheno
-Name: Stheno
-Description: Medusa,Jump Whenever。
-Maintainer: Crassna
-Author: Crassna
-Section: 分屏插件
-Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
-Architecture: iphoneos-arm64e
 Version: 77.1.4.8
+Architecture: iphoneos-arm64e
+Maintainer: Crassna
 Installed-Size: 2788
-Icon: https://axs66.github.io/pro/icon/stheno.png
-SileoDepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
+Depends: dev.theos.orion (>= 1.0.0), firmware (>= 16.1)
+Filename: debs/com.axs.stheno_77.1.4.8_iphoneos-arm64e.deb
 Size: 1470186
 MD5sum: 10b8f060ac2eaae199f9e5f5f3bd12d5
 SHA1: d591168b0604ffd8152c154377e18f08c633d55a
 SHA256: 658fa453ec2b1f8a3580f63e3917d2dcc2dcf903059d2ba997d1e9de66d23514
-SHA512: cd8bb68d085397b74d35056e6b29b42d27d18e163f6be1d66641db897b6f317c2c387311acc3410a26984cfd0e3b774879b6113728da1e67b7842f268dcaa2e6
+Section: 分屏插件
+Description: Medusa,Jump Whenever。
+Author: Crassna
+Icon: https://axs66.github.io/pro/icon/stheno.png
+Name: Stheno
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/stheno/js.json
+
+Package: com.axs.ios16dao
+Version: 5.2.0-205
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 664
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, com.opa334.altlist
+Filename: debs/A狗动态岛破解版205.deb
+Size: 78328
+MD5sum: d6c8ab29cf4b566451c5deb4f1982523
+SHA1: 4671249bd0defcc1d7cd0d69233ab327c60adfa9
+SHA256: 6d560bb58d1657780214dea49cabdeeeb7a9016b404eaa2526a28205ce900b9b
+Section: 灵动岛
+Description: 灵动岛媒体美化增强，支持 PNG/JPG/GIF/MP4,录屏隐藏原生岛与阴影兼容控制。集成授权校验联系:VCR66T
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/dynamicnotland.png
+Name: ios16灵动岛
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/ios16dao/js.json
+
+Package: com.axs.screenrecording
+Version: 5.2.0-35
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 508
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader
+Filename: debs/A狗视频套壳_破解版.deb
+Size: 46396
+MD5sum: 8db00ea2cae55545d67cc9a45e255050
+SHA1: eb13ae79fba1203ee86bdc0ca10d2cf3c3e02192
+SHA256: 0e648846b7e8f40413637027daa5d9f1f0e5e627cd3e7711d909c0ef9a33796b
+Section: Tweaks
+Description: 全局录屏自动添加你预先放好的水印和套壳素材，让你的分享更加专业。
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/screenrecording.png
+Name: 全局水印&套壳『截屏.录屏』
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/screenrecording/js.json
+
+Package: com.axs.switchicon
+Version: 5.2.0-131
+Architecture: iphoneos-arm64
+Maintainer: Axs
+Installed-Size: 836
+Depends: mobilesubstrate, preferenceloader, firmware (>= 15.0)
+Filename: debs/A狗液态开关破解版.deb
+Size: 122528
+MD5sum: ab68e821f2630db3ae297f49732e978a
+SHA1: 54b7b2d01ec634d93b465c5f5b565030f11b8f76
+SHA256: 35de138df50dae2c4c160bfbd63bd0189d31d2cda2ca8f14836cca8962f53dc4
+Section: Tweaks
+Description: 一个强大的全局 UISwitch 开关控件，让原生开关显示更有个性；付费插件，需要请联系微信：VCR66T
+ * 一、纯代码开关组
+ * 1. 动态组：昼夜开关、血瞳开关、液态开关，支持流畅的过渡动画与动态视觉效果；
+ * 2. 静态组：日月开关、水滴开关、立体开关、温度开关、星月开关，覆盖多种精致静态样式；
+ * 3. 液态开关：复刻 iOS 26 风格，并支持开启状态颜色自定义；
+ * 4. 日月开关：支持太阳、云朵、月亮、星星颜色自定义，一个开关也能千变万化。
+ * 二、素材开关组
+ * 1. 素材开关：在指定路径放置 on.png/off.png 开关素材；
+ * 2. 支持创建多套，在插件面板自由切换。
+ * 三、温馨提示
+ * 1. 早买早享受，后续免费更新；
+ * 2. 后续增加新样式，新用户可能面临涨价。
+Author: Axs
+Icon: https://axs66.github.io/pro/icon/switchicon.png
+Name: Switch Icon
+Sileodepiction: https://axs66.github.io/pro/sileodepiction/switchicon/js.json
 
 Package: com.dafei.terminal
-Name: DFTerminal
-Description: iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。
- A full-featured terminal emulator for iOS with multi-tab, CJK support,
- hardware keyboard, pinch-to-zoom, and scrollback history.
-Maintainer: DaFei
-Author: DaFei
-Section: Terminal Support
-Depends: firmware (>= 14.0), libvterm-bin (>= 0.1)
-Architecture: iphoneos-arm64e
 Version: 1.0.0-27+debug
+Architecture: iphoneos-arm64e
+Maintainer: DaFei
 Installed-Size: 732
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/com.dafei.terminal_1.0.0-27+debug_iphoneos-arm64e.deb
+Depends: firmware (>= 14.0), libvterm-bin (>= 0.1)
+Filename: debs/com.dafei.terminal_1.0.0-27+debug_iphoneos-arm64e.deb
 Size: 212730
 MD5sum: a4aec55c980d1b3fa1ca638e4dac17ab
 SHA1: 03b3e0dbe39979fdc70fa660bcfc74fde15a6162
 SHA256: 4e8383d3e514aa4311b6a612f286f854953eb98f399a1375635908b7d84cda66
-SHA512: a8bfae7964fde561b54163add42631c17703ff559d9ebaf14fca885160c52aa0481c424c42814388fd2bf6e987da6375a787db7eee99573cf3a4b6e7e98ab59c
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.dafei.terminal/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.dafei.terminal.png
+Section: Terminal Support
+Description: iOS终端模拟器，支持多标签、中文显示、硬件键盘、手势缩放字体、滚动回看历史。
+ A full-featured terminal emulator for iOS with multi-tab, CJK support,
+ hardware keyboard, pinch-to-zoom, and scrollback history.
+Author: DaFei
+Name: DFTerminal
 
 Package: com.iosdump.shellx
-Name: SHELLX
-Depends: mobilesubstrate, preferenceloader
-Description: 录屏/截图，自动套壳、水印工具，支持iOS14-17所有越狱
-Maintainer: iosdump
-Author: iosdump
-Section: Tweaks
-Architecture: iphoneos-arm64e
 Version: 1.1.0
+Architecture: iphoneos-arm64e
+Maintainer: iosdump
 Installed-Size: 796
-Filename: ./debs/com.iosdump.shellx_1.1.0_iphoneos-arm64e.deb
+Depends: mobilesubstrate, preferenceloader
+Filename: debs/com.iosdump.shellx_1.1.0_iphoneos-arm64e.deb
 Size: 136262
 MD5sum: fe0cd964e6c9da9f36e449e24bd22b4a
 SHA1: d46bd22ae2b94fd715566e49600d43062483e95d
 SHA256: 7150486132a770f6bec79e0751bc078e848d04de2bb586a9e618dc22fb67168d
-SHA512: 0f625bd72659a7fa70da9582557f625b6544563bf98808f3fedca8a2cd829d5b8f16b722cdebfa9444e622af2ee415359e4675e2e738d3b123b26ffbc0cd8319
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.iosdump.shellx/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.iosdump.shellx.png
+Section: Tweaks
+Description: 录屏/截图，自动套壳、水印工具，支持iOS14-17所有越狱
+Author: iosdump
+Name: SHELLX
 
 Package: com.lenglengyu.ghallownetwork
-Name: Allow Network-roothide
-Author: lenglengyu
-Description: 国行手机自动允许使用网络。
-Depends: mobilesubstrate
-Maintainer: lenglengyu <lenglengyu@126.com>
-Architecture: iphoneos-arm64e
-Section: Tweaks
-Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
-SileoDepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 Version: 0.0.1
+Architecture: iphoneos-arm64e
+Maintainer: lenglengyu <lenglengyu@126.com>
 Installed-Size: 152
 Pre-Depends: rootless-compat(>= 0.9)
-Icon: https://huayuarc.github.io/icon/huayuarc.jpg
-Filename: ./debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64e.deb
+Depends: mobilesubstrate
+Filename: debs/com.lenglengyu.ghallownetwork_0.0.1_iphoneos-arm64e.deb
 Size: 7992
 MD5sum: 71e98cb5b37108c39726eae5a46da22f
 SHA1: 7bad07d0dc96b6a1d29faae791ac16d2291c0a55
 SHA256: 84c2a319c0c640ead0c85bfb35c954c33886e2e5dcf2f6906c8a3737b116b50d
-SHA512: 915c7578d18164e64e1b81f55d170363b926e99676549a9156d24d9c8d3b4a51021bdcbc5e888dfa69316e2245cb4174c3169f21317c6d1115f321442f3b68fc
+Section: Tweaks
+Description: 国行手机自动允许使用网络。
+Author: lenglengyu
+Depiction: https://repo.lenglengyu.top/packageInfo/ghallownetwork.html
+Icon: https://huayuarc.github.io/icon/huayuarc.jpg
+Name: Allow Network-roothide
+Sileodepiction: https://repo.lenglengyu.top/packageInfo/ghallownetworksileo
 
 Package: com.nx.accode
-Name: Stheno激活码生成器
-Description: 使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。
-Maintainer: Crassna
-Author: Crassna
-Section: System
-Tag: role::hacker
-Depends: firmware (>= 16.1) | org.swift.libswift (>= 5.0)
-Architecture: iphoneos-arm64
 Version: 1.0
+Architecture: iphoneos-arm64
+Maintainer: Crassna
 Installed-Size: 204
-Filename: ./debs/com.nx.accode_1.0_iphoneos-arm64.deb
+Depends: firmware (>= 16.1) | org.swift.libswift (>= 5.0)
+Filename: debs/com.nx.accode_1.0_iphoneos-arm64.deb
 Size: 19444
 MD5sum: f52cafa3cd8779082a9c03ff08f59bf5
 SHA1: 2457c0ff1678660cea7e3f90ec167cc57480d074
 SHA256: 1176f4a975681615b08adb57084c30541e498754b856d78efb7a66e34ecdb575
-SHA512: 2bfd5beac90be4c7f0542c0f8d26f2418019448b9bb0646758bcafa58cb1740f96b87be2aafd14058200ef3b1f9e3254a7f70dc7b4b36e4e4c3d02399b6ebd79
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.nx.accode/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/com.nx.accode.png
+Section: System
+Description: 使用方法：用终端输入stheno+空格+udid，获取激活码。再下载旧版stheno激活，激活成功 卸载旧版，注销后再下载新版即可。
+Tag: role::hacker
+Author: Crassna
+Name: Stheno激活码生成器
 
 Package: com.wkk.dynamicnotland
-Name: DynamicNotLand
-Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
-Maintainer: Nathan
-Author: Nathan
-Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000)
-Architecture: iphoneos-arm64e
 Version: 1.2.5
-Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
+Architecture: iphoneos-arm64e
+Maintainer: Nathan
 Installed-Size: 348
 Pre-Depends: rootless-compat(>= 0.9)
-Filename: ./debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64e.deb
+Depends: mobilesubstrate (>= 0.9.5000)
+Filename: debs/com.wkk.dynamicnotland_1.2.5_iphoneos-arm64e.deb
 Size: 16646
 MD5sum: dbf3a5e99293a14d71dfdc8599436f8e
 SHA1: 6902dddfc9ffdfd7365965ab0d727a777e2e5871
 SHA256: 27fcca96dd0d6a1328832bfdb51df2459061cfdcf8b6a617ac42142e3aa75775
-SHA512: bfec3e88f886f3c2057132b817e4571949e6d962a624bb5cb41cc2c5f4c314d03f665365447571ccc1befcbc116df7a49f6c5ef06e8dba4901672374f4df1355
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.dynamicnotland/info.json
+Section: Tweaks
+Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
+Author: Nathan
+Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
+Name: DynamicNotLand
 
 Package: com.wkk.zone
-Name: Zone
-Depends: mobilesubstrate, preferenceloader
-Description: Zone 插件用于设置.tendies交互壁纸/视频壁纸 支持iOS14-17
-Maintainer: iosdump
-Author: iosdump
-Section: Tweaks
-Architecture: iphoneos-arm64e
 Version: 0.0.9
-Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
+Architecture: iphoneos-arm64e
+Maintainer: iosdump
 Installed-Size: 664
-Filename: ./debs/com.wkk.zone_0.0.9_iphoneos-arm64e.deb
+Depends: mobilesubstrate, preferenceloader
+Filename: debs/com.wkk.zone_0.0.9_iphoneos-arm64e.deb
 Size: 134608
 MD5sum: 5f525f49cbf9dacbf19fd7796d09de32
 SHA1: e7b8d8a906a37425b54e59cd46689cda462fac97
 SHA256: 7e7fdebffc853973f07a8e58459389e14fbc25b4a1b4eb96e5a6440b2a1d458a
-SHA512: aef962a785867cc0af7f8c3865cf4f87cdc9579a576d20a9b09024382199c54c0665d3f95d69204b2cc426aa56ff62dbf6a661a4ebc24202b6f33c6e25d45b36
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.wkk.zone/info.json
+Section: Tweaks
+Description: Zone 插件用于设置.tendies交互壁纸/视频壁纸 支持iOS14-17
+Author: iosdump
+Icon: https://s1.imagehub.cc/images/2025/12/26/29fda3e52ac78c6958ecf3b5dac18673.png
+Name: Zone
 
 Package: nodejs22-ios-roothide
 Version: 22.12.0-27
-Section: Development
-Priority: optional
 Architecture: iphoneos-arm64e
 Maintainer: DaFei
 Depends: firmware (>= 14.0), ldid
+Filename: debs/nodejs22-ios-roothide_22.12.0-27_iphoneos-arm64e.deb
+Size: 23726452
+MD5sum: 3a5485257ab93617d3e7777a08448692
+SHA1: e1b2a8d5aa9430821183af0f1be889460ee4eccd
+SHA256: df7463ee7081a173225586c18db054fd3f243e04b08a937ca58054d23140947b
+Section: Development
+Priority: optional
 Description: Node.js 22.12.0 for iOS arm64 (side-by-side as node22)
  Node.js v22.12.0 runtime compiled for iOS arm64.
  Installs as node22/npm22/npx22 to avoid conflicts with other Node versions.
@@ -415,56 +332,43 @@ Description: Node.js 22.12.0 for iOS arm64 (side-by-side as node22)
  Node.js 22.12.0 iOS arm64 运行时。
  以 node22/npm22/npx22 安装，不与其他 Node 版本冲突。
  内含 npm 10.9.0.
-Filename: ./debs/nodejs22-ios-roothide_22.12.0-27_iphoneos-arm64e.deb
-Size: 23726452
-MD5sum: 3a5485257ab93617d3e7777a08448692
-SHA1: e1b2a8d5aa9430821183af0f1be889460ee4eccd
-SHA256: df7463ee7081a173225586c18db054fd3f243e04b08a937ca58054d23140947b
-SHA512: 3dcdd1478f6dcd99583b60d992b36c152e62b5cc68bd8075617b3ca7776d6da7d6603064d6da32c1db9efc29fd2dfe8c51a72b581a2bfe3ee3d9c8f0abf2770f
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/nodejs22-ios-roothide/info.json
-Icon: https://jj1625800985.github.io/sileo-repo/icon/nodejs22-ios-roothide.png
 
 Package: wiki.qaq.colorfulwallpaperx
-Name: Colorful Wallpaper X
-Description: Dynamic wallpaper with colorful effects.
-Maintainer: Lessica <82flex@gmail.com>
-Author: Lessica <82flex@gmail.com>
-Section: Tweaks
-Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
-Architecture: iphoneos-arm64e
 Version: 5.6
+Architecture: iphoneos-arm64e
+Maintainer: Lessica <82flex@gmail.com>
 Installed-Size: 6016
-SileoDepiction: https://havoc.app/package/colorfulx/depiction.json
-Filename: ./debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
+Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
+Filename: debs/wiki.qaq.colorfulwallpaperx_5.6_iphoneos-arm64e.deb
 Size: 1449396
 MD5sum: 9ea84fe740b3380ad188743bf38044c7
 SHA1: 6eaf0e835d6dbd979d2e51c43c835a3d3658dd38
 SHA256: 1b6ba09b706a2e80930982ebf9bcb1487bf9c47dcb0ab20615997fe704f4d761
-SHA512: f4a3e69830566d0a715940eb07e0ebc25fd25d4446d8c4f924d7ff9dd7920aa258357355e4eb008630b513e9f55d20884a3ad4cbaef1a3cc1c0c8e5214117bfc
-Icon: https://jj1625800985.github.io/sileo-repo/icon/wiki.qaq.colorfulwallpaperx.png
+Section: Tweaks
+Description: Dynamic wallpaper with colorful effects.
+Author: Lessica <82flex@gmail.com>
+Name: Colorful Wallpaper X
 
 Package: ws.hbang.newterm3
-Name: NewTerm 3 Beta
+Version: 3.0~beta1-670+debug
+Architecture: iphoneos-arm64e
+Maintainer: HASHBANG Productions <support@hbang.ws>
+Installed-Size: 24128
 Depends: firmware (>= 14.0), zsh | bash | fish, coreutils, ncurses, system-cmds
 Recommends: gettext-localizations, iterm2-shell-integration, zsh-autosuggestions, zsh-syntax-highlighting
 Conflicts: ws.hbang.newterm, ws.hbang.newterm2
 Replaces: ws.hbang.newterm, ws.hbang.newterm2
-Description: Powerful terminal app for iOS
-Maintainer: HASHBANG Productions <support@hbang.ws>
-Author: HASHBANG Productions <support@hbang.ws>
-Section: Terminal Support
-Icon: https://img.chariz.cloud/icon/newterm-beta/icon@3x.png
-Depiction: https://chariz.com/get/newterm-beta
-Support: https://hashbang.productions/support/
-Tag: compatible_min::ios14.0
-Architecture: iphoneos-arm64e
-Version: 3.0~beta1-670+debug
-Installed-Size: 24128
-Filename: ./debs/ws.hbang.newterm3_3.0~beta1-670+debug_iphoneos-arm64e.deb
+Filename: debs/ws.hbang.newterm3_3.0~beta1-670+debug_iphoneos-arm64e.deb
 Size: 4738394
 MD5sum: fcdb774634eb41e936b949ab70bebe47
 SHA1: 7555f45ba3e9883fa147914aeeca0b9401465aec
 SHA256: a39c394d57b3ef1b7bfb575b5d990071e3c9de7a4c09bfd4fc0dda9993a04b1f
-SHA512: ba0ddb1535ed92b0e284b2176327213f3e325805337a37e427dcfe3878e33740faa4d6cf63de671402ea2de5311fc327bf28b5088a36b3606f87226d5fe3360a
-SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/ws.hbang.newterm3/info.json
+Section: Terminal Support
+Description: Powerful terminal app for iOS
+Tag: compatible_min::ios14.0
+Author: HASHBANG Productions <support@hbang.ws>
+Depiction: https://chariz.com/get/newterm-beta
+Icon: https://img.chariz.cloud/icon/newterm-beta/icon@3x.png
+Name: NewTerm 3 Beta
+Support: https://hashbang.productions/support/
 
