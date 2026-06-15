@@ -1,0 +1,37 @@
+{
+  "class": "DepictionTabView",
+  "minVersion": "0.1",
+  "headerImage": "https://jj1625800985.github.io/sileo-repo/icon/com.Axs.ibisPaintX.png",
+  "tintColor": "#4A90D9",
+  "tabs": [
+    {
+      "tabname": "插件信息",
+      "class": "DepictionStackView",
+      "views": [
+        {"title": "说明", "class": "DepictionHeaderView"},
+        {"class": "DepictionMarkdownView", "markdown": "爱笔思画解锁会员"},
+        {"class": "DepictionSeparatorView"},
+        {"title": "信息", "class": "DepictionHeaderView"},
+        {"title": "名称", "text": "爱笔思画X 解锁VIP", "class": "DepictionTableTextView"},
+        {"title": "版本", "text": "0.1-1", "class": "DepictionTableTextView"},
+        {"title": "包名", "text": "com.Axs.ibisPaintX", "class": "DepictionTableTextView"},
+        {"title": "作者", "text": "iosrxwy", "class": "DepictionTableTextView"},
+        {"spacing": 20, "class": "DepictionSpacerView"}
+      ]
+    },
+    {
+      "tabname": "更新日志",
+      "class": "DepictionStackView",
+      "views": [
+        {
+          "class": "DepictionLayerView",
+          "views": [
+            {"text": "更新日志", "class": "DepictionLabelView", "fontWeight": "bold", "fontSize": 16}
+          ]
+        },
+        {"class": "DepictionMarkdownView", "markdown": "暂无更新日志"},
+        {"class": "DepictionSeparatorView"}
+      ]
+    }
+  ]
+}
