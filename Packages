@@ -603,6 +603,24 @@ SHA512: 8216eb53cac407739791b87a12871b2f46d84cf0c95953ee5b2ef6e0bf4ddc384aa3d8da
 SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.sxllm.rimedictmanager/info.json
 Icon: https://jj1625800985.github.io/sileo-repo/icon/com.sxllm.rimedictmanager.png
 
+Package: com.sxllm.rimedictmanager
+Name: Rime词库管理
+Description: Rime词库管理工具
+Maintainer: Sxllm
+Author: Sxllm
+Section: Utilities
+Architecture: iphoneos-arm64
+Version: 1.0.0-25+debug
+Installed-Size: 700
+Filename: ./debs/com.sxllm.rimedictmanager_1.0.0-25+debug_iphoneos-arm64.deb
+Size: 125720
+MD5sum: 52a1995ec6ec9f1d3368f231d75f3e38
+SHA1: b61179d18317755c0b0e0001d885187586882718
+SHA256: d22f41f2c9cba0ff082ee9cd021485cb6f97ff9e189e23fb3452df0d2e4aed40
+SHA512: a98ef26dda3aae5da79a61984ec500cadf9915ee6dc124a33643dd6b130a28ae378b87ef86dafc9f0302bbc126ea53c00ffbdb1cb03990cec1973182753f8464
+SileoDepiction: https://jj1625800985.github.io/sileo-repo/depictions/com.sxllm.rimedictmanager/info.json
+Icon: https://jj1625800985.github.io/sileo-repo/icon/com.sxllm.rimedictmanager.png
+
 Package: com.wkk.dynamicnotland
 Name: DynamicNotLand
 Description: 在不使用灵动岛时，在14Pro/PM系列中隐藏动态岛的调整！（变成感叹号）
